@@ -1,0 +1,7 @@
+docker pull mysql
+
+docker pull phpmyadmin
+
+docker run -e MYSQL_ROOT_PASSWORD=root --name banco -d -p 3306:3306 mysql
+
+docker run --name admin -d --link banco:db -p 8080:80 phpmyadmin
