@@ -1,7 +1,7 @@
-docker pull mysql
+docker pull mysql (Baixar imagem)
 
-docker pull phpmyadmin
+docker pull phpmyadmin (Baixar imagem)
 
-docker run -e MYSQL_ROOT_PASSWORD=root --name banco -d -p 3306:3306 mysql
+docker run -e MYSQL_ROOT_PASSWORD=root --name banco -d -p 3306:3306 mysql (Criar container mysql)
 
-docker run --name admin -d --link banco:db -p 8080:80 phpmyadmin
+docker run --name admin -d --link banco:db -p 8080:80 phpmyadmin (Criar container phpmyadmin)
