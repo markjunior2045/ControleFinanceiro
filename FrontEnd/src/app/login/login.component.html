@@ -1,15 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="login.component.css">
     <title>Login</title>
 </head>
-<body>
-    <h1>teste</h1>
-    <nav>
 
-    </nav>
+<body>
+    <div class="container">
+        <a class="links" id="paralogin"></a>
+
+        <div class="content">
+            <!--FORMULÁRIO DE LOGIN-->
+            <div id="login">
+                <form method="post" action="">
+                    <h1>Login</h1>
+                    <p>
+                        <input id="email_login" name="email_login" required="required" type="text"
+                            placeholder="Insira seu email" />
+                    </p>
+
+                    <p>
+                        <input id="senha_login" name="senha_login" required="required" type="password"
+                            placeholder="Insira sua senha" />
+                    </p>
+
+                    <p>
+                        <input type="submit" value="Entrar" />
+                    </p>
+
+
+                    <p class="link" id="link_esqueceu_senha" name="link_esqueceu_senha">
+                        <a href="#">Esqueci minha senha</a>
+                    </p>
+
+                    <p class="link" id="link_cadastro" name="link_cadastro"> 
+                        <a href="#">Cadastrar-se</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>
