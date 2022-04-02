@@ -1,0 +1,7 @@
+//exemplo de data:
+
+// const test:string = new Date().toISOString().slice(0,19).replace('T',' ');
+
+// console.log(test);
+
+// mostra no console: 2022-04-02 21:12:03

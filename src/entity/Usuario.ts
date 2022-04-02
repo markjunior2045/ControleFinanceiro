@@ -3,34 +3,46 @@ import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from "typeorm"
 @Entity()
 export class Usuario {
 
-    @PrimaryColumn()
-    id: string
+    constructor(email:string, nome:string, sobrenome:string, senha:string, salario:number, porcentagem:number, telefone:number, datanascimento:string, cpf:string){
+        this.nome = nome;
+        this.email = email;
+        this.sobrenome = sobrenome;
+        this.senha = senha;
+        this.salario = salario;
+        this.porcentagem = porcentagem;
+        this.telefone = telefone;
+        this.datanascimento = datanascimento;
+        this.cpf = cpf;
+    }
+
+    @PrimaryGeneratedColumn("uuid")
+    id: string;
 
     @Column()
-    email: string
+    email: string;
 
     @Column()
-    nome: string
+    nome: string;
 
     @Column()
-    sobrenome: string
+    sobrenome: string;
 
     @Column()
-    senha: string
+    senha: string;
+
+    @Column({type: 'float'})
+    salario: number;
 
     @Column()
-    salario: number
+    porcentagem: number;
 
     @Column()
-    porcentagem: number
+    telefone: number;
 
     @Column()
-    telefone: number
+    datanascimento: string;
 
     @Column()
-    datanascimento: Date
-
-    @Column()
-    cpf: number
+    cpf: string;
 
 }
