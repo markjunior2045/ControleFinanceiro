@@ -4,6 +4,7 @@ import * as cors from 'cors';
 import * as logger from 'morgan';
 import {conectarNoBd} from './config/db';
 import { routerUsuario } from './routes/usuario';
+import { routerTransacao } from './routes/transacao';
 
 //cria a aplicação
 export const app = express();
@@ -22,4 +23,5 @@ conectarNoBd();
 
 //Rotas
 app.use('/usuario', routerUsuario);
+app.use('/transacao', routerTransacao);
 app.use('/',(req,res) => res.send('API Controle Financeiro'));

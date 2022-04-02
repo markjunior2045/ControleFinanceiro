@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
     database: "controlefinanceiro",
     synchronize: true,
     logging: false,
-    entities: [Usuario],
+    entities: ["src/entity/**/*.ts"],
     migrations: [],
     subscribers: [],
 })
