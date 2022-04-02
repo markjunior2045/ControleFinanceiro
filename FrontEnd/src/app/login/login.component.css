@@ -19,9 +19,6 @@
     background: var(--cinza);
   }
 
-  .container{
-    margin-top: 10%;
-  }
    
   /* esconde as ancoras da tela */
   a.links{
@@ -29,6 +26,7 @@
   }
 
   .container { 
+    margin-top: 10%;
     width: 700px; 
     margin-left: auto;
     margin-right: auto; 
@@ -112,7 +110,7 @@
     border: 1px solid #fff;   
     margin-bottom: 50px;
     margin-top: 10px;  
-    text-shadow: 0 1px 1px #333;
+    font-weight: bold;
    
     -webkit-border-radius: 5px;
     border-radius: 5px;
