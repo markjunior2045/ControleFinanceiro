@@ -19,3 +19,10 @@ routerUsuario.get('/', async (req, res) => {
     const usuarios = await usuarioController.getAll();
     res.json(usuarios);
 })
+
+//Get transacoes do Usuario
+routerUsuario.get('/transacoes/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    const transacoes = await usuarioController.getTransacoesDoUsuario(idUsuario);
+    res.json(transacoes);
+})

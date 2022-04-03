@@ -1,9 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany, OneToOne } from "typeorm"
+import { Banco } from "./Banco";
+import { Cartao } from "./Cartao";
+import { Endereco } from "./Endereco";
+import { Parcela } from "./Parcela";
+import { Transacao } from "./Transacao";
 
 @Entity()
 export class Usuario {
 
-    constructor(email:string, nome:string, sobrenome:string, senha:string, salario:number, porcentagem:number, telefone:number, datanascimento:string, cpf:string){
+    constructor(email:string, nome:string, sobrenome:string, senha:string, salario:number, porcentagem:number, telefone:number, datanascimento:string, cpf:number){
         this.nome = nome;
         this.email = email;
         this.sobrenome = sobrenome;
@@ -43,6 +48,20 @@ export class Usuario {
     datanascimento: string;
 
     @Column()
-    cpf: string;
+    cpf: number;
 
+    @OneToMany(() => Transacao, transacao => transacao.usuario)
+    transacoes: Transacao[];
+    
+    @OneToOne(() => Endereco, endereco => endereco.usuario)
+    endereco: Endereco;
+
+    @OneToMany(() => Parcela, parcela => parcela.usuario)
+    parcela: Parcela;
+
+    @OneToMany(() => Banco, banco => banco.usuario)
+    banco: Banco;
+
+    @OneToMany(() => Cartao, cartao => cartao.usuario)
+    cartao: Cartao;
 }

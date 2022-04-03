@@ -1,4 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Banco } from "./Banco";
+import { Cartao } from "./Cartao";
+import { Parcela } from "./Parcela";
 import { Usuario } from "./Usuario";
 
 @Entity()
@@ -31,7 +34,15 @@ export class Transacao{
     @Column({type: 'datetime'})
     data: Date;
 
-    @ManyToOne(() => Usuario)
+    @ManyToOne(() => Usuario, Usuario => Usuario.transacoes)
     usuario:Usuario;
     
+    @OneToMany(() => Parcela, parcela => parcela.transacao)
+    parcela: Parcela;
+
+    @OneToOne(() => Banco, banco => banco.transacao)
+    banco: Banco;
+
+    @OneToOne(() => Cartao, cartao => cartao.transacao)
+    cartao: Cartao;
 }

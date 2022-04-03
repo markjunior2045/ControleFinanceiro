@@ -18,4 +18,16 @@ export class UsuarioController{
         const usuario = await database.manager.findOneBy(Usuario,{id: id});
         return usuario;
     }
+
+    async getTransacoesDoUsuario(idUsuario: string){
+        const transacoes = await database.manager.find(Usuario,{
+            relations: {
+                transacoes: true
+            },
+            where: {
+               id: idUsuario 
+            }
+        })
+        return transacoes;
+    }
 }
