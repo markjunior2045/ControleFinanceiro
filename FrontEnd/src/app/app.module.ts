@@ -7,13 +7,17 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CadastroCartaoComponent } from './cadastro-cartao/cadastro-cartao.component';
 import { CadastroContaCorrenteComponent } from './cadastro-conta-corrente/cadastro-conta-corrente.component';
+import { CadastoUsuarioComponent } from './cadasto-usuario/cadasto-usuario.component';
+import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     CadastroCartaoComponent,
-    CadastroContaCorrenteComponent
+    CadastroContaCorrenteComponent,
+    CadastoUsuarioComponent,
+    CadastroUsuarioComponent
   ],
   imports: [
     BrowserModule,

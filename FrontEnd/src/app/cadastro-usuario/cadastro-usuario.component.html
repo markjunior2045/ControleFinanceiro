@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="cadastro-usuario.component.css">
+    <title>Cadastro de Usuário</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+
+
+            <!--FORMULÁRIO DE CADASTRO DE USUÁRIO-->
+            <div id="cadastro-usuario">
+                <form method="post" action="">
+                    <div id="inputs_texto">
+                        <h1>Cadastro de usuário</h1>
+                        <div class="campo_nome">
+                            <label for="nome_usuario">Nome
+                                <input id="nome_usuario" name="nome_usuario" required="required" type="text"
+                                    placeholder="Primeiro nome" />
+                            </label>
+
+                            <label for="sobrenome_usuario">Sobrenome
+                                <input id="sobrenome_usuario" name="sobrenome_usuario" required="required" type="text"
+                                    placeholder="Sobrenome" />
+                            </label>
+                        </div>
+
+                        <p>
+                            <label for="email">Email</label>
+                            <input id="email" name="email" required="required" type="text"
+                                placeholder="Insira seu email" />
+                        </p>
+
+                        <p>
+                            <label for="cpf">CPF</label>
+                            <input id="cpf" name="cpf" required="required" type="text" placeholder="Insira seu CPF" />
+                        </p>
+
+                        <p>
+                            <label for="senha">Senha</label>
+                            <input id="senha" name="senha" required="required" type="text"
+                                placeholder="Insira sua senha" />
+                        </p>
+
+                        <p>
+                            <label for="salario">Salário</label>
+                            <input id="salario" name="salario" required="required" type="number" step="any"
+                                placeholder="Insira sua média salarial" />
+                        </p>
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Cadastrar" />
+                    </p>
+
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

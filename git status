@@ -1,0 +1,96 @@
+[33mcommit 4ae72a946eb4b44a88cdca41b4db1ed85199f81a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Lucas00Caires <lucas00caires@gmail.com>
+Date:   Mon Apr 4 15:03:40 2022 -0300
+
+    Criada tela cadastro de conta corrente em HTML/CSS
+
+[33mcommit 89e772fdb4a8763c8164d213d1151747c553b99e[m
+Author: Marcos Galvao <markjunior2045@gmail.com>
+Date:   Sun Apr 3 13:58:51 2022 -0300
+
+    criacao das classes e entidades
+
+[33mcommit c31fbc1da3617fb09c87c5acdf4b7c0207eb5fdd[m
+Merge: 28a2e65 386b107
+Author: Lucas Caires <79615739+Lucas00Caires@users.noreply.github.com>
+Date:   Sat Apr 2 20:00:15 2022 -0300
+
+    Merge pull request #2 from Lucas00Caires/main
+    
+    Tela de cadastro de cartão em HTML/CSS criada
+
+[33mcommit 386b107296a3a3bf243075d29bb078032a80c3ca[m
+Merge: 9b9d145 28a2e65
+Author: Lucas Caires <79615739+Lucas00Caires@users.noreply.github.com>
+Date:   Sat Apr 2 19:58:43 2022 -0300
+
+    Merge branch 'markjunior2045:main' into main
+
+[33mcommit 9b9d145c3f9028e60edefa793afc9421b75e356c[m
+Author: Lucas00Caires <lucas00caires@gmail.com>
+Date:   Sat Apr 2 19:56:47 2022 -0300
+
+    Tela de cadastro de cartão em HTML/CSS criada
+
+[33mcommit 28a2e65b392ef9d566a2aaa6785e3b8388eda84c[m
+Author: Marcos Galvao <markjunior2045@gmail.com>
+Date:   Sat Apr 2 19:02:45 2022 -0300
+
+    Insere Usuario e Insere Transacao
+
+[33mcommit a87021c4f8b436ffa792d26df702eb1c59f12f8e[m
+Merge: 8773786 0f9681e
+Author: Lucas Caires <79615739+Lucas00Caires@users.noreply.github.com>
+Date:   Sat Apr 2 17:48:50 2022 -0300
+
+    Merge pull request #1 from Lucas00Caires/main
+    
+    Adicionei Material e Angular e Criei a tela de login em HTML/CSS
+
+[33mcommit 0f9681e171971d8a9ad8566ade0e121fffdead13[m
+Author: Lucas00Caires <lucas00caires@gmail.com>
+Date:   Sat Apr 2 17:44:18 2022 -0300
+
+    Tela de login em html/css criada
+
+[33mcommit 3d8e40011b274e1bd1aec7a3c7769d1cbed27b45[m
+Author: Lucas00Caires <lucas00caires@gmail.com>
+Date:   Sat Apr 2 16:19:05 2022 -0300
+
+    Component login criado, bootstrap e material adicionados
+
+[33mcommit 877378635ea738a37e7d907cd7468639206fbc9d[m
+Author: Marcos Galvao <markjunior2045@gmail.com>
+Date:   Fri Apr 1 20:41:43 2022 -0300
+
+    mudanca versao node typescript
+
+[33mcommit c878878cc47c737e44258a2c3497331207f4a180[m
+Author: Marcos Galvao <markjunior2045@gmail.com>
+Date:   Fri Apr 1 19:57:26 2022 -0300
+
+    mudanca do codigo
+
+[33mcommit 21f76e9e24bcc3800adaf47abf72b784ed205aad[m
+Author: Marcos Galvao <markjunior2045@gmail.com>
+Date:   Mon Mar 28 22:21:05 2022 -0300
+
+    Mudanca de arquivos e banco de dados
+
+[33mcommit 922f371f2b1054be6ea6b3430dcac1be1438e870[m
+Author: Marcos Galvao <markjunior2045@gmail.com>
+Date:   Mon Mar 28 20:17:41 2022 -0300
+
+    Pequena mudanca nas pastas e gitignore
+
+[33mcommit c56002f35c5ee448950fb8303ade409d6771684b[m
+Author: Lucas00Caires <lucas00caires@gmail.com>
+Date:   Sat Mar 26 15:46:53 2022 -0300
+
+    Criando Projeto em Angular
+
+[33mcommit d7281653ab978f8b60e9c2af4bcc199402945c92[m
+Author: Marcos Galvao <markjunior2045@gmail.com>
+Date:   Thu Mar 24 23:10:10 2022 -0300
+
+    Criando Projeto
