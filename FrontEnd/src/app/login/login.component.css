@@ -113,7 +113,7 @@
     font-weight: bold;
    
     -webkit-border-radius: 5px;
-    border-radius: 5px;
+    border-radius: 10px;
    
     transition: all 0.2s linear;
   }

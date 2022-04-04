@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CadastroCartaoComponent } from './cadastro-cartao/cadastro-cartao.component';
+import { CadastroContaCorrenteComponent } from './cadastro-conta-corrente/cadastro-conta-corrente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CadastroCartaoComponent
+    CadastroCartaoComponent,
+    CadastroContaCorrenteComponent
   ],
   imports: [
     BrowserModule,
