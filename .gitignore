@@ -2,6 +2,7 @@
 .vscode/
 mysqldata/
 node_modules/
+package-lock.json
 build/
 tmp/
 temp/
