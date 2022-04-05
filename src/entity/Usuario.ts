@@ -57,11 +57,11 @@ export class Usuario {
     endereco: Endereco;
 
     @OneToMany(() => Parcela, parcela => parcela.usuario)
-    parcela: Parcela;
+    parcela: Parcela[];
 
     @OneToMany(() => Banco, banco => banco.usuario)
-    banco: Banco;
+    banco: Banco[];
 
     @OneToMany(() => Cartao, cartao => cartao.usuario)
-    cartao: Cartao;
+    cartao: Cartao[];
 }

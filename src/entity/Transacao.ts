@@ -38,7 +38,7 @@ export class Transacao{
     usuario:Usuario;
     
     @OneToMany(() => Parcela, parcela => parcela.transacao)
-    parcela: Parcela;
+    parcela: Parcela[];
 
     @OneToOne(() => Banco, banco => banco.transacao)
     banco: Banco;
