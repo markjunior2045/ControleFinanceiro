@@ -1,5 +1,6 @@
 .idea/
 .vscode/
+mysqldata/
 node_modules/
 build/
 tmp/
