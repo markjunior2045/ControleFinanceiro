@@ -13,7 +13,6 @@ routerUsuario.post('/', async (req, res) => {
     res.json(usuarioSalvo);
 })
 
-
 //GetAll Usuários
 routerUsuario.get('/', async (req, res) => {
     const usuarios = await usuarioController.getAll();
