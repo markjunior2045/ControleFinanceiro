@@ -1,9 +1,3 @@
-:root {
-    --amarelo: #fca311;
-    --cinza: #e5e5e5;
-    --azul: #14213d;
-}
-
 *,
 *:before,
 *:after {
@@ -18,7 +12,10 @@ a {
 }
 
 body {
-    background: var(--cinza);
+    background: #ffff;
+    --amarelo: #fca311;
+    --cinza: #e5e5e5;
+    --azul: #14213d;
 }
 
 /* esconde as ancoras da tela */
@@ -126,6 +123,7 @@ input:not([type="checkbox"]) {
 input[type="submit"] {
     margin-left: auto;
     margin-right: auto;
+    margin: inherit;
     width: 40% !important;
     cursor: pointer;
     background: var(--amarelo);
