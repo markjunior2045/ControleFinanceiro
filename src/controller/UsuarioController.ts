@@ -15,7 +15,12 @@ export class UsuarioController{
     }
 
     async getById(id: string){
-        const usuario = await database.manager.findOneBy(Usuario,{id: id});
+        let usuario: Usuario;
+        if (id != null || id != "") {
+            usuario = await database.manager.findOneBy(Usuario,{id: id});
+        }else{
+            usuario = null;
+        }
         return usuario;
     }
 
