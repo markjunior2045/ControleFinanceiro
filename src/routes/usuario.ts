@@ -8,7 +8,7 @@ const usuarioController = new UsuarioController();
 //Salvar Usuario
 routerUsuario.post('/', async (req, res) => {
     const dados = req.body;
-    const usuario = new Usuario(dados.email,dados.nome,dados.sobrenome, dados.senha, dados.salario,dados.porcentagem,dados.telefone,dados.datanascimento,dados.cpf);
+    const usuario = new Usuario(dados.email,dados.nome,dados.sobrenome, dados.senha, dados.salario,dados.porcentagem, dados.valorReservado);
     const usuarioSalvo = await usuarioController.salvar(usuario);
     res.json(usuarioSalvo);
 })

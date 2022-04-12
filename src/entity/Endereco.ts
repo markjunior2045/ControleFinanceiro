@@ -3,12 +3,11 @@ import { Usuario } from "./Usuario";
 
 @Entity()
 export class Endereco{
-    constructor(cep:string, endereco:string, bairro:string, numero:string, usuario:Usuario){
+    constructor(cep:string, endereco:string, bairro:string, numero:string){
         this.cep = cep;
         this.endereco = endereco;
         this.bairro = bairro;
         this.numero = numero;
-        this.usuario = usuario;
     }
 
 
@@ -26,7 +25,4 @@ export class Endereco{
 
     @Column()
     numero: string;
-
-    @OneToOne(() => Usuario, usuario => usuario.endereco)
-    usuario: Usuario;
 }
