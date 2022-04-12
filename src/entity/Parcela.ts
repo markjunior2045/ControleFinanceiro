@@ -7,13 +7,12 @@ import { Usuario } from "./Usuario";
 @Entity()
 export class Parcela{
 
-    constructor(descricao: string, valortotal:number, valor:number, metodo:string, numero:number, data:Date, usuario:Usuario, transacao:Transacao){
+    constructor(descricao: string, valortotal:number, valor:number, metodo:string, numero:number, data:Date, transacao:Transacao){
         this.descricao = descricao;
         this.valortotal = valortotal;
         this.valor = valor;
         this.metodo = metodo;
         this.data = data;
-        this.usuario = usuario;
         this.transacao = transacao;
     }
 
@@ -37,9 +36,6 @@ export class Parcela{
 
     @Column({type: 'datetime'})
     data: Date;
-
-    @ManyToOne(() => Usuario, usuario => usuario.parcela)
-    usuario: Usuario;
 
     @ManyToOne(() => Transacao, transacao => transacao.parcela)
     transacao: Transacao;

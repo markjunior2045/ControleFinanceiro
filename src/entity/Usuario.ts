@@ -1,8 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany, OneToOne } from "typeorm"
 import { Banco } from "./Banco";
 import { Cartao } from "./Cartao";
-import { Endereco } from "./Endereco";
-import { Parcela } from "./Parcela";
 import { Transacao } from "./Transacao";
 
 @Entity()
@@ -15,6 +13,7 @@ export class Usuario {
         this.senha = senha;
         this.salario = salario;
         this.porcentagem = porcentagem;
+        this.valorReservado = valorReservado;
     }
 
     @PrimaryGeneratedColumn("uuid")

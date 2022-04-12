@@ -1,16 +1,16 @@
-import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Parcela } from "./Parcela";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Cartao } from "./Cartao";
 import { Transacao } from "./Transacao";
 import { Usuario } from "./Usuario";
 
 @Entity()
 export class Banco{
-    constructor(banco: string, nome: string, saldo: number, conta: string, agencia: string, usuario: Usuario){
+    constructor(banco: string, saldo: number, conta: string, agencia: string, titular: string, usuario: Usuario){
         this.banco = banco;
-        this.nome = nome;
         this.saldo = saldo;
         this.conta = conta;
         this.agencia = agencia;
+        this.titular = titular;
         this.usuario = usuario;
     }
 
@@ -19,9 +19,6 @@ export class Banco{
 
     @Column()
     banco: string;
-
-    @Column()
-    nome: string;
 
     @Column({type: 'float'})
     saldo: number;
@@ -32,12 +29,15 @@ export class Banco{
     @Column()
     agencia: string;
 
+    @Column()
+    titular: string;
+
     @ManyToOne(() => Usuario, usuario => usuario.banco)
     usuario: Usuario;
 
-    @OneToOne(() => Transacao, transacao => transacao.banco)
+    @OneToMany(() => Transacao, transacao => transacao.banco)
     transacao: Transacao;
 
-    @OneToOne(() => Parcela, parcela => parcela.banco)
-    parcela: Parcela;
+    @OneToMany(() => Cartao, cartao => cartao.banco)
+    cartao: Cartao;
 }
