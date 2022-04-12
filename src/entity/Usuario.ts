@@ -8,16 +8,13 @@ import { Transacao } from "./Transacao";
 @Entity()
 export class Usuario {
 
-    constructor(email:string, nome:string, sobrenome:string, senha:string, salario:number, porcentagem:number, telefone:number, datanascimento:string, cpf:number){
+    constructor(email:string, nome:string, sobrenome:string, senha:string, salario:number, porcentagem:number, valorReservado: number){
         this.nome = nome;
         this.email = email;
         this.sobrenome = sobrenome;
         this.senha = senha;
         this.salario = salario;
         this.porcentagem = porcentagem;
-        this.telefone = telefone;
-        this.datanascimento = datanascimento;
-        this.cpf = cpf;
     }
 
     @PrimaryGeneratedColumn("uuid")
@@ -41,23 +38,11 @@ export class Usuario {
     @Column()
     porcentagem: number;
 
-    @Column()
-    telefone: number;
-
-    @Column()
-    datanascimento: string;
-
-    @Column()
-    cpf: number;
+    @Column({type: 'float'})
+    valorReservado: number;
 
     @OneToMany(() => Transacao, transacao => transacao.usuario)
     transacoes: Transacao[];
-    
-    @OneToOne(() => Endereco, endereco => endereco.usuario)
-    endereco: Endereco;
-
-    @OneToMany(() => Parcela, parcela => parcela.usuario)
-    parcela: Parcela[];
 
     @OneToMany(() => Banco, banco => banco.usuario)
     banco: Banco[];
