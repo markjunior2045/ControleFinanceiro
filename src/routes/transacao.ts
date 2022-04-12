@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { resolve } from 'path';
 import { TransacaoController } from '../controller/TransacaoController';
 import { UsuarioController } from '../controller/UsuarioController';
 import { Transacao } from '../entity/Transacao';
@@ -7,6 +8,7 @@ export const routerTransacao = Router();
 const transacaoController = new TransacaoController();
 const usuarioController = new UsuarioController();
 
+//Salvar Transação
 routerTransacao.post('/', async(req, res) => {
     const dados = req.body;
     const usuario = await usuarioController.getById(dados.idUsuario);
@@ -17,4 +19,10 @@ routerTransacao.post('/', async(req, res) => {
     } else {
         res.status(404).json({message: 'Usuário não encontrado'})
     }
+})
+
+//GetAll Transações
+routerTransacao.get('/',async (req, res) => {
+    const transacoes = await transacaoController.getAll();
+    res.json(transacoes);
 })

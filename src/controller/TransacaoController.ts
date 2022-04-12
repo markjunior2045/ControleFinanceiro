@@ -8,4 +8,9 @@ export class TransacaoController {
         const transacaoSalva = await database.manager.save(transacao);
         return transacaoSalva;
     }
+
+    async getAll(){
+        const transacoes = await database.manager.find(Transacao);
+        return transacoes;
+    }
 }

@@ -5,6 +5,8 @@ import * as logger from 'morgan';
 import {conectarNoBd} from './config/db';
 import { routerUsuario } from './routes/usuario';
 import { routerTransacao } from './routes/transacao';
+import { routerCartao } from './routes/cartao';
+import { routerBanco } from './routes/banco';
 
 //cria a aplicação
 export const app = express();
@@ -22,6 +24,8 @@ app.use(logger('dev'));
 conectarNoBd();
 
 //Rotas
-app.use('/usuario', routerUsuario);
+app.use('/banco', routerBanco);
+app.use('/cartao', routerCartao);
 app.use('/transacao', routerTransacao);
+app.use('/usuario', routerUsuario);
 app.use('/',(req,res) => res.send('API Controle Financeiro'));
