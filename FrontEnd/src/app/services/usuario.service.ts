@@ -11,6 +11,6 @@ export class UsuarioService{
     constructor(private _dataservice:DataService){ }
 
     cadastraUsuario(usuario:Usuario):Promise<void>{
-        return this._dataservice.doPost('localhost:3000/usuario', usuario) as Promise<void>;
+        return this._dataservice.doPost('http://localhost:3000/usuario', usuario) as Promise<void>;
     }
 };

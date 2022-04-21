@@ -32,6 +32,10 @@ export class CadastroUsuarioComponent implements OnInit {
 
   salvar(){
     this.usuario = this.cadastroUsuario.value;
-    this._usuarioservice.cadastraUsuario(this.usuario);
+    this.usuario.valorReservado = (this.usuario.porcentagem / 100) * this.usuario.salario;
+    this._usuarioservice.cadastraUsuario(this.usuario).then(() => {
+      alert('Salvo com sucesso!');
+    }).catch(erro => console.log('Erro: ' + erro)
+    );
   }
 }
