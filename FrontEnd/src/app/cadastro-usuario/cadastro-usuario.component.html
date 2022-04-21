@@ -1,72 +1,49 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="cadastro-usuario.component.css">
-    <title>Cadastro de Usuário</title>
-</head>
+<!--FORMULÁRIO DE CADASTRO DE USUÁRIO-->
 
 <body>
-    <div class="container">
-        <div class="content">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Criar nova conta</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="cadastroUsuario">
+                <div class="formulario">
+                    <mat-form-field>
+                        <mat-label>Nome:</mat-label>
+                        <input autocomplete="off" matInput type="text" formControlName="nome" required />
+                    </mat-form-field>
 
+                    <mat-form-field>
+                        <mat-label>Sobrenome:</mat-label>
+                        <input autocomplete="off" matInput type="text" formControlName="sobrenome" required />
+                    </mat-form-field>
 
-            <!--FORMULÁRIO DE CADASTRO DE USUÁRIO-->
-            <div id="cadastro-usuario">
-                <form method="post" action="">
-                    <div id="inputs_texto">
-                        <h1>Cadastro de usuário</h1>
-                        <div class="campo_nome">
-                            <label for="nome_usuario">Nome
-                                <input id="nome_usuario" name="nome_usuario" required="required" type="text"
-                                    placeholder="Primeiro nome" />
-                            </label>
+                    <mat-form-field>
+                        <mat-label>Email:</mat-label>
+                        <input autocomplete="off" matInput type="text" formControlName="email" required />
+                    </mat-form-field>
 
-                            <label for="sobrenome_usuario">Sobrenome
-                                <input id="sobrenome_usuario" name="sobrenome_usuario" required="required" type="text"
-                                    placeholder="Sobrenome" />
-                            </label>
-                        </div>
+                    <mat-form-field>
+                        <mat-label>Salário:</mat-label>
+                        <input autocomplete="off" matInput type="number" formControlName="salario" required />
+                    </mat-form-field>
 
-                        <p>
-                            <label for="email">Email</label>
-                            <input id="email" name="email" required="required" type="text"
-                                placeholder="Insira seu email" />
-                        </p>
+                    <mat-form-field>
+                        <mat-label>Porcentagem a guardar:</mat-label>
+                        <input autocomplete="off" matInput type="text" formControlName="porcentagem" required />
+                    </mat-form-field>
 
-                        <p>
-                            <label for="cpf">CPF</label>
-                            <input id="cpf" name="cpf" required="required" type="text" placeholder="Insira seu CPF" />
-                        </p>
-
-                        <p>
-                            <label for="senha">Senha</label>
-                            <input id="senha" name="senha" required="required" type="text"
-                                placeholder="Insira sua senha" />
-                        </p>
-
-                        <p>
-                            <label for="salario">Salário</label>
-                            <input id="salario" name="salario" required="required" type="number" step="any"
-                                placeholder="Insira sua média salarial" />
-                        </p>
-                    </div>
-
-                    <p>
-                        <input type="submit" value="Cadastrar" />
-                    </p>
-
-                    <p class="link" id="link_retornar_login" name="link_retornar_login">
-                        <a routerLink="/login">Retornar a tela de login</a>
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <mat-form-field>
+                        <mat-label>Senha:</mat-label>
+                        <input autocomplete="off" matInput type="password" formControlName="senha" required />
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="salvar()">Salvar</button>
+            <a routerLink="/login">Retornar a tela de login</a>
+        </mat-card-actions>
+    </mat-card>
 
 </body>
-
-</html>
