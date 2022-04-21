@@ -13,4 +13,14 @@ export class CartaoController {
         const cartoes = await database.manager.find(Cartao);
         return cartoes;
     }
+
+    async getById(id: string){
+        let cartao: Cartao;
+        if (id != null || id != "") {
+            cartao = await database.manager.findOneBy(Cartao,{id: id});
+        }else{
+            cartao = null;
+        }
+        return cartao;
+    }
 }

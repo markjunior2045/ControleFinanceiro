@@ -13,4 +13,14 @@ export class BancoController {
         const bancos = await database.manager.find(Banco);
         return bancos;
     }
+
+    async getById(id: string){
+        let banco: Banco;
+        if (id != null || id != "") {
+            banco = await database.manager.findOneBy(Banco,{id: id});
+        }else{
+            banco = null;
+        }
+        return banco;
+    }
 }

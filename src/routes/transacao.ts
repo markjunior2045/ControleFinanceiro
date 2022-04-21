@@ -13,7 +13,7 @@ routerTransacao.post('/', async(req, res) => {
     const dados = req.body;
     const usuario = await usuarioController.getById(dados.idUsuario);
     if (usuario) {
-        const transacao = new Transacao(dados.descricao,dados.valor,dados.metodo,dados.parcelado,dados.data,usuario);
+        const transacao = new Transacao(dados.descricao, dados.valor, dados.metodo, dados.parcelado, dados.data, dados.usuario);
         const transacaoSalva = await transacaoController.salvar(transacao);
         res.json(transacaoSalva);
     } else {
@@ -25,4 +25,11 @@ routerTransacao.post('/', async(req, res) => {
 routerTransacao.get('/',async (req, res) => {
     const transacoes = await transacaoController.getAll();
     res.json(transacoes);
+})
+
+//GetById Transacao
+routerTransacao.get('/:idTransacao', async (req, res) => {
+    const {idTransacao} = req.params;
+    const transacao = await transacaoController.getById(idTransacao);
+    res.json(transacao);
 })
