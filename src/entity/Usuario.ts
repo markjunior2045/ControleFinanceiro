@@ -3,6 +3,7 @@ import { Banco } from "./Banco";
 import { Cartao } from "./Cartao";
 import { Endereco } from "./Endereco";
 import { Parcela } from "./Parcela";
+import { Tag } from "./Tag";
 import { Transacao } from "./Transacao";
 
 @Entity()
@@ -50,4 +51,7 @@ export class Usuario {
 
     @OneToMany(() => Cartao, cartao => cartao.usuario)
     cartao: Cartao[];
+
+    @OneToMany(() => Tag, tag => tag.usuario)
+    tag: Tag[];
 }
