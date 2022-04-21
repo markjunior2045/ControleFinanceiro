@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
-import { Inject } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 
+@Injectable()
 export class DataService {
 
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
@@ -36,7 +37,7 @@ export class DataService {
     async doPost<T>(url: string, data: any): Promise<T>{
         try {
             return await new Promise<T>((resolve, reject) => {
-                this.http.post<T>(this.baseUrl + url, data)
+                this.http.post<T>(url, data)
                     .subscribe({
                         next: result => resolve(result),
                         error: error => reject(error)
