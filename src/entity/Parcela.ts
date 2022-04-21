@@ -13,7 +13,6 @@ export class Parcela{
         this.valor = valor;
         this.metodo = metodo;
         this.data = data;
-        this.usuario = usuario;
         this.transacao = transacao;
     }
 
@@ -37,9 +36,6 @@ export class Parcela{
 
     @Column({type: 'datetime'})
     data: Date;
-
-    @ManyToOne(() => Usuario, usuario => usuario.parcela)
-    usuario: Usuario;
 
     @ManyToOne(() => Transacao, transacao => transacao.parcela)
     transacao: Transacao;

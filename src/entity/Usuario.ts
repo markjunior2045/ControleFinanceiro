@@ -15,6 +15,7 @@ export class Usuario {
         this.senha = senha;
         this.salario = salario;
         this.porcentagem = porcentagem;
+        this.valorReservado = valorReservado;
     }
 
     @PrimaryGeneratedColumn("uuid")
