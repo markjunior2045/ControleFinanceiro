@@ -13,4 +13,14 @@ export class TransacaoController {
         const transacoes = await database.manager.find(Transacao);
         return transacoes;
     }
+
+    async getById(id: string){
+        let transacao: Transacao;
+        if (id != null || id != "") {
+            transacao = await database.manager.findOneBy(Transacao,{id: id});
+        }else{
+            transacao = null;
+        }
+        return transacao;
+    }
 }

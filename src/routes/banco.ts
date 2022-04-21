@@ -13,9 +13,9 @@ routerBanco.post('/', async (req, res) => {
     const dados = req.body;
     const usuario = await usuarioController.getById(dados.idUsuario);
     if (usuario){
-        const banco = new Banco(dados.banco, dados.nome, dados.saldo, dados.conta, dados.agencia, dados.usuario);
-        const cartaoSalvo = await bancoController.salvar(banco);
-        res.json(cartaoSalvo);
+        const banco = new Banco(dados.banco, dados.titular, dados.saldo, dados.conta, dados.agencia, dados.usuario);
+        const bancoSalvo = await bancoController.salvar(banco);
+        res.json(bancoSalvo);
     } else {
         res.status(404).json({message: 'Usuário não encontrado'});
     }
@@ -23,6 +23,13 @@ routerBanco.post('/', async (req, res) => {
 
 //GetAll Cartões
 routerBanco.get('/',async (req, res) => {
-    const cartoes = await bancoController.getAll();
-    res.json(cartoes);
+    const bancos = await bancoController.getAll();
+    res.json(bancos);
+})
+
+//GetById Banco
+routerBanco.get('/:idBanco', async (req, res) => {
+    const {idBanco} = req.params;
+    const banco = await bancoController.getById(idBanco);
+    res.json(banco);
 })

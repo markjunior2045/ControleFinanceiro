@@ -1,8 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany, OneToOne } from "typeorm"
 import { Banco } from "./Banco";
 import { Cartao } from "./Cartao";
-import { Endereco } from "./Endereco";
-import { Parcela } from "./Parcela";
 import { Tag } from "./Tag";
 import { Transacao } from "./Transacao";
 
