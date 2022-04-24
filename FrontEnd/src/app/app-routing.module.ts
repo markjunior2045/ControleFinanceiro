@@ -5,7 +5,8 @@ import { CadastroContaCorrenteComponent } from './cadastro-conta-corrente/cadast
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 import { LoginComponent } from './login/login.component';
 
-const routes: Routes = [{ path: 'cadastro-usuario', component: CadastroUsuarioComponent },
+const routes: Routes = [{ path: '', component: LoginComponent },
+                        { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
                         { path: 'login', component: LoginComponent },
                         { path: 'cadastro-conta-corrente', component: CadastroContaCorrenteComponent },
                         { path: 'cadastro-cartao', component: CadastroCartaoComponent },];
