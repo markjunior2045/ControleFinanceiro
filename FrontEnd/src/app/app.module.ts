@@ -15,6 +15,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { DataService } from './services/dataService';
 import { HttpClientModule } from '@angular/common/http';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     CadastroCartaoComponent,
     CadastroContaCorrenteComponent,
-    CadastroUsuarioComponent
+    CadastroUsuarioComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

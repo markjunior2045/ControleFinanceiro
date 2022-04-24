@@ -1,0 +1,17 @@
+<p>
+    <mat-toolbar>
+     <button mat-icon-button class="example-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Control Bills</span>
+    <span class="example-spacer"></span>
+    <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon">
+     <mat-icon>account_circle</mat-icon>
+   </button>
+   <mat-menu #menu="matMenu">
+    <button mat-menu-item>Gerenciamento de Conta</button>
+    <button routerLink="/login" routerLinkActive="active" mat-menu-item>Sair</button>
+</mat-menu>
+  </mat-toolbar>
+  </p>
+  <router-outlet></router-outlet>
