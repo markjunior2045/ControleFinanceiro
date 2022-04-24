@@ -11,20 +11,14 @@ import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 import { DataService } from './services/dataService';
 import { HttpClientModule } from '@angular/common/http';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TransacoesComponent } from './transacoes/transacoes.component';
-import { MatTableModule } from '@angular/material/table';
-import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { AlertaComponent } from './alerta/alerta.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -33,10 +27,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     CadastroCartaoComponent,
     CadastroContaCorrenteComponent,
     CadastroUsuarioComponent,
-    ToolbarComponent,
-    DashboardComponent,
-    TransacoesComponent,
-    AlertaComponent
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -51,12 +42,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,
-    MatMenuModule,
-    MatTableModule,
-    MatSnackBarModule,
-    MatCheckboxModule
+    MatMenuModule
   ],
-  providers: [DataService,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
