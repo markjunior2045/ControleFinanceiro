@@ -6,3 +6,21 @@
   color: #fca311;
   background-color: #14213d;
 }
+
+.logo {
+  font-size:xx-large;
+  margin-right: 2%;
+}
+
+.item:hover{
+  background-color: #fca311;
+}
+
+.item {
+  color: white;
+  margin-left: 0.5%;
+}
+
+span {
+  cursor: pointer;
+ }
