@@ -1,49 +1,27 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="login.component.css">
-    <title>Login</title>
-</head>
-
+<app-toolbar></app-toolbar>
 <body>
-    <div class="container">
-
-        <div class="content">
-            <!--FORMULÁRIO DE LOGIN-->
-            <div id="login">
-                <form method="post" action="">
-                    <h1>Faça seu login</h1>
-                    <p>
-                        <input id="email_login" name="email_login" required="required" type="text"
-                            placeholder="Insira seu email" />
-                    </p>
-
-                    <p>
-                        <input id="senha_login" name="senha_login" required="required" type="password"
-                            placeholder="Insira sua senha" />
-                    </p>
-
-                    <p>
-                        <input type="submit" value="Entrar" />
-                    </p>
-
-
-                    <p class="link" id="link_esqueceu_senha" name="link_esqueceu_senha">
-                        <a href="#">Esqueci minha senha</a>
-                    </p>
-
-                    <p class="link" id="link_cadastro" name="link_cadastro"> 
-                        <a routerLink="/cadastro-usuario">Cadastrar-se</a>
-                    </p>
-                </form>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="login">
+            <div class="formulario">
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input autocomplete="off" matInput type="text" formControlName="email" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Senha</mat-label>
+                    <input autocomplete="off" matInput type="password" formControlName="senha" required />
+                </mat-form-field>
             </div>
-        </div>
-    </div>
-
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="entrar()">Entrar</button>
+        <a routerLink="/cadastro-usuario">Cadastrar-se</a>
+        <a routerLink="/cadastro-usuario">Esqueci minha senha</a>
+    </mat-card-actions>
+</mat-card>
 </body>
-
-</html>
