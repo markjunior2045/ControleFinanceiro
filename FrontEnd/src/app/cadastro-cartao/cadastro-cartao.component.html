@@ -1,63 +1,57 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<app-toolbar></app-toolbar>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="cadastro-cartao.component.css">
-    <title>Cadastro de Cartão</title>
-</head>
+<!--FORMULÁRIO DE CADASTRO DE CARTÃO-->
 
 <body>
-    <div class="container">
-        <div class="content">
-               
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Cadastrar novo cartão</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="cadastroCartao">
+                <div class="formulario">
+                    <mat-form-field>
+                        <mat-label>Nome do titular:</mat-label>
+                        <input autocomplete="off" matInput type="text" formControlName="nome" required />
+                    </mat-form-field>
 
-            <!--FORMULÁRIO DE CADASTRO DE CARTÃO-->
-            <div id="cadastro-cartao">
-                <form method="post" action="">
-                    <div id="inputs_texto">
-                        <h1>Cadastro de cartão</h1>
-                        <p>
-                            <label for="titular-cartao">Nome do titular</label>
-                            <input id="titular_cartao" name="titular_cartao" required="required" type="text"
-                                placeholder="Nome do titular gravado no cartão" />
-                        </p>
+                    <mat-form-field>
+                        <mat-label>Número:</mat-label>
+                        <input autocomplete="off" matInput type="number" formControlName="numero" required />
+                    </mat-form-field>
 
-                        <p>
-                            <label for="numero_cartao">Numero do cartão</label>
-                            <input id="numero_cartao" name="numero_cartao" required="required" type="text"
-                                placeholder="Numero gravado no cartão" />
-                        </p>
+                    <mat-form-field>
+                        <mat-label>Modalidade:</mat-label>
+                        <input autocomplete="off" matInput type="text" formControlName="modalidade" required />
+                    </mat-form-field>
+                
+                    <mat-checkbox formControlName="bancoCadastrado" [(ngModel)]="temBanco" color='primary'>Este cartao tem banco cadastrado</mat-checkbox>
 
-                        <p>
-                            <label for="banco_cartao">Agência Bancária</label>
-                            <input id="banco_cartao" name="banco_cartao" type="text"
-                                placeholder="Insira o banco (opcional)" />
-                        </p>
+                    <mat-form-field *ngIf="temBanco">
+                        <mat-label>Nome da Agência Bancária:</mat-label>
+                        <input autocomplete="off" matInput type="text" formControlName="banco" required />
+                    </mat-form-field>
 
-                        <p>
-                            <label for="validade_cartao">Data de validade</label>
-                            <input id="validade_cartao" name="validade_cartao" required="required" type="month"
-                                placeholder="Insira a data de validade" />
-                        </p>
+                    <mat-form-field>
+                        <mat-label>Data do vencimento da fatura:</mat-label>
+                        <input autocomplete="off" matInput type="date" formControlName="vencimentoFatura" required />
+                    </mat-form-field>
 
-                        <p>
-                            <label for="titular-cartao">Código de Segurança</label>
-                            <input id="codigo_cartao" name="codigo_cartao" required="required" type="password"
-                                placeholder="Insira o codigo de segurança no verso do cartão" />
-                        </p>
-                    </div>
+                    <mat-form-field>
+                        <mat-label>Validade:</mat-label>
+                        <input autocomplete="off" matInput type="month" formControlName="validade" required />
+                    </mat-form-field>
 
-                    <p>
-                        <input type="submit" value="Salvar" />
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
+                    <mat-form-field>
+                        <mat-label>Código de segurança:</mat-label>
+                        <input autocomplete="off" matInput type="number" formControlName="codigo" required />
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="salvar()">Salvar</button>
+        </mat-card-actions>
+    </mat-card>
 
 </body>
-
-</html>
