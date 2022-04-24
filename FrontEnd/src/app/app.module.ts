@@ -19,6 +19,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TransacoesComponent } from './transacoes/transacoes.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import {MatMenuModule} from '@angular/material/menu';
     CadastroCartaoComponent,
     CadastroContaCorrenteComponent,
     CadastroUsuarioComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    DashboardComponent,
+    TransacoesComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import {MatMenuModule} from '@angular/material/menu';
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
