@@ -11,17 +11,19 @@ import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatCardModule} from '@angular/material/card';
+import { MatButtonModule} from '@angular/material/button';
 import { DataService } from './services/dataService';
 import { HttpClientModule } from '@angular/common/http';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TransacoesComponent } from './transacoes/transacoes.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { AlertaComponent } from './alerta/alerta.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {MatTableModule} from '@angular/material/table';
     CadastroUsuarioComponent,
     ToolbarComponent,
     DashboardComponent,
-    TransacoesComponent
+    TransacoesComponent,
+    AlertaComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +51,10 @@ import {MatTableModule} from '@angular/material/table';
     MatToolbarModule,
     MatIconModule,
     MatMenuModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule
   ],
-  providers: [DataService],
+  providers: [DataService,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

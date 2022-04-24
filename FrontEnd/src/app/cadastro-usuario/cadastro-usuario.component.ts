@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertaComponent } from '../alerta/alerta.component';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../services/usuario.service';
 
@@ -13,7 +15,7 @@ export class CadastroUsuarioComponent implements OnInit {
   cadastroUsuario: FormGroup;
   usuario: Usuario;
 
-  constructor(private formBuilder:FormBuilder, private _usuarioservice: UsuarioService) { }
+  constructor(private formBuilder:FormBuilder, private _usuarioservice: UsuarioService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.criarFormulario();
@@ -34,8 +36,13 @@ export class CadastroUsuarioComponent implements OnInit {
     this.usuario = this.cadastroUsuario.value;
     this.usuario.valorReservado = (this.usuario.porcentagem / 100) * this.usuario.salario;
     this._usuarioservice.cadastraUsuario(this.usuario).then(() => {
-      alert('Salvo com sucesso!');
-    }).catch(erro => console.log('Erro: ' + erro)
-    );
+      this.mostraAviso('Cadastrado com Sucesso!')
+    }).catch(error => this.mostraAviso('Erro ao Cadastrar'));
+  }
+
+  mostraAviso(mensagem: string){
+    this._snackBar.openFromComponent(AlertaComponent, {
+      data: mensagem
+    })
   }
 }
