@@ -7,13 +7,10 @@ import { DataService } from "./dataService";
 })
 
 export class UsuarioService{
-    baseURL:string;
     
-    constructor(private _dataservice:DataService){
-        this.baseURL = 'http://localhost:3000/'
-     }
+    constructor(private _dataservice:DataService){ }
 
     cadastraUsuario(usuario:Usuario):Promise<void>{
-        return this._dataservice.doPost(this.baseURL + 'usuario', usuario) as Promise<void>;
+        return this._dataservice.doPost('usuario', usuario) as Promise<void>;
     }
 };

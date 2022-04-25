@@ -37,7 +37,7 @@ export class DataService {
     async doPost<T>(url: string, data: any): Promise<T>{
         try {
             return await new Promise<T>((resolve, reject) => {
-                this.http.post<T>(url, data)
+                this.http.post<T>(this.baseUrl + url, data)
                     .subscribe({
                         next: result => resolve(result),
                         error: error => reject(error)
