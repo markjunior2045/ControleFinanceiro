@@ -7,13 +7,10 @@ import { DataService } from "./dataService";
 })
 
 export class BancoService{
-    baseUrl: string;
 
-    constructor(private _dataservice: DataService,){ 
-        this.baseUrl = 'http://localhost:3000/'
-    }
+    constructor(private _dataservice: DataService,){ }
 
     cadastraContaCorrente(banco: Banco):Promise<void>{
-        return this._dataservice.doPost(this.baseUrl + 'banco', banco) as Promise<void>;
+        return this._dataservice.doPost('banco', banco) as Promise<void>;
     }
 };
