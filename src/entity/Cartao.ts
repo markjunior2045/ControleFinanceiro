@@ -6,11 +6,12 @@ import { Usuario } from "./Usuario";
 
 @Entity()
 export class Cartao{
-    constructor(nome:string, numero:string, modalidade:string, bancoCadastrado: boolean, vencimentoFatura: Date, validade:Date, codigo:number, usuario: Usuario){
+    constructor(nome:string, numero:string, modalidade:string, bancoCadastrado: boolean, banco: string, vencimentoFatura: Date, validade:Date, codigo:number, usuario: Usuario){
         this.nome = nome;
         this.numero = numero;
         this.modalidade = modalidade;
         this.bancoCadastrado = bancoCadastrado;
+        this.banco = banco;
         this.vencimentoFatura = vencimentoFatura;
         this.validade = validade;
         this.codigo = codigo;

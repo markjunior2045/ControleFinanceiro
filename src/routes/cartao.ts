@@ -13,7 +13,7 @@ routerCartao.post('/', async (req, res) => {
     const dados = req.body;
     const usuario = await usuarioController.getById(dados.idUsuario);
     if (usuario){
-        const cartao = new Cartao(dados.nome, dados.numero, dados.modalidade, dados.bancoCadastrado, dados.vencimentoFatura, dados.validade, dados.codigo, dados.usuario);
+        const cartao = new Cartao(dados.nome, dados.numero, dados.modalidade, dados.bancoCadastrado, dados.banco, dados.vencimentoFatura, dados.validade, dados.codigo, dados.usuario);
         const cartaoSalvo = await cartaoController.salvar(cartao);
         res.json(cartaoSalvo);
     } else {

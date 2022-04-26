@@ -1,3 +1,18 @@
 table {
     width: 100%;
   }
+
+  td{
+    color: black;
+    font-size: large;
+  }
+  
+  th{
+    color: black;
+    font-size: large;
+  }
+
+  .mat-icon{
+    color: #fca311;
+    cursor: pointer;
+  }
