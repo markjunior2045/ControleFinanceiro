@@ -1,0 +1,81 @@
+*{--amarelo: #fca311;
+    --cinza: #e5e5e5;
+    --azul: #14213d;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 4em !important;
+}
+
+mat-form-field{
+    width: 90%;
+    margin-bottom: 1em;
+}
+
+form{
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+.mat-grid-tile-content{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+}
+
+mat-tab [label]{
+    color: black;
+}
+
+.formulario {
+    margin-top: 0;
+    height: 100%;
+    margin-left: 5%;
+}
+
+table {
+    width: 100%;
+  }
+
+  td{
+    color: black;
+    font-size: large;
+  }
+  
+  th{
+    color: black;
+    font-size: large;
+  }
+
+  .mat-icon{
+    color: #fca311;
+    cursor: pointer;
+  }
+
+  button:hover{
+    filter:brightness(90%);
+}
+
+mat-card-actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 5%;
+}
+
+button{
+    width: 20%;
+    background: var(--amarelo);
+}
+
+

@@ -51,6 +51,11 @@ button{
     background: var(--amarelo);
 }
 
+form{
+    width: 100%;
+    size: 100%;
+}
+
 .formulario {
     display: flex;
     flex-direction: column;
