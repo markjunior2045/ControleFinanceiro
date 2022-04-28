@@ -25,9 +25,13 @@ mat-card{
 
 a{
   text-decoration: none;
-  margin-top: 20px;
+  margin-top: 5%;
   margin-bottom: 10px;
   color: black;
+}
+
+#linkSenha{
+  margin-top: 1% !important;
 }
 
 button:hover{

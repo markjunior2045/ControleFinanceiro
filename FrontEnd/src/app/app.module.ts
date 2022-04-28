@@ -25,6 +25,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { AlertaComponent } from './alerta/alerta.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { GerenciamentoContaComponent } from './gerenciamento-conta/gerenciamento-conta.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ToolbarComponent,
     DashboardComponent,
     TransacoesComponent,
-    AlertaComponent
+    AlertaComponent,
+    GerenciamentoContaComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatMenuModule,
     MatTableModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatTabsModule
   ],
   providers: [DataService,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]
