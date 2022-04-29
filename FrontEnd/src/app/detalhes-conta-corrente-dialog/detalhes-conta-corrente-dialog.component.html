@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Detalhes</h1>
+<div mat-dialog-content>
+    <form [formGroup]="detalhesForm">
+        
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Banco</mat-label>
+                <input matInput type="text" [(ngModel)]="data.banco" formControlName="banco">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Agência</mat-label>
+                <input matInput type="text" [(ngModel)]="data.agencia" formControlName="agencia">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Conta</mat-label>
+                <input matInput type="text" [(ngModel)]="data.conta" formControlName="conta">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Titular</mat-label>
+                <input matInput type="text" [(ngModel)]="data.titular" formControlName="titular">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Saldo</mat-label>
+                <input matInput type="text" [(ngModel)]="data.saldo" formControlName="saldo">
+            </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="fechar()">Cancelar</button>
+    <button mat-button (click)="salvar()">Salvar</button>
+</div>

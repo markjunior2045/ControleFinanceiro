@@ -8,11 +8,12 @@ import { Usuario } from "./Usuario";
 @Entity()
 export class Transacao{
 
-    constructor(descricao:string, valor:number, metodo:string, parcelado:boolean, data:Date, usuario:Usuario){
+    constructor(descricao:string, valor:number, metodo:string, parcelado:boolean, quantidadeParcelas:number, data:Date, usuario:Usuario){
         this.descricao = descricao;
         this.valor = valor;
         this.metodo = metodo;
         this.parcelado = parcelado;
+        this.quantidadeParcelas = quantidadeParcelas;
         this.data = data;
         this.usuario = usuario;
     }

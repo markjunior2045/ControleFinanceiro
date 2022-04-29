@@ -34,6 +34,7 @@ form{
 
 mat-tab [label]{
     color: black;
+    display: flex;
 }
 
 .formulario {
@@ -73,9 +74,18 @@ mat-card-actions{
     border-bottom: 5%;
 }
 
-button{
+.btnCard {
+    display: flex;
+    align-items: flex-start;
+    margin-left: auto;
+}
+
+.btnSalvar {
     width: 20%;
     background: var(--amarelo);
 }
 
-
+.btnAdicionar {
+    width: 5%;
+    background: var(--amarelo);
+}

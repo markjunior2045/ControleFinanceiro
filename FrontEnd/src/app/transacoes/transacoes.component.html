@@ -31,7 +31,10 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <br>
-    <h2>Total gasto: {{totalGasto}}</h2>
   </mat-card-content>
+  <mat-card-actions>
+    <h2>Total gasto: {{totalGasto}}</h2>
+    <button mat-raised-button class="btnSalvar">Salvar alterações</button>
+  </mat-card-actions>
+
 </mat-card>

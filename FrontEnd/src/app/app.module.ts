@@ -32,6 +32,8 @@ import { GerenciamentoContaComponent } from './gerenciamento-conta/gerenciamento
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DetalhesContaCorrenteDialogComponent } from './detalhes-conta-corrente-dialog/detalhes-conta-corrente-dialog.component';
+import { DetalhesCartaoDialogComponent } from './detalhes-cartao-dialog/detalhes-cartao-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     TransacoesComponent,
     AlertaComponent,
     DetalhesTransacaoComponent,
-    GerenciamentoContaComponent
+    GerenciamentoContaComponent,
+    DetalhesContaCorrenteDialogComponent,
+    DetalhesCartaoDialogComponent
   ],
   imports: [
     BrowserModule,
