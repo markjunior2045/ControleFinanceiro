@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DetalhesTransacaoComponent } from '../detalhes-transacao/detalhes-transacao.component';
 import { Transacao } from '../model/transacao.model';
+import { TransacaoService } from '../services/transacao.service';
 
 const exemploTransacao:Transacao[] = [
   {
@@ -32,7 +33,6 @@ const exemploTransacao:Transacao[] = [
     data: new Date('2022-08-10')
   }
 ];
-
 @Component({
   selector: 'app-transacoes',
   templateUrl: './transacoes.component.html',
@@ -42,13 +42,13 @@ const exemploTransacao:Transacao[] = [
 export class TransacoesComponent implements OnInit {
 
   displayedColumns: string[] = ['descricao','valor','metodo','detalhes'];
-  dataSource = exemploTransacao;
+  dataSource: Transacao[];
   totalGasto: number = 0;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private _transacaoservice:TransacaoService) { }
 
   ngOnInit(): void {
-    this.calculaTotalGasto();
+    this.getTransacoes();
    }
 
   openDialog(transacao: Transacao): void{
@@ -58,9 +58,15 @@ export class TransacoesComponent implements OnInit {
     });
   }
 
+  async getTransacoes(){
+    await this._transacaoservice.getAllTransacao().then(result => {
+      this.dataSource = result;
+    })
+    this.calculaTotalGasto();
+  }
+
   calculaTotalGasto(){
     this.dataSource.forEach(x => {
-      console.log(x);
       this.totalGasto += x.valor;
     })
   }

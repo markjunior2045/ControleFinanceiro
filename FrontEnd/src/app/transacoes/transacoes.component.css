@@ -16,3 +16,12 @@ table {
     color: #fca311;
     cursor: pointer;
   }
+
+  .btnSalvar {
+    width: 8%;
+    background: #fca311;
+}
+
+h2 {
+  margin-left: 0.5%;
+}

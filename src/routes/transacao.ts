@@ -13,7 +13,7 @@ routerTransacao.post('/', async(req, res) => {
     const dados = req.body;
     const usuario = await usuarioController.getById(dados.idUsuario);
     if (usuario) {
-        const transacao = new Transacao(dados.descricao, dados.valor, dados.metodo, dados.parcelado, dados.data, dados.usuario);
+        const transacao = new Transacao(dados.descricao, dados.valor, dados.metodo, dados.parcelado, dados.quantidadeParcelas, dados.data, dados.usuario);
         const transacaoSalva = await transacaoController.salvar(transacao);
         res.json(transacaoSalva);
     } else {
