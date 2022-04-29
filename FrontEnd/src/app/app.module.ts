@@ -25,6 +25,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { AlertaComponent } from './alerta/alerta.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DetalhesTransacaoComponent } from './detalhes-transacao/detalhes-transacao.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ToolbarComponent,
     DashboardComponent,
     TransacoesComponent,
-    AlertaComponent
+    AlertaComponent,
+    DetalhesTransacaoComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatMenuModule,
     MatTableModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [DataService,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]
