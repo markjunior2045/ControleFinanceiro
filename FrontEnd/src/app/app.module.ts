@@ -28,6 +28,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DetalhesTransacaoComponent } from './detalhes-transacao/detalhes-transacao.component';
 import { MatSelectModule } from '@angular/material/select';
+import { GerenciamentoContaComponent } from './gerenciamento-conta/gerenciamento-conta.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
     DashboardComponent,
     TransacoesComponent,
     AlertaComponent,
-    DetalhesTransacaoComponent
+    DetalhesTransacaoComponent,
+    GerenciamentoContaComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatTabsModule
   ],
   providers: [DataService,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]

@@ -1,0 +1,145 @@
+<app-toolbar></app-toolbar>
+
+<!--TELA DE GERENCIAMENTO DE CONTA-->
+
+<body>
+    <div class="conteudo">
+
+        <div class="lado2">
+            <mat-tab-group color="primary">
+
+
+                <mat-tab label="Meus Dados">
+                    <form [formGroup]="gerenciaConta">
+                        <div class=" formulario">
+                        <mat-form-field>
+                            <mat-label>Nome:</mat-label>
+                            <input autocomplete="off" matInput formControlName="nome" type="text" required />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Sobrenome:</mat-label>
+                            <input autocomplete="off" matInput formControlName="sobrenome" type="text" required />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Email:</mat-label>
+                            <input autocomplete="off" matInput formControlName="email" type="text" required />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Salário:</mat-label>
+                            <input autocomplete="off" matInput formControlName="salario" type="number" required />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Porcentagem a guardar:</mat-label>
+                            <input autocomplete="off" matInput formControlName="porcentagem" type="text" required />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Valor reservado:</mat-label>
+                            <input autocomplete="off" matInput formControlName="valorReservado" />
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Senha:</mat-label>
+                            <input autocomplete="off" matInput formControlName="senha" type="password" required />
+                        </mat-form-field>
+
+        </div>
+        <mat-card-actions>
+            <button mat-raised-button>Salvar alterações</button>
+        </mat-card-actions>
+        </form>
+        </mat-tab>
+
+        <!--CARTÕES CADASTRADOS------------------------------------------------------------------>
+
+        <mat-tab label="Cartões Cadastrados">
+            <table mat-table [dataSource]="dadosCartao" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="nome">
+                    <th mat-header-cell *matHeaderCellDef> Nome </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="numero">
+                    <th mat-header-cell *matHeaderCellDef> Número </th>
+                    <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="modalidade">
+                    <th mat-header-cell *matHeaderCellDef> modalidade </th>
+                    <td mat-cell *matCellDef="let element"> {{element.modalidade}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="detalhes">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-icon>edit</mat-icon>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tabelaCartao"></tr>
+                <tr mat-row *matRowDef="let row; columns: tabelaCartao;"></tr>
+            </table>
+        </mat-tab>
+
+         <!----BANCOS CADASTRADOS------------------------------------------------------------------>
+
+        <mat-tab label="Bancos Cadastrados">
+            <table mat-table [dataSource]="dadosBanco" class="mat-elevation-z8">
+
+                <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="banco">
+                    <th mat-header-cell *matHeaderCellDef> Nome do Banco </th>
+                    <td mat-cell *matCellDef="let element"> {{element.banco}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="agencia">
+                    <th mat-header-cell *matHeaderCellDef> Nº da Agencia </th>
+                    <td mat-cell *matCellDef="let element"> {{element.agencia}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="conta">
+                    <th mat-header-cell *matHeaderCellDef> Conta </th>
+                    <td mat-cell *matCellDef="let element"> {{element.conta}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="detalhes">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <mat-icon>edit</mat-icon>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tabelaBanco"></tr>
+                <tr mat-row *matRowDef="let row; columns: tabelaBanco;"></tr>
+            </table>
+        </mat-tab>
+
+
+        </mat-tab-group>
+    </div>
+    </div>
+
+    <div class="lado1">
+
+    </div>
+
+
+</body>

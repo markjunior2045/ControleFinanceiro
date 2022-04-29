@@ -10,6 +10,7 @@
 .logo {
   font-size:xx-large;
   margin-right: 2%;
+  margin-left: 1%;
 }
 
 .item:hover{
@@ -18,7 +19,7 @@
 
 .item {
   color: white;
-  margin-left: 0.5%;
+  margin-left: 1.5%;
 }
 
 span {
