@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DetalhesTransacaoComponent } from '../detalhes-transacao/detalhes-transacao.component';
 import { Transacao } from '../model/transacao.model';
 
 const exemploTransacao:Transacao[] = [
@@ -9,7 +11,7 @@ const exemploTransacao:Transacao[] = [
     parcelado: false,
     quantidadeParcelas: 1,
     valor: 50,
-    data: new Date()
+    data: new Date('2020-01-20')
   },
   {
     id:'2',
@@ -18,7 +20,7 @@ const exemploTransacao:Transacao[] = [
     parcelado: false,
     quantidadeParcelas: 1,
     valor: 150,
-    data: new Date()
+    data: new Date('2021-04-15')
   },
   {
     id:'3',
@@ -27,7 +29,7 @@ const exemploTransacao:Transacao[] = [
     parcelado: false,
     quantidadeParcelas: 1,
     valor: 200,
-    data: new Date()
+    data: new Date('2022-08-10')
   }
 ];
 
@@ -41,8 +43,25 @@ export class TransacoesComponent implements OnInit {
 
   displayedColumns: string[] = ['descricao','valor','metodo','detalhes'];
   dataSource = exemploTransacao;
+  totalGasto: number = 0;
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.calculaTotalGasto();
+   }
+
+  openDialog(transacao: Transacao): void{
+    const dialogRef = this.dialog.open(DetalhesTransacaoComponent, {
+      width: '480px',
+      data: { descricao: transacao.descricao, valor: transacao.valor, metodo: transacao.metodo, data: new Date(transacao.data).toISOString().slice(0,10).replace('T',' ')}
+    });
+  }
+
+  calculaTotalGasto(){
+    this.dataSource.forEach(x => {
+      console.log(x);
+      this.totalGasto += x.valor;
+    })
+  }
 }

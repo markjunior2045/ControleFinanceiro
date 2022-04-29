@@ -25,6 +25,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { AlertaComponent } from './alerta/alerta.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DetalhesTransacaoComponent } from './detalhes-transacao/detalhes-transacao.component';
+import { MatSelectModule } from '@angular/material/select';
 import { GerenciamentoContaComponent } from './gerenciamento-conta/gerenciamento-conta.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
@@ -41,6 +44,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     DashboardComponent,
     TransacoesComponent,
     AlertaComponent,
+    DetalhesTransacaoComponent,
     GerenciamentoContaComponent
   ],
   imports: [
@@ -60,6 +64,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTableModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatDialogModule,
+    MatSelectModule,
     MatGridListModule,
     MatDividerModule,
     MatTabsModule

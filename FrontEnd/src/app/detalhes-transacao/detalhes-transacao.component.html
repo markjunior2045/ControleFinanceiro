@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Detalhes</h1>
+<div mat-dialog-content>
+    <form [formGroup]="detalhesForm">
+        <div style="display: flex; flex-direction: row;">
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Descrição</mat-label>
+                <input matInput type="text" [(ngModel)]="data.descricao" formControlName="descricao">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Valor</mat-label>
+                <input matInput type="text" [(ngModel)]="data.valor" formControlName="valor">
+            </mat-form-field>
+        </div>
+        <div style="display: flex; flex-direction: row;">
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Método</mat-label>
+                <mat-select formControlName="metodo" [(ngModel)]="data.metodo">
+                    <mat-option *ngFor="let opcao of metodoPagamento" [value]="opcao">
+                        {{opcao}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Data</mat-label>
+                <input matInput type="date" [(ngModel)]="data.data" formControlName="data">
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="fechar()">Cancelar</button>
+    <button mat-button (click)="salvar()">Salvar</button>
+</div>
