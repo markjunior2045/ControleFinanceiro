@@ -44,7 +44,7 @@ export class GerenciamentoContaComponent implements OnInit {
   tabelaCartao: string[] = ['nome','numero','modalidade','detalhes','deletar'];
   dadosCartao = exemploCartao;
 
-  tabelaBanco: string[] = ['banco','agencia','conta','detalhes'];
+  tabelaBanco: string[] = ['banco','agencia','conta','detalhes','deletar'];
   dadosBanco = exemploBanco;
   
   constructor(private formBuilder:FormBuilder,public dialog: MatDialog) { 

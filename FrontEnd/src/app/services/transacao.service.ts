@@ -12,4 +12,8 @@ export class TransacaoService {
     getAllTransacao():Promise<Transacao[]> {
         return this._dataservice.get('transacao') as Promise<Transacao[]>
     }
+
+    atualizaTransacao(transacao: Transacao):Promise<void> {
+        return this._dataservice.doPut('transacao', transacao) as Promise<void>;
+    }
 }
