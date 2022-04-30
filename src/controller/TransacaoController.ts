@@ -23,4 +23,14 @@ export class TransacaoController {
         }
         return transacao;
     }
+
+    async update(transacao: Transacao){
+        let transacaoSalva: Transacao;
+        if(transacao != null){
+            transacaoSalva = await database.manager.save(transacao);
+        }else{
+            transacaoSalva = null;
+        }
+        return transacaoSalva;
+    }
 }

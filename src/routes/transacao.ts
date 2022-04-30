@@ -33,3 +33,12 @@ routerTransacao.get('/:idTransacao', async (req, res) => {
     const transacao = await transacaoController.getById(idTransacao);
     res.json(transacao);
 })
+
+routerTransacao.put('/', async (req, res) => {
+    const dados = req.body;
+    const usuario = await usuarioController.getById('84b03189-0994-462b-b989-2df3d5055c57');
+    const transacao = new Transacao(dados.descricao, dados.valor, dados.metodo, dados.parcelado, dados.quantidadeParcelas, dados.data, usuario);
+    transacao.id = dados.id;
+    const result = await transacaoController.update(transacao);
+    res.json({result:'Ok'});
+})

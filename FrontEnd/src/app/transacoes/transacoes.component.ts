@@ -41,7 +41,7 @@ const exemploTransacao:Transacao[] = [
 
 export class TransacoesComponent implements OnInit {
 
-  displayedColumns: string[] = ['descricao','valor','metodo','detalhes'];
+  displayedColumns: string[] = ['descricao','valor','metodo','detalhes','deletar'];
   dataSource: Transacao[];
   totalGasto: number = 0;
 
@@ -63,6 +63,12 @@ export class TransacoesComponent implements OnInit {
       this.dataSource = result;
     })
     this.calculaTotalGasto();
+  }
+
+  async atualizar(transacao: Transacao){
+    await this._transacaoservice.atualizaTransacao(transacao).then(result => {
+      console.log("Sucesso!");
+    }).catch(error => console.log(error));
   }
 
   calculaTotalGasto(){
