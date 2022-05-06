@@ -1,3 +1,4 @@
+import { TagOpenStartToken } from '@angular/compiler/src/ml_parser/tokens';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -5,6 +6,7 @@ import { DetalhesCartaoDialogComponent } from '../detalhes-cartao-dialog/detalhe
 import { DetalhesContaCorrenteDialogComponent } from '../detalhes-conta-corrente-dialog/detalhes-conta-corrente-dialog.component';
 import { Banco } from '../model/banco.model';
 import { Cartao } from '../model/cartao.model';
+import { Tag } from '../model/tag.model';
 
 const exemploCartao:Cartao[] = [
   {
@@ -31,6 +33,14 @@ const exemploBanco:Banco[] = [
   },
 ];
 
+const exemploTag:Tag[] = [
+  {
+    id: '1',
+    nome: 'Conta de Luz',
+    tipo: 'Casa'
+  },
+];
+
 
 @Component({
   selector: 'app-gerenciamento-conta',
@@ -46,6 +56,9 @@ export class GerenciamentoContaComponent implements OnInit {
 
   tabelaBanco: string[] = ['banco','agencia','conta','detalhes','deletar'];
   dadosBanco = exemploBanco;
+
+  tabelaTag: string[] = ['nome', 'tipo'];
+  dadosTag = exemploTag;
   
   constructor(private formBuilder:FormBuilder,public dialog: MatDialog) { 
 

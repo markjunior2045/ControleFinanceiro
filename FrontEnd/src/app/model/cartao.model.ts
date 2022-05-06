@@ -1,7 +1,7 @@
 import { Guid } from "./guid.model";
 
 export interface Cartao{
-    id: string;
+    id: Guid;
     nome: string;
     numero: number;
     modalidade: string;
