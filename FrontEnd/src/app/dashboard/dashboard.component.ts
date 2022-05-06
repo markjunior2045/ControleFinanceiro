@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Guid } from '../model/guid.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  private _accountid:Guid;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // this._accountid = this.route.snapshot.paramMap.get('id') ?? '';
+    // console.log('id: ' + this._accountid);
   }
 
 }
