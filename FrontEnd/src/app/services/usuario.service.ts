@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Guid } from "../model/guid.model";
 import { Usuario } from "../model/usuario.model";
 import { DataService } from "./dataService";
 
@@ -12,5 +13,9 @@ export class UsuarioService{
 
     cadastraUsuario(usuario:Usuario):Promise<void>{
         return this._dataservice.doPost('usuario', usuario) as Promise<void>;
+    }
+
+    login(usuario: Usuario):Promise<Guid>{
+        return this._dataservice.doPost('usuario/login', usuario) as Promise<Guid>
     }
 };

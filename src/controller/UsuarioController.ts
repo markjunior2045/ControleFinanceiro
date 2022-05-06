@@ -9,6 +9,15 @@ export class UsuarioController{
         return usuariosalvo;
     }
 
+    async login(email: string, senha:string){
+        console.log("EMAIL: " + email + " SENHA: " + senha);
+        const usuario = await database.manager.findOneBy(Usuario,{email:email,senha:senha});
+        if (usuario != null)
+            return usuario.id;
+        else
+            return null
+    }
+
     async getAll(){
         const usuarios = await database.manager.find(Usuario);
         return usuarios;

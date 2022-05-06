@@ -13,6 +13,13 @@ routerUsuario.post('/', async (req, res) => {
     res.json(usuarioSalvo);
 })
 
+//login
+routerUsuario.post('/login', async (req, res) => {
+    const dados = req.body;
+    const usuarioId = await usuarioController.login(dados.email,dados.senha);
+    res.json(usuarioId);
+})
+
 //GetAll Usuários
 routerUsuario.get('/', async (req, res) => {
     const usuarios = await usuarioController.getAll();
