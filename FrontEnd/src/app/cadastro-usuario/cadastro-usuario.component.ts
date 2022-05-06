@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertaComponent } from '../alerta/alerta.component';
+import { MensagemComponent } from '../mensagem/mensagem.component';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../services/usuario.service';
 
@@ -16,7 +16,7 @@ export class CadastroUsuarioComponent implements OnInit {
   usuario: Usuario;
   reservado: number;
 
-  constructor(private formBuilder:FormBuilder, private _usuarioservice: UsuarioService, private _snackBar: MatSnackBar) { }
+  constructor(private formBuilder:FormBuilder, private _usuarioservice: UsuarioService, private mensagem: MensagemComponent) { }
 
   ngOnInit(): void {
     this.criarFormulario();
@@ -40,17 +40,11 @@ export class CadastroUsuarioComponent implements OnInit {
     this.cadastroUsuario.get('valorReservado')?.setValue(this.reservado.toFixed(2))
   }
 
-  salvar(){
+  async salvar(){
     this.usuario = this.cadastroUsuario.value;
     this.usuario.valorReservado = (this.usuario.porcentagem / 100) * this.usuario.salario;
-    this._usuarioservice.cadastraUsuario(this.usuario).then(() => {
-      this.mostraAviso('Cadastrado com Sucesso!')
-    }).catch(error => this.mostraAviso('Erro ao Cadastrar'));
-  }
-
-  mostraAviso(mensagem: string){
-    this._snackBar.openFromComponent(AlertaComponent, {
-      data: mensagem
-    })
+    await this._usuarioservice.cadastraUsuario(this.usuario).then(() => {
+      this.mensagem.mostraAviso('Cadastrado com Sucesso!')
+    }).catch(error => this.mensagem.mostraAviso('Erro ao Cadastrar'));
   }
 }

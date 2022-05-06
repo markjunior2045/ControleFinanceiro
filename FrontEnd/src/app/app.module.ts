@@ -34,6 +34,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DetalhesContaCorrenteDialogComponent } from './detalhes-conta-corrente-dialog/detalhes-conta-corrente-dialog.component';
 import { DetalhesCartaoDialogComponent } from './detalhes-cartao-dialog/detalhes-cartao-dialog.component';
+import { MensagemComponent } from './mensagem/mensagem.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { DetalhesCartaoDialogComponent } from './detalhes-cartao-dialog/detalhes
     DetalhesTransacaoComponent,
     GerenciamentoContaComponent,
     DetalhesContaCorrenteDialogComponent,
-    DetalhesCartaoDialogComponent
+    DetalhesCartaoDialogComponent,
+    MensagemComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,7 @@ import { DetalhesCartaoDialogComponent } from './detalhes-cartao-dialog/detalhes
     MatDividerModule,
     MatTabsModule
   ],
-  providers: [DataService,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
+  providers: [DataService,MensagemComponent,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
