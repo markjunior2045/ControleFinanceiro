@@ -14,6 +14,7 @@ export class CadastroUsuarioComponent implements OnInit {
 
   cadastroUsuario: FormGroup;
   usuario: Usuario;
+  reservado: number;
 
   constructor(private formBuilder:FormBuilder, private _usuarioservice: UsuarioService, private _snackBar: MatSnackBar) { }
 
@@ -28,8 +29,15 @@ export class CadastroUsuarioComponent implements OnInit {
       email:['', Validators.required],
       salario:['', Validators.required],
       porcentagem:['', Validators.required],
+      valorReservado:[{ value:'', disabled:true}],
       senha:['', Validators.required]
     })
+  }
+
+  calculaPorcentagem(){
+    this.reservado = 0;
+    this.reservado = (this.cadastroUsuario.get('porcentagem')?.value / 100) * this.cadastroUsuario.get('salario')?.value;
+    this.cadastroUsuario.get('valorReservado')?.setValue(this.reservado.toFixed(2))
   }
 
   salvar(){

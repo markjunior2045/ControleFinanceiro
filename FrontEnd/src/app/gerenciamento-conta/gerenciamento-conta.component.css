@@ -86,6 +86,5 @@ mat-card-actions{
 }
 
 .btnAdicionar {
-    width: 5%;
     background: var(--amarelo);
 }
