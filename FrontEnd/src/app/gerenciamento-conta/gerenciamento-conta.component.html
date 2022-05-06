@@ -66,28 +66,21 @@
 
                             <table mat-table [dataSource]="dadosCartao" class="mat-elevation-z8">
 
-                                <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
-
-                                <!-- Position Column -->
                                 <ng-container matColumnDef="nome">
                                     <th mat-header-cell *matHeaderCellDef> Nome </th>
                                     <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
                                 </ng-container>
 
-                                <!-- Name Column -->
                                 <ng-container matColumnDef="numero">
                                     <th mat-header-cell *matHeaderCellDef> Número </th>
                                     <td mat-cell *matCellDef="let element"> {{element.numero}} </td>
                                 </ng-container>
 
-                                <!-- Weight Column -->
                                 <ng-container matColumnDef="modalidade">
                                     <th mat-header-cell *matHeaderCellDef> Modalidade </th>
                                     <td mat-cell *matCellDef="let element"> {{element.modalidade}} </td>
                                 </ng-container>
 
-                                <!-- Symbol Column -->
                                 <ng-container matColumnDef="detalhes">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element">
@@ -122,28 +115,21 @@
                         <mat-card-content>
                             <table mat-table [dataSource]="dadosBanco" class="mat-elevation-z8">
 
-                                <!--- Note that these columns can be defined in any order.
-                              The actual rendered columns are set as a property on the row definition" -->
-
-                                <!-- Position Column -->
                                 <ng-container matColumnDef="banco">
                                     <th mat-header-cell *matHeaderCellDef> Nome do Banco </th>
                                     <td mat-cell *matCellDef="let element"> {{element.banco}} </td>
                                 </ng-container>
 
-                                <!-- Name Column -->
                                 <ng-container matColumnDef="agencia">
                                     <th mat-header-cell *matHeaderCellDef> Nº da Agencia </th>
                                     <td mat-cell *matCellDef="let element"> {{element.agencia}} </td>
                                 </ng-container>
 
-                                <!-- Weight Column -->
                                 <ng-container matColumnDef="conta">
                                     <th mat-header-cell *matHeaderCellDef> Conta </th>
                                     <td mat-cell *matCellDef="let element"> {{element.conta}} </td>
                                 </ng-container>
 
-                                <!-- Symbol Column -->
                                 <ng-container matColumnDef="detalhes">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element">
@@ -168,6 +154,35 @@
                     </mat-card>
                 </mat-tab>
 
+  <!----TAGS CADASTRADAS------------------------------------------------------------------>
+
+                <mat-tab label="Tags Cadastradas">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Tags</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <table mat-table [dataSource]="dadosTag" class="mat-elevation-z8">
+
+                                <ng-container matColumnDef="nome">
+                                    <th mat-header-cell *matHeaderCellDef> Nome da tag </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="tipo">
+                                    <th mat-header-cell *matHeaderCellDef>Tipo da tag</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="tabelaTag"></tr>
+                                <tr mat-row *matRowDef="let row; columns: tabelaTag;"></tr>
+                            </table>
+                        </mat-card-content>
+                        <mat-card-actions class="btnCard">
+                            <button mat-raised-button class="btnAdicionar">Adicionar</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </mat-tab>
 
             </mat-tab-group>
         </div>
