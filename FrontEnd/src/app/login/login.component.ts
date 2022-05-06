@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MensagemComponent } from '../mensagem/mensagem.component';
 import { Guid } from '../model/guid.model';
 import { Usuario } from '../model/usuario.model';
 import { UsuarioService } from '../services/usuario.service';
@@ -16,31 +17,34 @@ export class LoginComponent implements OnInit {
   usuario: Usuario;
   idUsuario: Guid;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private _usuarioService: UsuarioService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private _usuarioService: UsuarioService, private mensagem: MensagemComponent) { }
 
   ngOnInit(): void {
     this.criarFormulario();
   }
 
-  criarFormulario(){
+  criarFormulario() {
     this.login = this.formBuilder.group({
       email: ['', Validators.required],
       senha: ['', Validators.required]
     })
   }
 
-  async entrar(){
+  async entrar() {
     this.idUsuario = '';
     this.usuario = this.login.value;
     await this._usuarioService.login(this.usuario).then(result => {
-      if(result != null){
+      if (result != null) {
         this.idUsuario = result;
-        if(this.idUsuario != null || this.idUsuario != ''){
-          this.router.navigate(['/dashboard', {email: this.usuario.email}]);
+        if (this.idUsuario != null || this.idUsuario != '') {
+          this.router.navigate(['/dashboard', { id: this.idUsuario}]);
         }
-      }else{
-        alert("Dados incorretos!");
+      } else {
+        this.mensagem.mostraAviso('Email ou Senha incorretos!')
       }
-    }).catch(error => console.log(error));
+    }).catch(error => {
+      console.log(error);
+      this.mensagem.mostraAviso('Erro ao tentar fazer login')
+    });
   }
 }
