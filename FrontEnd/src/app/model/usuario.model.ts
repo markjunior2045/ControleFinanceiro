@@ -1,4 +1,5 @@
 import { Guid } from "./guid.model";
+import { Transacao } from "./transacao.model";
 
 export interface Usuario{
     id: Guid;
@@ -9,4 +10,5 @@ export interface Usuario{
     porcentagem: number;
     valorReservado: number;
     senha: string;
+    transacoes: Transacao[];
 }

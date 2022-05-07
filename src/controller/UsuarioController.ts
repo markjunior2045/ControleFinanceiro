@@ -33,6 +33,16 @@ export class UsuarioController{
         return usuario;
     }
 
+    async update(usuario: Usuario){
+        let usuarioSalvo:Usuario;
+        if(usuario != null){
+            usuarioSalvo = await database.manager.save(usuario);
+        }else{
+            usuarioSalvo = null
+        }
+        return usuarioSalvo;
+    }
+
     async getTransacoesDoUsuario(idUsuario: string){
         const transacoes = await database.manager.find(Usuario,{
             relations: {

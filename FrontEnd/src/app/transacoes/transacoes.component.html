@@ -13,7 +13,7 @@
 
       <ng-container matColumnDef="valor">
         <th mat-header-cell *matHeaderCellDef> Valor </th>
-        <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.valor | currency: 'R$'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="metodo">
@@ -31,7 +31,7 @@
       <ng-container matColumnDef="deletar">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
-            <mat-icon>delete</mat-icon>
+            <mat-icon (click)="deletarTransacaoDialog(element.id,element.descricao)">delete</mat-icon>
         </td>
     </ng-container>
 
@@ -40,8 +40,8 @@
     </table>
   </mat-card-content>
   <mat-card-actions>
-    <h2>Total gasto: {{totalGasto}}</h2>
-    <button mat-raised-button class="btnSalvar">Adicionar</button>
+    <h2>Total gasto: {{totalGasto | currency: 'R$'}}</h2>
+    <button mat-raised-button (click)="novaTransacaoDialog()" class="btnSalvar">Adicionar</button>
   </mat-card-actions>
 
 </mat-card>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Guid } from '../model/guid.model';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  public idUsuario: Guid = "";
+
+  constructor(private shared: SharedService) {
+
+    this.shared.obs.subscribe((data) => {
+      this.idUsuario = data;
+    })
+  }
 
   ngOnInit(): void {
   }

@@ -14,42 +14,42 @@
                         <div class=" formulario">
                             <mat-form-field>
                                 <mat-label>Nome:</mat-label>
-                                <input autocomplete="off" matInput formControlName="nome" type="text" required />
+                                <input autocomplete="off" (change)="mostraSalvar()" matInput formControlName="nome" type="text" [(ngModel)]="usuario.nome" required />
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Sobrenome:</mat-label>
-                                <input autocomplete="off" matInput formControlName="sobrenome" type="text" required />
+                                <input autocomplete="off" (change)="mostraSalvar()" matInput formControlName="sobrenome" type="text" [(ngModel)]="usuario.sobrenome" required />
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Email:</mat-label>
-                                <input autocomplete="off" matInput formControlName="email" type="text" required />
+                                <input autocomplete="off" (change)="mostraSalvar()" matInput formControlName="email" type="text" [(ngModel)]="usuario.email" required />
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Salário:</mat-label>
-                                <input autocomplete="off" matInput formControlName="salario" type="number" required />
+                                <input autocomplete="off" (change)="calculaPorcentagem()" matInput formControlName="salario" type="number" [(ngModel)]="usuario.salario" required />
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Porcentagem a guardar:</mat-label>
-                                <input autocomplete="off" matInput formControlName="porcentagem" type="text" required />
+                                <input autocomplete="off" (change)="calculaPorcentagem()" matInput formControlName="porcentagem" type="text" [(ngModel)]="usuario.porcentagem" required />
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Valor reservado:</mat-label>
-                                <input autocomplete="off" matInput formControlName="valorReservado" />
+                                <input autocomplete="off" (change)="mostraSalvar()" matInput formControlName="valorReservado" [(ngModel)]="usuario.valorReservado" />
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Senha:</mat-label>
-                                <input autocomplete="off" matInput formControlName="senha" type="password" required />
+                                <input autocomplete="off" (change)="mostraSalvar()" matInput formControlName="senha" type="password" [(ngModel)]="usuario.senha" required />
                             </mat-form-field>
 
                         </div>
                         <mat-card-actions>
-                            <button mat-raised-button class="btnSalvar">Salvar alterações</button>
+                            <button mat-raised-button [disabled]="!updateButton" (click)="salvar()" class="btnSalvar">Salvar alterações</button>
                         </mat-card-actions>
                     </form>
                 </mat-tab>
