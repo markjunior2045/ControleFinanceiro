@@ -33,4 +33,12 @@ export class TransacaoController {
         }
         return transacaoSalva;
     }
+
+    async delete(id: string){
+        if (id != null || id != ''){
+            return await database.manager.delete(Transacao, id);
+        }else{
+            return null;
+        }
+    }
 }

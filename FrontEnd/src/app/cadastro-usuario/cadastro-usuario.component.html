@@ -27,7 +27,7 @@
 
                     <mat-form-field>
                         <mat-label>Salário:</mat-label>
-                        <input autocomplete="off" matInput type="number" formControlName="salario" required />
+                        <input autocomplete="off" matInput (change)="calculaPorcentagem()" type="number" formControlName="salario" required />
                     </mat-form-field>
 
                     <mat-form-field>

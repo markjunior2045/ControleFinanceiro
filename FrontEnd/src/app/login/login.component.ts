@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MensagemComponent } from '../mensagem/mensagem.component';
 import { Guid } from '../model/guid.model';
 import { Usuario } from '../model/usuario.model';
+import { SharedService } from '../services/shared.service';
 import { UsuarioService } from '../services/usuario.service';
 
 @Component({

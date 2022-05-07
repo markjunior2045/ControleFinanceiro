@@ -1,15 +1,15 @@
 <p>
   <mat-toolbar>
-    <span class="logo" routerLink="/login" routerLinkActive="active">Control Bills</span>
-    <span class="item" routerLink="/dashboard" routerLinkActive="active">Dashboard</span>
-    <span class="item"routerLink="/transacoes" routerLinkActive="active">Transações</span>
+    <span class="logo" [routerLink]="['/dashboard',{id: this.idUsuario}]" routerLinkActive="active">Control Bills</span>
+    <span class="item" [routerLink]="['/dashboard',{id: this.idUsuario}]" routerLinkActive="active">Dashboard</span>
+    <span class="item" [routerLink]="['/transacoes',{id: this.idUsuario}]" routerLinkActive="active">Transações</span>
     <span class="example-spacer"></span>
     <button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon">
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button routerLink="/gerenciamento-conta" routerLinkActive="active" mat-menu-item>Gerenciamento de Conta</button>
-      <button routerLink="/login" routerLinkActive="active" mat-menu-item>Sair</button>
+      <button [routerLink]="['/gerenciamento-conta',{id: this.idUsuario}]" routerLinkActive="active" mat-menu-item>Gerenciamento de Conta</button>
+      <button routerLink="/" mat-menu-item>Sair</button>
     </mat-menu>
   </mat-toolbar>
 </p>

@@ -9,13 +9,15 @@ const transacaoController = new TransacaoController();
 const usuarioController = new UsuarioController();
 
 //Salvar Transação
-routerTransacao.post('/', async(req, res) => {
+routerTransacao.post('/:idUsuario', async(req, res) => {
+    const {idUsuario} = req.params;
+    console.log('id: ' + idUsuario);
     const dados = req.body;
-    const usuario = await usuarioController.getById(dados.idUsuario);
+    const usuario = await usuarioController.getById(idUsuario);
     if (usuario) {
-        const transacao = new Transacao(dados.descricao, dados.valor, dados.metodo, dados.parcelado, dados.quantidadeParcelas, dados.data, dados.usuario);
+        const transacao = new Transacao(dados.descricao, dados.valor, dados.metodo, false, 1, dados.data, usuario);
         const transacaoSalva = await transacaoController.salvar(transacao);
-        res.json(transacaoSalva);
+        res.status(200).json({message: 'Sucesso'});
     } else {
         res.status(404).json({message: 'Usuário não encontrado'})
     }
@@ -34,11 +36,24 @@ routerTransacao.get('/:idTransacao', async (req, res) => {
     res.json(transacao);
 })
 
-routerTransacao.put('/', async (req, res) => {
+//Atualiza Transação
+routerTransacao.put('/:idUsuario', async (req, res) => {
+    const {idUsuario} = req.params;
     const dados = req.body;
-    const usuario = await usuarioController.getById('84b03189-0994-462b-b989-2df3d5055c57');
+    const usuario = await usuarioController.getById(idUsuario);
     const transacao = new Transacao(dados.descricao, dados.valor, dados.metodo, dados.parcelado, dados.quantidadeParcelas, dados.data, usuario);
     transacao.id = dados.id;
     const result = await transacaoController.update(transacao);
     res.json({result:'Ok'});
+})
+
+//DeletaTransação
+routerTransacao.delete('/:idTransacao', async (req, res) => {
+    const {idTransacao} = req.params;
+    if (idTransacao != null || idTransacao != ''){
+        const result = await transacaoController.delete(idTransacao);
+        res.json(result);
+    }else{
+        res.json(null);
+    }
 })

@@ -2,11 +2,18 @@ import { TagOpenStartToken } from '@angular/compiler/src/ml_parser/tokens';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { DetalhesCartaoDialogComponent } from '../detalhes-cartao-dialog/detalhes-cartao-dialog.component';
 import { DetalhesContaCorrenteDialogComponent } from '../detalhes-conta-corrente-dialog/detalhes-conta-corrente-dialog.component';
+import { MensagemComponent } from '../mensagem/mensagem.component';
 import { Banco } from '../model/banco.model';
 import { Cartao } from '../model/cartao.model';
+import { Guid } from '../model/guid.model';
 import { Tag } from '../model/tag.model';
+import { Usuario } from '../model/usuario.model';
+import { SharedService } from '../services/shared.service';
+import { TransacaoService } from '../services/transacao.service';
+import { UsuarioService } from '../services/usuario.service';
 
 const exemploCartao:Cartao[] = [
   {
@@ -50,6 +57,11 @@ const exemploTag:Tag[] = [
 export class GerenciamentoContaComponent implements OnInit {
 
   gerenciaConta: FormGroup;
+  _accountId: Guid;
+  usuario: Usuario;
+  usuarioUpdate: Usuario;
+  reservado: number;
+  updateButton: boolean = false;
 
   tabelaCartao: string[] = ['nome','numero','modalidade','detalhes','deletar'];
   dadosCartao = exemploCartao;
@@ -60,11 +72,14 @@ export class GerenciamentoContaComponent implements OnInit {
   tabelaTag: string[] = ['nome', 'tipo'];
   dadosTag = exemploTag;
   
-  constructor(private formBuilder:FormBuilder,public dialog: MatDialog) { 
+  constructor(private formBuilder:FormBuilder,public dialog: MatDialog, private shared: SharedService,private route: ActivatedRoute, private _usuarioService:UsuarioService, private mensagem: MensagemComponent) { 
 
   }
 
   ngOnInit(): void {
+    this._accountId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.shared.send(this._accountId);
+    this.getUsuario(this._accountId);
     this.criarFormularioUsuario();
   }
 
@@ -78,6 +93,37 @@ export class GerenciamentoContaComponent implements OnInit {
       valorReservado:[{value: '', disabled:true}],
       senha:['', Validators.required]
     })
+  }
+
+  calculaPorcentagem(){
+    this.reservado = 0;
+    this.reservado = (this.gerenciaConta.get('porcentagem')?.value / 100) * this.gerenciaConta.get('salario')?.value;
+    this.gerenciaConta.get('valorReservado')?.setValue(this.reservado.toFixed(2));
+    this.mostraSalvar();
+  }
+
+  async getUsuario(idUsuario: Guid){
+    await this._usuarioService.getUsuario(idUsuario).then(result =>{
+      this.usuario = result;
+    })
+  }
+
+  async salvar(){
+    this.usuarioUpdate = this.gerenciaConta.value;
+    this.usuarioUpdate.id = this._accountId;
+    this.usuarioUpdate.valorReservado = this.reservado;
+    await this._usuarioService.updateUsuario(this.usuarioUpdate).then(result => {
+      this.usuario = result;
+      this.calculaPorcentagem();
+      this.mensagem.mostraAviso('Atualizado com sucesso!');
+    }).catch(error => {
+      this.mensagem.mostraAviso('Erro ao salvar usuário');
+      console.log(error);
+    })
+  }
+
+  mostraSalvar(){
+    this.updateButton = true;
   }
 
   openDetalhesBanco(banco: Banco){
