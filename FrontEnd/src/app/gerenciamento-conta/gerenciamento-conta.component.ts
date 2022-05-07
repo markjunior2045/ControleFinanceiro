@@ -120,6 +120,7 @@ export class GerenciamentoContaComponent implements OnInit {
       this.mensagem.mostraAviso('Erro ao salvar usuário');
       console.log(error);
     })
+    this.updateButton = false;
   }
 
   mostraSalvar(){
