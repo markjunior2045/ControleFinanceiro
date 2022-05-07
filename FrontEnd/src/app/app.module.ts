@@ -38,6 +38,7 @@ import { MensagemComponent } from './mensagem/mensagem.component';
 import { SharedService } from './services/shared.service';
 import { AdicionaTransacaoComponent } from './adiciona-transacao/adiciona-transacao.component';
 import { ConfirmacaoDialogComponent } from './confirmacao-dialog/confirmacao-dialog.component';
+import { ToolbarLoginComponent } from './toolbar-login/toolbar-login.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ConfirmacaoDialogComponent } from './confirmacao-dialog/confirmacao-dia
     DetalhesCartaoDialogComponent,
     MensagemComponent,
     AdicionaTransacaoComponent,
-    ConfirmacaoDialogComponent
+    ConfirmacaoDialogComponent,
+    ToolbarLoginComponent
   ],
   imports: [
     BrowserModule,
