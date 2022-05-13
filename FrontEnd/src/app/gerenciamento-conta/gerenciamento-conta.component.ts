@@ -3,19 +3,27 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { AdicionaBancoComponent } from '../adiciona-banco/adiciona-banco.component';
+import { AdicionaCartaoComponent } from '../adiciona-cartao/adiciona-cartao.component';
+import { AdicionaTagComponent } from '../adiciona-tag/adiciona-tag.component';
+import { ConfirmacaoDialogComponent } from '../confirmacao-dialog/confirmacao-dialog.component';
 import { DetalhesCartaoDialogComponent } from '../detalhes-cartao-dialog/detalhes-cartao-dialog.component';
 import { DetalhesContaCorrenteDialogComponent } from '../detalhes-conta-corrente-dialog/detalhes-conta-corrente-dialog.component';
+import { DetalhesTagDialogComponent } from '../detalhes-tag-dialog/detalhes-tag-dialog.component';
 import { MensagemComponent } from '../mensagem/mensagem.component';
 import { Banco } from '../model/banco.model';
 import { Cartao } from '../model/cartao.model';
 import { Guid } from '../model/guid.model';
 import { Tag } from '../model/tag.model';
 import { Usuario } from '../model/usuario.model';
+import { BancoService } from '../services/banco.service';
+import { CartaoService } from '../services/cartao.service';
 import { SharedService } from '../services/shared.service';
+import { TagService } from '../services/tag.service';
 import { TransacaoService } from '../services/transacao.service';
 import { UsuarioService } from '../services/usuario.service';
 
-const exemploCartao:Cartao[] = [
+const exemploCartao: Cartao[] = [
   {
     id: '1',
     nome: 'Lucas',
@@ -25,11 +33,12 @@ const exemploCartao:Cartao[] = [
     banco: 'Santander',
     vencimentoFatura: new Date(),
     validade: new Date(),
-    codigo: 123
+    codigo: 123,
+    bancoCartao: []
   },
 ];
 
-const exemploBanco:Banco[] = [
+const exemploBanco: Banco[] = [
   {
     id: '1',
     banco: 'Santander',
@@ -40,7 +49,7 @@ const exemploBanco:Banco[] = [
   },
 ];
 
-const exemploTag:Tag[] = [
+const exemploTag: Tag[] = [
   {
     id: '1',
     nome: 'Conta de Luz',
@@ -48,6 +57,21 @@ const exemploTag:Tag[] = [
   },
 ];
 
+const exemploUsuario: Usuario =
+{
+  id: '1',
+  nome: 'Teste',
+  sobrenome: '2',
+  email: 'teste@gmail.com',
+  porcentagem: 0,
+  senha: '0',
+  salario: 0,
+  valorReservado: 0,
+  banco: exemploBanco,
+  cartao: exemploCartao,
+  tag: exemploTag,
+  transacoes: [],
+}
 
 @Component({
   selector: 'app-gerenciamento-conta',
@@ -58,21 +82,29 @@ export class GerenciamentoContaComponent implements OnInit {
 
   gerenciaConta: FormGroup;
   _accountId: Guid;
-  usuario: Usuario;
+  usuario: Usuario = exemploUsuario;
   usuarioUpdate: Usuario;
   reservado: number;
   updateButton: boolean = false;
 
-  tabelaCartao: string[] = ['nome','numero','modalidade','detalhes','deletar'];
-  dadosCartao = exemploCartao;
+  tabelaCartao: string[] = ['nome', 'numero', 'modalidade', 'detalhes', 'deletar'];
+  dadosCartao: Cartao[] = exemploCartao;
 
-  tabelaBanco: string[] = ['banco','agencia','conta','detalhes','deletar'];
-  dadosBanco = exemploBanco;
+  tabelaBanco: string[] = ['banco', 'saldo', 'titular', 'agencia', 'conta', 'detalhes', 'deletar'];
+  dadosBanco: Banco[] = exemploBanco;
 
-  tabelaTag: string[] = ['nome', 'tipo'];
+  tabelaTag: string[] = ['nome', 'tipo','detalhes','deletar'];
   dadosTag = exemploTag;
-  
-  constructor(private formBuilder:FormBuilder,public dialog: MatDialog, private shared: SharedService,private route: ActivatedRoute, private _usuarioService:UsuarioService, private mensagem: MensagemComponent) { 
+
+  constructor(private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private shared: SharedService,
+    private route: ActivatedRoute,
+    private _usuarioService: UsuarioService,
+    private _bancoService: BancoService,
+    private _cartaoService: CartaoService,
+    private _tagService: TagService,
+    private mensagem: MensagemComponent) {
 
   }
 
@@ -80,35 +112,56 @@ export class GerenciamentoContaComponent implements OnInit {
     this._accountId = this.route.snapshot.paramMap.get('id') ?? '';
     this.shared.send(this._accountId);
     this.getUsuario(this._accountId);
+    this.getBancos(this._accountId);
+    this.getCartoes(this._accountId);
+    this.getTags(this._accountId);
     this.criarFormularioUsuario();
   }
 
-  criarFormularioUsuario(){
+  criarFormularioUsuario() {
     this.gerenciaConta = this.formBuilder.group({
-      nome:['', Validators.required],
-      sobrenome:['', Validators.required],
-      email:['', Validators.required],
-      salario:['', Validators.required],
-      porcentagem:['', Validators.required],
-      valorReservado:[{value: '', disabled:true}],
-      senha:['', Validators.required]
+      nome: ['', Validators.required],
+      sobrenome: ['', Validators.required],
+      email: ['', Validators.required],
+      salario: ['', Validators.required],
+      porcentagem: ['', Validators.required],
+      valorReservado: [{ value: '', disabled: true }],
+      senha: ['', Validators.required]
     })
   }
 
-  calculaPorcentagem(){
+  calculaPorcentagem() {
     this.reservado = 0;
     this.reservado = (this.gerenciaConta.get('porcentagem')?.value / 100) * this.gerenciaConta.get('salario')?.value;
     this.gerenciaConta.get('valorReservado')?.setValue(this.reservado.toFixed(2));
     this.mostraSalvar();
   }
 
-  async getUsuario(idUsuario: Guid){
-    await this._usuarioService.getUsuario(idUsuario).then(result =>{
+  async getUsuario(idUsuario: Guid) {
+    await this._usuarioService.getUsuario(idUsuario).then(result => {
       this.usuario = result;
     })
   }
 
-  async salvar(){
+  async getBancos(idUsuario: Guid) {
+    await this._bancoService.getBancos(idUsuario).then(result => {
+      this.dadosBanco = result[0].banco;
+    })
+  }
+
+  async getCartoes(idUsuario: Guid) {
+    await this._cartaoService.getCartao(idUsuario).then(result => {
+      this.dadosCartao = result[0].cartao;
+    })
+  }
+
+  async getTags(idUsuario: Guid){
+    await this._tagService.getTags(idUsuario).then(result => {
+      this.dadosTag = result[0].tag;
+    })
+  }
+
+  async salvarUsuario() {
     this.usuarioUpdate = this.gerenciaConta.value;
     this.usuarioUpdate.id = this._accountId;
     this.usuarioUpdate.valorReservado = this.reservado;
@@ -123,12 +176,182 @@ export class GerenciamentoContaComponent implements OnInit {
     this.updateButton = false;
   }
 
-  mostraSalvar(){
+  async adicionaTag(idUsuario:Guid, tag: Tag){
+    await this._tagService.cadastraTag(idUsuario,tag).then(result => {
+      this.mensagem.mostraAviso('Tag adicionada com sucesso!');
+    }).catch(error => {
+      console.log(error);
+      this.mensagem.mostraAviso('Erro ao adicionar Tag');
+    })
+    this.getTags(this._accountId);
+  }
+
+  async adicionaBanco(idUsuario: Guid, banco: Banco) {
+    await this._bancoService.cadastraBanco(idUsuario, banco).then(result => {
+      this.mensagem.mostraAviso('Banco adicionado com sucesso!');
+    }).catch(error => {
+      console.log(error);
+      this.mensagem.mostraAviso('Erro ao adicionar Banco');
+    })
+    this.getBancos(this._accountId);
+  }
+
+  async adicionaCartao(idUsuario: Guid, cartao: Cartao) {
+    console.log(cartao);
+
+    await this._cartaoService.cadastraCartao(idUsuario, cartao).then(result => {
+      this.mensagem.mostraAviso('Cartão adicionado com sucesso!');
+    }).catch(error => {
+      console.log(error);
+      this.mensagem.mostraAviso('Erro ao adicionar Cartão');
+    })
+    this.getCartoes(this._accountId);
+  }
+
+  deletarBancoDialog(idBanco: Guid, nomeBanco: string){
+    const dialogRef = this.dialog.open(ConfirmacaoDialogComponent, {
+      width: '480px',
+      data: 'Tem certeza que deseja APAGAR o banco ' + nomeBanco + '?'
+    });
+    
+    dialogRef.afterClosed().subscribe(async result => {
+      if (result != undefined && result) {
+        const temCartao = await this._bancoService.checkCartao(idBanco);
+        if(temCartao){
+          this.mensagem.mostraAviso('Erro: Existe um cartão com esse banco!');
+        }else{
+          this.deletaBanco(idBanco);
+        }
+      }
+    })
+  }
+
+  deletarTagDialog(idTag:Guid,nomeTag: string):void {
+    const dialogRef = this.dialog.open(ConfirmacaoDialogComponent, {
+      width: '480px',
+      data: 'Tem certeza que deseja APAGAR a tag ' + nomeTag + '?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined && result){
+        this.deletaTag(idTag);
+      }
+    })
+  }
+
+  deletarCartaoDialog(idCartao: Guid, nomeCartao: string): void {
+    const dialogRef = this.dialog.open(ConfirmacaoDialogComponent, {
+      width: '480px',
+      data: 'Tem certeza que deseja APAGAR o cartão ' + nomeCartao + '?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined && result) {
+        this.deletaCartao(idCartao);
+      }
+    })
+  }
+
+  async atualizaBanco(idUsuario: Guid, banco: Banco) {
+    await this._bancoService.atualizaBanco(idUsuario, banco).then(result => {
+      this.mensagem.mostraAviso('Atualizado com sucesso!');
+      this.getBancos(this._accountId);
+    }).catch(error => {
+      console.log(error);
+      this.mensagem.mostraAviso('Erro ao atualizar banco');
+    })
+  }
+
+  async atualizaTag(idUsuario:Guid, tag:Tag){
+    await this._tagService.atualizaTag(idUsuario,tag).then(result => {
+      this.mensagem.mostraAviso('Atualizado com sucesso!');
+      this.getTags(this._accountId);
+    }).catch(error => {
+      console.log(error);
+      this.mensagem.mostraAviso('Erro ao atualizar tag');
+    })
+  }
+
+  async atualizaCartao(idUsuario: Guid, cartao: Cartao) {
+    await this._cartaoService.atualizaCartao(idUsuario, cartao).then(result => {
+      this.mensagem.mostraAviso('Atualizado com sucesso!');
+      this.getCartoes(this._accountId);
+    }).catch(error => {
+      console.log(error);
+      this.mensagem.mostraAviso('Erro ao atualizar cartão');
+    })
+  }
+
+  async deletaBanco(idBanco: Guid) {
+    await this._bancoService.deleteBanco(idBanco).then(result => {
+      this.mensagem.mostraAviso('Removido com sucesso!');
+    }).catch(error => {
+      this.mensagem.mostraAviso('Erro ao deletar banco');
+    })
+    this.getBancos(this._accountId);
+  }
+
+  async deletaTag(idTag: Guid){
+    await this._tagService.deleteTag(idTag).then(result => {
+      this.mensagem.mostraAviso('Removido com Sucesso!');
+      this.getTags(this._accountId);
+    }).catch(error => {
+      this.mensagem.mostraAviso('Erro ao deletar Tag');
+    })
+  }
+
+  async deletaCartao(idCartao: Guid) {
+    await this._cartaoService.deleteCartao(idCartao).then(result => {
+      this.mensagem.mostraAviso('Removido com sucesso!');
+    }).catch(error => {
+      this.mensagem.mostraAviso('Erro ao deletar cartão');
+    })
+    this.getCartoes(this._accountId);
+  }
+
+  mostraSalvar() {
     this.updateButton = true;
   }
 
-  openDetalhesBanco(banco: Banco){
-    const dialogRef = this.dialog.open(DetalhesContaCorrenteDialogComponent,{
+  openAdicionaTag(){
+    const dialogRef = this.dialog.open(AdicionaTagComponent, {
+      width: '480px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        this.adicionaTag(this._accountId,result);
+      }
+    })
+  }
+
+  openAdicionaBanco() {
+    const dialogRef = this.dialog.open(AdicionaBancoComponent, {
+      width: '480px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        this.adicionaBanco(this._accountId, result);
+      }
+    })
+  }
+
+  openAdicionaCartao() {
+    const dialogRef = this.dialog.open(AdicionaCartaoComponent, {
+      width: '480px',
+      data: this.dadosBanco
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        this.adicionaCartao(this._accountId, result);
+      }
+    })
+  }
+
+  openDetalhesBanco(banco: Banco) {
+    const dialogRef = this.dialog.open(DetalhesContaCorrenteDialogComponent, {
       width: '480px',
       data: {
         banco: banco.banco,
@@ -138,20 +361,71 @@ export class GerenciamentoContaComponent implements OnInit {
         saldo: banco.saldo
       }
     })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        banco.banco = result.banco,
+          banco.agencia = result.agencia,
+          banco.conta = result.conta,
+          banco.titular = result.titular,
+          banco.saldo = result.saldo
+        this.atualizaBanco(this._accountId, banco);
+      }
+    })
   }
 
-  openDetalhesCartao(cartao: Cartao){
-    const dialogRef = this.dialog.open(DetalhesCartaoDialogComponent,{
+  openDetalhesTag(tag:Tag){
+    const dialogRef = this.dialog.open(DetalhesTagDialogComponent,{
       width: '480px',
       data: {
+        nome: tag.nome,
+        tipo: tag.tipo
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined){
+        tag.nome = result.nome;
+        tag.tipo = result.tipo;
+        this.atualizaTag(this._accountId,tag);
+      }
+    })
+  }
+
+  openDetalhesCartao(cartao: Cartao) {
+    const dialogRef = this.dialog.open(DetalhesCartaoDialogComponent, {
+      width: '480px',
+      data: {
+        cartao: {
           nome: cartao.nome,
           numero: cartao.numero,
           modalidade: cartao.modalidade,
           bancoCadastrado: cartao.bancoCadastrado,
           banco: cartao.banco,
-          vencimentoFatura: new Date(cartao.vencimentoFatura).toISOString().slice(0,10).replace('T',' '),
-          validade: new Date(cartao.validade).toISOString().slice(0,7).replace('T',' '),
-          codigo: cartao.codigo     
+          bancoid: cartao.bancoCartao,
+          vencimentoFatura: new Date(cartao.vencimentoFatura).toISOString().slice(0, 10).replace('T', ' '),
+          validade: new Date(cartao.validade).toISOString().slice(0, 7).replace('T', ' '),
+          codigo: cartao.codigo
+        },
+        bancos: this.dadosBanco
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined) {
+        cartao.nome = result.nome;
+        cartao.numero = result.numero;
+        cartao.modalidade = result.modalidade;
+        cartao.bancoCadastrado = result.bancoCadastrado;
+        if (result.bancoCadastrado) {
+          cartao.bancoid = result.bancoid;
+        }
+        cartao.banco = result.banco;
+        cartao.vencimentoFatura = result.vencimentoFatura;
+        cartao.validade = new Date(result.validade);
+        cartao.codigo = result.codigo;
+        console.log(cartao);
+        this.atualizaCartao(this._accountId, cartao);
       }
     })
   }

@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Adicionar Banco</h1>
+<div mat-dialog-content>
+    <form [formGroup]="bancoForm">
+        <div class="formulario">
+
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Banco:</mat-label>
+                <input autocomplete="off" matInput type="text" formControlName="banco" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Agência:</mat-label>
+                <input autocomplete="off" matInput type="number" formControlName="agencia" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Conta:</mat-label>
+                <input autocomplete="off" matInput type="number" formControlName="conta" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Titular:</mat-label>
+                <input autocomplete="off" matInput type="text" formControlName="titular" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Saldo:</mat-label>
+                <input autocomplete="off" matInput type="number" formControlName="saldo" required />
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="fechar()">Cancelar</button>
+    <button mat-button (click)="salvar()">Salvar</button>
+</div>

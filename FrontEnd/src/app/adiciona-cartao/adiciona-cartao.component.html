@@ -4,29 +4,29 @@
         
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Nome</mat-label>
-                <input matInput type="text" [(ngModel)]="data.cartao.nome" formControlName="nome">
+                <input matInput type="text" formControlName="nome">
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Numero</mat-label>
-                <input matInput type="text" [(ngModel)]="data.cartao.numero" formControlName="numero">
+                <input matInput type="text" formControlName="numero">
             </mat-form-field>
 
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Modalidade</mat-label>
-                <mat-select formControlName="modalidade" [(ngModel)]="data.cartao.modalidade">
+                <mat-select formControlName="modalidade">
                     <mat-option *ngFor="let opcao of modalidadeCartao" [value]="opcao">
                         {{opcao}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
 
-            <mat-checkbox appearance="fill" style="margin-bottom: 5%;" formControlName="bancoCadastrado" [(ngModel)]="temBanco" color='primary'>Este cartao tem banco cadastrado</mat-checkbox>
+            <mat-checkbox appearance="fill" style="margin-bottom: 5%;" formControlName="bancoCadastrado" [(ngModel)]="temBanco" color='primary'>Este cartão tem banco cadastrado</mat-checkbox>
 
             <mat-form-field *ngIf="temBanco" appearance="fill" style="margin-right: 5%;">
                 <mat-label>Banco</mat-label>
-                <mat-select formControlName="bancoid" [(ngModel)]="data.cartao.bancoid.id">
-                    <mat-option *ngFor="let banco of data.bancos" [value]="banco.id">
+                <mat-select formControlName="bancoid">
+                    <mat-option *ngFor="let banco of data" [value]="banco.id">
                         {{banco.banco}}
                     </mat-option>
                 </mat-select>
@@ -34,22 +34,22 @@
 
             <mat-form-field *ngIf="!temBanco" appearance="fill" style="margin-right: 5%;">
                 <mat-label>Nome da Agência Bancária:</mat-label>
-                <input autocomplete="off" matInput type="text" formControlName="banco" [(ngModel)]="data.cartao.banco" required />
+                <input autocomplete="off" matInput type="text" formControlName="banco" required />
             </mat-form-field>
 
             <mat-form-field appearance="fill" style="margin-right: 5%;"> 
                 <mat-label>Data do vencimento da fatura:</mat-label>
-                <input autocomplete="off" matInput type="date" formControlName="vencimentoFatura" [(ngModel)]="data.cartao.vencimentoFatura" required />
+                <input autocomplete="off" matInput type="date" formControlName="vencimentoFatura" required />
             </mat-form-field>
 
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Validade:</mat-label>
-                <input autocomplete="off" matInput type="month" formControlName="validade" [(ngModel)]="data.cartao.validade" required />
+                <input autocomplete="off" matInput type="month" formControlName="validade" required />
             </mat-form-field>
 
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Código de segurança:</mat-label>
-                <input autocomplete="off" matInput type="number" formControlName="codigo" [(ngModel)]="data.cartao.codigo" required />
+                <input autocomplete="off" matInput type="number" formControlName="codigo" required />
             </mat-form-field>
     </form>
 </div>

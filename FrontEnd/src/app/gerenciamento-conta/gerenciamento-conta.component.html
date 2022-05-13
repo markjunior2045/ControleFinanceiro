@@ -49,7 +49,7 @@
 
                         </div>
                         <mat-card-actions>
-                            <button mat-raised-button [disabled]="!updateButton" (click)="salvar()" class="btnSalvar">Salvar alterações</button>
+                            <button mat-raised-button [disabled]="!updateButton" (click)="salvarUsuario()" class="btnSalvar">Salvar alterações</button>
                         </mat-card-actions>
                     </form>
                 </mat-tab>
@@ -91,7 +91,7 @@
                                 <ng-container matColumnDef="deletar">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element">
-                                        <mat-icon>delete</mat-icon>
+                                        <mat-icon (click)="deletarCartaoDialog(element.id,element.nome)">delete</mat-icon>
                                     </td>
                                 </ng-container>
 
@@ -100,7 +100,7 @@
                             </table>
                         </mat-card-content>
                         <mat-card-actions class="btnCard">
-                            <button mat-raised-button class="btnAdicionar">Adicionar</button>
+                            <button mat-raised-button (click)="openAdicionaCartao()" class="btnAdicionar">Adicionar</button>
                         </mat-card-actions>
                     </mat-card>
                 </mat-tab>
@@ -118,6 +118,16 @@
                                 <ng-container matColumnDef="banco">
                                     <th mat-header-cell *matHeaderCellDef> Nome do Banco </th>
                                     <td mat-cell *matCellDef="let element"> {{element.banco}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="saldo">
+                                    <th mat-header-cell *matHeaderCellDef> Saldo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.saldo}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="titular">
+                                    <th mat-header-cell *matHeaderCellDef> Titular </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.titular}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="agencia">
@@ -140,7 +150,7 @@
                                 <ng-container matColumnDef="deletar">
                                     <th mat-header-cell *matHeaderCellDef></th>
                                     <td mat-cell *matCellDef="let element">
-                                        <mat-icon>delete</mat-icon>
+                                        <mat-icon (click)="deletarBancoDialog(element.id,element.banco)">delete</mat-icon>
                                     </td>
                                 </ng-container>
 
@@ -149,7 +159,7 @@
                             </table>
                         </mat-card-content>
                         <mat-card-actions class="btnCard">
-                            <button mat-raised-button class="btnAdicionar">Adicionar</button>
+                            <button mat-raised-button (click)="openAdicionaBanco()" class="btnAdicionar">Adicionar</button>
                         </mat-card-actions>
                     </mat-card>
                 </mat-tab>
@@ -174,12 +184,26 @@
                                     <td mat-cell *matCellDef="let element"> {{element.tipo}} </td>
                                 </ng-container>
 
+                                <ng-container matColumnDef="detalhes">
+                                    <th mat-header-cell *matHeaderCellDef></th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <mat-icon (click)="openDetalhesTag(element)">edit</mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="deletar">
+                                    <th mat-header-cell *matHeaderCellDef></th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <mat-icon (click)="deletarTagDialog(element.id,element.nome)">delete</mat-icon>
+                                    </td>
+                                </ng-container>
+
                                 <tr mat-header-row *matHeaderRowDef="tabelaTag"></tr>
                                 <tr mat-row *matRowDef="let row; columns: tabelaTag;"></tr>
                             </table>
                         </mat-card-content>
                         <mat-card-actions class="btnCard">
-                            <button mat-raised-button class="btnAdicionar">Adicionar</button>
+                            <button mat-raised-button (click)="openAdicionaTag()" class="btnAdicionar">Adicionar</button>
                         </mat-card-actions>
                     </mat-card>
                 </mat-tab>

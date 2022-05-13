@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Adicionar Tag</h1>
+<div mat-dialog-content>
+    <form [formGroup]="tagForm">
+        <div class="formulario">
+
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Nome:</mat-label>
+                <input autocomplete="off" matInput type="text" formControlName="nome" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Tpo:</mat-label>
+                <input autocomplete="off" matInput type="text" formControlName="tipo" required />
+            </mat-form-field>
+            
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="fechar()">Cancelar</button>
+    <button mat-button (click)="salvar()">Salvar</button>
+</div>

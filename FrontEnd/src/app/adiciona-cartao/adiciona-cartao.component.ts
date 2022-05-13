@@ -1,25 +1,26 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Banco } from '../model/banco.model';
 import { Cartao } from '../model/cartao.model';
 
 @Component({
-  selector: 'app-detalhes-cartao-dialog',
-  templateUrl: './detalhes-cartao-dialog.component.html',
-  styleUrls: ['./detalhes-cartao-dialog.component.css']
+  selector: 'app-adiciona-cartao',
+  templateUrl: './adiciona-cartao.component.html',
+  styleUrls: ['./adiciona-cartao.component.css']
 })
-export class DetalhesCartaoDialogComponent implements OnInit {
+export class AdicionaCartaoComponent implements OnInit {
   cadastroCartao: FormGroup;
   temBanco: boolean = false;
   modalidadeCartao: string[] = ['Crédito', 'Débito'];
 
-  constructor(public dialogRef: MatDialogRef<DetalhesCartaoDialogComponent>, 
-    @Inject(MAT_DIALOG_DATA)public data:any,
+  constructor(public dialogRef: MatDialogRef<AdicionaCartaoComponent>, 
+    @Inject(MAT_DIALOG_DATA)public data:Banco[],
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.criarFormulario();
-    this.temBanco = this.data.cartao.bancoCadastrado;
+    this.temBanco = false;
   }
 
   criarFormulario(){
@@ -27,7 +28,7 @@ export class DetalhesCartaoDialogComponent implements OnInit {
       nome:['', Validators.required],
       numero:['', Validators.required],
       modalidade:['', Validators.required],
-      bancoCadastrado:[],
+      bancoCadastrado: false,
       banco:['', Validators.required],
       bancoid:['', Validators.required],
       vencimentoFatura:['', Validators.required],
