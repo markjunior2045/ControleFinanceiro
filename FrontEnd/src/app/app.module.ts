@@ -39,6 +39,10 @@ import { SharedService } from './services/shared.service';
 import { AdicionaTransacaoComponent } from './adiciona-transacao/adiciona-transacao.component';
 import { ConfirmacaoDialogComponent } from './confirmacao-dialog/confirmacao-dialog.component';
 import { ToolbarLoginComponent } from './toolbar-login/toolbar-login.component';
+import { AdicionaBancoComponent } from './adiciona-banco/adiciona-banco.component';
+import { AdicionaCartaoComponent } from './adiciona-cartao/adiciona-cartao.component';
+import { AdicionaTagComponent } from './adiciona-tag/adiciona-tag.component';
+import { DetalhesTagDialogComponent } from './detalhes-tag-dialog/detalhes-tag-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,11 @@ import { ToolbarLoginComponent } from './toolbar-login/toolbar-login.component';
     MensagemComponent,
     AdicionaTransacaoComponent,
     ConfirmacaoDialogComponent,
-    ToolbarLoginComponent
+    ToolbarLoginComponent,
+    AdicionaBancoComponent,
+    AdicionaCartaoComponent,
+    AdicionaTagComponent,
+    DetalhesTagDialogComponent
   ],
   imports: [
     BrowserModule,

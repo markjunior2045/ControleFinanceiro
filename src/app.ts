@@ -7,6 +7,7 @@ import { routerUsuario } from './routes/usuario';
 import { routerTransacao } from './routes/transacao';
 import { routerCartao } from './routes/cartao';
 import { routerBanco } from './routes/banco';
+import { routerTag } from './routes/tag';
 
 //cria a aplicação
 export const app = express();
@@ -28,4 +29,5 @@ app.use('/banco', routerBanco);
 app.use('/cartao', routerCartao);
 app.use('/transacao', routerTransacao);
 app.use('/usuario', routerUsuario);
+app.use('/tag', routerTag);
 app.use('/',(req,res) => res.send('API Controle Financeiro'));

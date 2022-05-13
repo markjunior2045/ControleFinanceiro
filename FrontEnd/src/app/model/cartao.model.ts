@@ -1,3 +1,4 @@
+import { Banco } from "./banco.model";
 import { Guid } from "./guid.model";
 
 export interface Cartao{
@@ -10,4 +11,6 @@ export interface Cartao{
     vencimentoFatura: Date;
     validade: Date;
     codigo: number;
+    bancoid?: Guid;
+    bancoCartao:Banco[];
 }

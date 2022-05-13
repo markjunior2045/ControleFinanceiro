@@ -41,7 +41,7 @@ export class CadastroCartaoComponent implements OnInit {
 
   salvar(){
     this.cartao = this.cadastroCartao.value;
-    this._cartaoservice.cadastraCartao(this.cartao).then(() => {
+    this._cartaoservice.cadastraCartao("",this.cartao).then(() => {
       alert('Salvo com sucesso!');
     }).catch(erro => console.log('Erro: ' + erro)
     );

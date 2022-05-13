@@ -61,7 +61,7 @@ export class TransacoesComponent implements OnInit {
     this.getTransacoes(this._accountId);
    }
 
-  openDialog(transacao: Transacao): void{
+  openEditarDialog(transacao: Transacao): void{
     const dialogRef = this.dialog.open(DetalhesTransacaoComponent, {
       width: '480px',
       data: { descricao: transacao.descricao, valor: transacao.valor, metodo: transacao.metodo, data: new Date(transacao.data).toISOString().slice(0,10).replace('T',' ')}

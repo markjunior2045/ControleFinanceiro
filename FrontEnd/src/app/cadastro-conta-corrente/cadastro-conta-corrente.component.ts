@@ -31,7 +31,7 @@ export class CadastroContaCorrenteComponent implements OnInit {
 
   salvar(){
     this.banco = this.cadastroContaCorrente.value;
-    this._bancoService.cadastraContaCorrente(this.banco).then(() => {
+    this._bancoService.cadastraBanco("",this.banco).then(() => {
       alert('Salvo com sucesso!');
     }).catch(erro => console.log('Erro: ' + erro)
     );

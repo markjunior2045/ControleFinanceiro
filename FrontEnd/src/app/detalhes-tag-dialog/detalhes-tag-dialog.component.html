@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Detalhes Tag</h1>
+<div mat-dialog-content>
+    <form [formGroup]="detalhesForm">
+        
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" [(ngModel)]="data.nome" formControlName="nome">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Tipo</mat-label>
+                <input matInput type="text" [(ngModel)]="data.tipo" formControlName="tipo">
+            </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="fechar()">Cancelar</button>
+    <button mat-button (click)="salvar()">Salvar</button>
+</div>
