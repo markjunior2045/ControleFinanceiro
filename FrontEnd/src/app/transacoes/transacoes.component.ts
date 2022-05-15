@@ -10,36 +10,6 @@ import { Transacao } from '../model/transacao.model';
 import { Usuario } from '../model/usuario.model';
 import { SharedService } from '../services/shared.service';
 import { TransacaoService } from '../services/transacao.service';
-
-const exemploTransacao:Transacao[] = [
-  {
-    id:'1',
-    descricao:'Descrição 1 da Transação',
-    metodo: 'Dinheiro',
-    parcelado: false,
-    quantidadeParcelas: 1,
-    valor: 50,
-    data: new Date('2020-01-20')
-  },
-  {
-    id:'2',
-    descricao:'Descrição 2 da Transação',
-    metodo: 'Cartão',
-    parcelado: false,
-    quantidadeParcelas: 1,
-    valor: 150,
-    data: new Date('2021-04-15')
-  },
-  {
-    id:'3',
-    descricao:'Descrição 3 da Transação',
-    metodo: 'Dinheiro',
-    parcelado: false,
-    quantidadeParcelas: 1,
-    valor: 200,
-    data: new Date('2022-08-10')
-  }
-];
 @Component({
   selector: 'app-transacoes',
   templateUrl: './transacoes.component.html',
@@ -48,70 +18,89 @@ const exemploTransacao:Transacao[] = [
 
 export class TransacoesComponent implements OnInit {
 
-  displayedColumns: string[] = ['descricao','valor','metodo','detalhes','deletar'];
+  displayedColumns: string[] = ['descricao', 'valor', 'metodo', 'detalhes', 'deletar'];
   dataSource: Transacao[];
   totalGasto: number = 0;
+  totalGanho: number = 0;
   _accountId: Guid;
 
-  constructor(public dialog: MatDialog, private _transacaoservice:TransacaoService, private shared: SharedService,private route: ActivatedRoute, private mensagem:MensagemComponent) { }
+  constructor(public dialog: MatDialog, private _transacaoservice: TransacaoService, private shared: SharedService, private route: ActivatedRoute, private mensagem: MensagemComponent) { }
 
   ngOnInit(): void {
     this._accountId = this.route.snapshot.paramMap.get('id') ?? '';
     this.shared.send(this._accountId);
     this.getTransacoes(this._accountId);
-   }
+  }
 
-  openEditarDialog(transacao: Transacao): void{
+  openEditarDialog(transacao: Transacao): void {
     const dialogRef = this.dialog.open(DetalhesTransacaoComponent, {
       width: '480px',
-      data: { descricao: transacao.descricao, valor: transacao.valor, metodo: transacao.metodo, data: new Date(transacao.data).toISOString().slice(0,10).replace('T',' ')}
+      data: {
+        idUsuario: this._accountId,
+        descricao: transacao.descricao,
+        entrada: transacao.entrada,
+        valor: transacao.valor,
+        metodo: transacao.metodo,
+        data: new Date(transacao.data).toISOString().slice(0, 10).replace('T', ' '),
+        cartao: transacao.cartao,
+        banco: transacao.banco
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined){
+      if (result != undefined) {
         transacao.descricao = result.descricao;
+        transacao.entrada = result.entrada;
         transacao.valor = result.valor;
         transacao.metodo = result.metodo;
         transacao.data = result.data;
+        if (result.bancoid != '' && result.bancoid != null && result.bancoid != undefined) {
+          transacao.bancoid = result.bancoid
+        }
+        if (result.cartaoid != '' && result.cartaoid != null && result.cartaoid != undefined) {
+          transacao.cartaoid = result.cartaoid
+        }
         this.atualizar(this._accountId, transacao);
       }
     })
   }
 
-  novaTransacaoDialog(): void{
+  novaTransacaoDialog(): void {
     const dialogRef = this.dialog.open(AdicionaTransacaoComponent, {
       width: '480px',
+      data: this._accountId
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined){
-        this.adicionaTransacao(this._accountId,result);
+      if (result != undefined) {
+        this.adicionaTransacao(this._accountId, result);
       }
     })
   }
 
-  deletarTransacaoDialog(idTransacao: Guid, nomeTransacao:string): void{
-    const dialogRef = this.dialog.open(ConfirmacaoDialogComponent,{
+  deletarTransacaoDialog(idTransacao: Guid, nomeTransacao: string): void {
+    const dialogRef = this.dialog.open(ConfirmacaoDialogComponent, {
       width: '480px',
       data: 'Tem certeza que deseja APAGAR a transação ' + nomeTransacao + '?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined && result){
+      if (result != undefined && result) {
         this.deletaTransacao(idTransacao);
       }
     })
   }
 
-  async getTransacoes(idUsuario: Guid){
+  async getTransacoes(idUsuario: Guid) {
     await this._transacaoservice.getTransacoesUsuario(idUsuario).then(result => {
       this.dataSource = result[0].transacoes;
+      console.log(result[0].transacoes);
     })
-    this.calculaTotalGasto();
+    this.calculaTotalGastoGanho();
   }
 
-  async adicionaTransacao(idUsuario: Guid, transacao: Transacao){
-    await this._transacaoservice.adicionaTransacao(idUsuario,transacao).then(result => {
+  async adicionaTransacao(idUsuario: Guid, transacao: Transacao) {
+    await this._transacaoservice.adicionaTransacao(idUsuario, transacao).then(result => {
       this.mensagem.mostraAviso('Adicionado com sucesso!');
     }).catch(error => {
       console.log(error);
@@ -120,7 +109,7 @@ export class TransacoesComponent implements OnInit {
     this.getTransacoes(this._accountId);
   }
 
-  async deletaTransacao(idTransacao: Guid){
+  async deletaTransacao(idTransacao: Guid) {
     await this._transacaoservice.deletaTransacao(idTransacao).then(result => {
       this.mensagem.mostraAviso('Removido com sucesso!');
     }).catch(error => {
@@ -130,17 +119,22 @@ export class TransacoesComponent implements OnInit {
     this.getTransacoes(this._accountId);
   }
 
-  async atualizar(idUsuario:Guid,transacao: Transacao){
-    await this._transacaoservice.atualizaTransacao(idUsuario,transacao).then(result => {
+  async atualizar(idUsuario: Guid, transacao: Transacao) {
+    await this._transacaoservice.atualizaTransacao(idUsuario, transacao).then(result => {
       this.mensagem.mostraAviso('Atualizado com sucesso!')
       this.getTransacoes(this._accountId);
     }).catch(error => console.log(error));
   }
 
-  calculaTotalGasto(){
+  calculaTotalGastoGanho() {
     this.totalGasto = 0;
+    this.totalGanho = 0;
     this.dataSource.forEach(x => {
-      this.totalGasto += x.valor;
+      if (!x.entrada) {
+        this.totalGasto += x.valor;
+      } else {
+        this.totalGanho += x.valor;
+      }
     })
   }
 }

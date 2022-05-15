@@ -46,7 +46,10 @@ export class UsuarioController{
     async getTransacoesDoUsuario(idUsuario: string){
         const transacoes = await database.manager.find(Usuario,{
             relations: {
-                transacoes: true
+                transacoes: {
+                    banco: true,
+                    cartao: true
+                }
             },
             where: {
                id: idUsuario 

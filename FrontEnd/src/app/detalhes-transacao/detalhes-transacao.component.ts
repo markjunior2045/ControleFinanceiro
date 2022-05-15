@@ -1,7 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MensagemComponent } from '../mensagem/mensagem.component';
+import { Banco } from '../model/banco.model';
+import { Cartao } from '../model/cartao.model';
+import { Guid } from '../model/guid.model';
 import { Transacao } from '../model/transacao.model';
+import { BancoService } from '../services/banco.service';
+import { CartaoService } from '../services/cartao.service';
 
 @Component({
   selector: 'app-detalhes-transacao',
@@ -10,30 +16,112 @@ import { Transacao } from '../model/transacao.model';
 })
 export class DetalhesTransacaoComponent implements OnInit {
   detalhesForm: FormGroup;
-  metodoPagamento: string[] = ['Dinheiro','Cartão','Boleto','Pix']
+  metodoPagamento: string[] = ['Dinheiro', 'Cartão', 'Boleto', 'Pix'];
+  metodoCartao: boolean;
+  metodoBanco: boolean;
+  cartoes: Cartao[];
+  bancos: Banco[];
 
-  constructor(public dialogRef: MatDialogRef<DetalhesTransacaoComponent>, 
-              @Inject(MAT_DIALOG_DATA)public data:Transacao,
-              private formBuilder: FormBuilder) { }
+  constructor(public dialogRef: MatDialogRef<DetalhesTransacaoComponent>,
+    private _bancoService: BancoService,
+    private _cartaoService: CartaoService,
+    private mensagem: MensagemComponent,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.getBancos(this.data.idUsuario);
+    this.getCartoes(this.data.idUsuario);    
     this.criaForm();
+    this.metodoInicial();
+    console.log(this.data);
+    
   }
 
-  fechar(){
+  fechar() {
     this.dialogRef.close();
   }
 
-  salvar(){
-    this.dialogRef.close(this.detalhesForm.value);
+  salvar() {
+    if (this.detalhesForm.valid) {
+      this.dialogRef.close(this.detalhesForm.value);
+    } else {
+      this.mensagem.mostraAviso('Erro: Preencha os campos corretamente!');
+    }
   }
 
-  criaForm(){
+  criaForm() {
     this.detalhesForm = this.formBuilder.group({
       descricao: ['', Validators.required],
+      entrada: false,
       valor: ['', Validators.required],
       metodo: ['', Validators.required],
+      cartaoid: [''],
+      bancoid: [''],
       data: ['', Validators.required]
     })
   }
+
+  async getCartoes(idUsuario: Guid) {
+    await this._cartaoService.getCartao(idUsuario).then(result => {
+      if (result != null) {
+        this.cartoes = result[0].cartao;
+      }
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  async getBancos(idUsuario: Guid) {
+    await this._bancoService.getBancos(idUsuario).then(result => {
+      if (result != null) {
+        this.bancos = result[0].banco;
+      }
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
+  metodo() {
+    switch (this.detalhesForm.controls['metodo'].value) {
+      case "Cartão":
+        this.metodoCartao = true;
+        this.metodoBanco = false;
+        this.detalhesForm.controls['cartaoid'].setValidators(Validators.required);
+        this.detalhesForm.controls['bancoid'].setValidators(null);
+        break;
+      case "Pix":
+        this.metodoCartao = false;
+        this.metodoBanco = true;
+        this.detalhesForm.controls['cartaoid'].setValidators(null);
+        this.detalhesForm.controls['bancoid'].setValidators(Validators.required);
+        break;
+      default:
+        this.detalhesForm.controls['cartaoid'].clearValidators();
+        this.detalhesForm.controls['bancoid'].clearValidators();
+        this.metodoCartao = false;
+        this.metodoBanco = false;
+        break;
+    }
+    this.detalhesForm.controls['cartaoid'].updateValueAndValidity();
+    this.detalhesForm.controls['bancoid'].updateValueAndValidity();
+  }
+
+  metodoInicial(){
+    switch (this.data.metodo) {
+      case "Cartão":
+        this.metodoCartao = true;
+        this.metodoBanco = false;
+        break;
+      case "Pix":
+        this.metodoCartao = false;
+        this.metodoBanco = true;
+        break;
+      default:
+        this.metodoCartao = false;
+        this.metodoBanco = false;
+        break;
+    }
+  }
+
 }

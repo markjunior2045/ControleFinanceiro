@@ -40,7 +40,10 @@
     </table>
   </mat-card-content>
   <mat-card-actions>
-    <h2>Total gasto: {{totalGasto | currency: 'R$'}}</h2>
+    <div style="display: flex; flex-direction: row;">
+      <h2>Total gasto: {{totalGasto | currency: 'R$'}}</h2>
+      <h2>Total ganho: {{totalGanho | currency: 'R$'}}</h2>
+    </div>
     <button mat-raised-button (click)="novaTransacaoDialog()" class="btnSalvar">Adicionar</button>
   </mat-card-actions>
 

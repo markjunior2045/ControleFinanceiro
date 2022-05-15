@@ -17,7 +17,7 @@ routerCartao.post('/:idUsuario', async (req, res) => {
     const usuario = await usuarioController.getById(idUsuario);
     if (usuario) {
         let cartaoSalvo: boolean;
-        const cartao = new Cartao(dados.nome, dados.numero, dados.modalidade, dados.bancoCadastrado, dados.vencimentoFatura, dados.validade, dados.codigo, usuario);
+        const cartao = new Cartao(dados.nome,dados.titular, dados.numero, dados.modalidade, dados.bancoCadastrado, dados.vencimentoFatura, dados.validade, dados.codigo, usuario);
         if (dados.bancoCadastrado) {
             const banco = await bancoController.getById(dados.bancoid);
             cartao.bancoCartao = banco;
@@ -56,7 +56,7 @@ routerCartao.put('/:idUsuario', async (req, res) => {
     const { idUsuario } = req.params;
     const dados = req.body;
     const usuario = await usuarioController.getById(idUsuario);
-    const cartao = new Cartao(dados.nome, dados.numero, dados.modalidade, dados.bancoCadastrado, dados.vencimentoFatura, dados.validade, dados.codigo, usuario);
+    const cartao = new Cartao(dados.nome,dados.titular, dados.numero, dados.modalidade, dados.bancoCadastrado, dados.vencimentoFatura, dados.validade, dados.codigo, usuario);
     cartao.id = dados.id;
     if (cartao.bancoCadastrado) {
         const banco = await bancoController.getById(dados.bancoid);
