@@ -52,7 +52,7 @@ export class AdicionaTransacaoComponent implements OnInit {
     this.adicionaForm = this.formBuilder.group({
       descricao: ['', Validators.required],
       entrada: false,
-      valor: ['', Validators.required,Validators.min(1)],
+      valor: ['', Validators.required],
       metodo: ['', Validators.required],
       cartaoid: [''],
       bancoid: [''],

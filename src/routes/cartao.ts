@@ -78,3 +78,22 @@ routerCartao.delete('/:idCartao', async (req, res) => {
         res.json(null);
     }
 })
+
+//Check Transacao
+routerCartao.get('/check/:idCartao', async (req, res) => {
+    const {idCartao} = req.params;
+    if(idCartao != null || idCartao != ''){
+        const result = await cartaoController.checkCartao(idCartao);
+        if (result != null){
+            if(result){
+                res.json(true);
+            }else{
+                res.json(false);
+            }
+        }else{
+            res.json(null);
+        }
+    }else{
+        res.json(null);
+    }
+})

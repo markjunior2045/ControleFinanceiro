@@ -319,8 +319,14 @@ export class GerenciamentoContaComponent implements OnInit {
       data: 'Tem certeza que deseja APAGAR ' + nomeCartao + '?'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async result => {
       if (result != undefined && result) {
+        const temTransacao = await this._cartaoService.checkCartao(idCartao);
+        if(temTransacao){
+          this.mensagem.mostraAviso('Erro: Existem transações com esse cartão!');
+        }else{
+
+        }
         this.deletaCartao(idCartao);
       }
     })
