@@ -15,6 +15,10 @@ export class UsuarioService{
         return this._dataservice.doPost('usuario', usuario) as Promise<void>;
     }
 
+    checkEmail(email: string):Promise<boolean>{
+        return this._dataservice.get('usuario/email/' + email) as Promise<boolean>;
+    }
+
     login(usuario: Usuario):Promise<Guid>{
         return this._dataservice.doPost('usuario/login', usuario) as Promise<Guid>;
     }
