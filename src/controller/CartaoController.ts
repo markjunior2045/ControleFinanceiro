@@ -1,6 +1,7 @@
 import { AppDataSource } from "../data-source";
 import { Banco } from "../entity/Banco";
 import { Cartao } from "../entity/Cartao";
+import { Transacao } from "../entity/Transacao";
 import { Usuario } from "../entity/Usuario";
 
 const database = AppDataSource;
@@ -125,6 +126,21 @@ export class CartaoController {
             return await database.manager.delete(Cartao, id);
         } else {
             return null;
+        }
+    }
+
+    async checkCartao(idCartao: string){
+        let qtdTransacao:number;
+        if (idCartao != null) {
+            qtdTransacao = await database.manager.createQueryBuilder().select("transacao").from(Transacao,"transacao").where("transacao.cartaoId = :id",{id: idCartao}).getCount();
+            if(qtdTransacao != null){
+                if(qtdTransacao > 0)
+                    return true
+            }else{
+                return null
+            }
+        }else{
+            return null
         }
     }
 }

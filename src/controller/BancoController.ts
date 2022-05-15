@@ -1,6 +1,7 @@
 import { AppDataSource } from "../data-source";
 import { Banco } from "../entity/Banco";
 import { Cartao } from "../entity/Cartao";
+import { Transacao } from "../entity/Transacao";
 import { Usuario } from "../entity/Usuario";
 
 const database = AppDataSource;
@@ -58,10 +59,13 @@ export class BancoController {
 
     async checkCartao(idBanco: string){
         let qtdCartao:number;
+        let qtdTransacao:number;
         if (idBanco != null) {
             qtdCartao = await database.manager.createQueryBuilder().select("cartao").from(Cartao,"cartao").where("cartao.bancoCartaoId = :id",{id: idBanco}).getCount();
-            if(qtdCartao != null){
-                return qtdCartao
+            qtdTransacao = await database.manager.createQueryBuilder().select("transacao").from(Transacao,"transacao").where("transacao.bancoId = :id",{id: idBanco}).getCount();
+            if(qtdCartao != null && qtdTransacao != null){
+                if(qtdCartao > 0 && qtdTransacao > 0)
+                    return true
             }else{
                 return null
             }

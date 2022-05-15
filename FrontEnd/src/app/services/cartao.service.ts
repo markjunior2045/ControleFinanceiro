@@ -27,4 +27,9 @@ export class CartaoService{
     atualizaCartao(idUsuario: Guid, cartao:Cartao):Promise<void>{
         return this._dataservice.doPut('cartao/' + idUsuario, cartao) as Promise<void>;
     }
+
+    checkCartao(idCartao: Guid):Promise<boolean>{
+        return this._dataservice.get('cartao/check/' + idCartao) as Promise<boolean>;
+    }
 };
+

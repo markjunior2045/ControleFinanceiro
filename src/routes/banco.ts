@@ -68,12 +68,13 @@ routerBanco.delete('/:idBanco', async (req, res) => {
     }
 })
 
+//Check cartao
 routerBanco.get('/checkcartao/:idBanco', async (req, res) => {
     const {idBanco} = req.params;
     if(idBanco != null || idBanco != ''){
         const result = await bancoController.checkCartao(idBanco);
         if (result != null){
-            if(result > 0){
+            if(result){
                 res.json(true);
             }else{
                 res.json(false);
