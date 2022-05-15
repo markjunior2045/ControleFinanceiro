@@ -5,11 +5,13 @@
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Nome</mat-label>
                 <input matInput type="text" [(ngModel)]="data.nome" formControlName="nome">
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Tipo</mat-label>
                 <input matInput type="text" [(ngModel)]="data.tipo" formControlName="tipo">
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
     </form>
 </div>

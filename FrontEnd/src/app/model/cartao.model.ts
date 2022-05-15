@@ -4,11 +4,12 @@ import { Guid } from "./guid.model";
 export interface Cartao{
     id: Guid;
     nome: string;
+    titular: string;
     numero: number;
     modalidade: string;
     bancoCadastrado: boolean;
     banco: string;
-    vencimentoFatura: Date;
+    vencimentoFatura: number;
     validade: Date;
     codigo: number;
     bancoid?: Guid;

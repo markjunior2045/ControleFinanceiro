@@ -13,36 +13,43 @@
                     <mat-form-field>
                         <mat-label>Nome:</mat-label>
                         <input autocomplete="off" matInput type="text" formControlName="nome" required />
+                        <mat-error>Campo Obrigatório!</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Sobrenome:</mat-label>
                         <input autocomplete="off" matInput type="text" formControlName="sobrenome" required />
+                        <mat-error>Campo Obrigatório!</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Email:</mat-label>
                         <input autocomplete="off" matInput type="text" formControlName="email" required />
+                        <mat-error>Campo Obrigatório!</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Salário:</mat-label>
                         <input autocomplete="off" matInput (change)="calculaPorcentagem()" type="number" formControlName="salario" required />
+                        <mat-error>Campo Obrigatório!</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Porcentagem a guardar:</mat-label>
                         <input autocomplete="off" matInput (change)="calculaPorcentagem()" type="number" formControlName="porcentagem" required />
+                        <mat-error>Campo Obrigatório!</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Valor reservado:</mat-label>
                         <input autocomplete="off" matInput formControlName="valorReservado" />
+                        <mat-error>Campo Obrigatório!</mat-error>
                     </mat-form-field>
 
                     <mat-form-field>
                         <mat-label>Senha:</mat-label>
                         <input autocomplete="off" matInput type="password" formControlName="senha" required />
+                        <mat-error>Campo Obrigatório!</mat-error>
                     </mat-form-field>
                 </div>
             </form>

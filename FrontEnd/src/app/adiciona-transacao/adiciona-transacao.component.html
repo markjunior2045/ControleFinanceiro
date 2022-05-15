@@ -5,17 +5,20 @@
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Descrição</mat-label>
                 <input matInput type="text" formControlName="descricao">
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Valor</mat-label>
-                <input matInput type="text" formControlName="valor">
+                <mat-label>Valor R$</mat-label>
+                <input matInput type="number" formControlName="valor">
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
         </div>
+        
         <div style="display: flex; flex-direction: row;">
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Método</mat-label>
-                <mat-select formControlName="metodo">
+                <mat-select (selectionChange)="metodo()" formControlName="metodo">
                     <mat-option *ngFor="let opcao of metodoPagamento" [value]="opcao">
                         {{opcao}}
                     </mat-option>
@@ -25,8 +28,30 @@
             <mat-form-field appearance="fill">
                 <mat-label>Data</mat-label>
                 <input matInput type="date" formControlName="data">
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
         </div>
+        
+            <mat-form-field *ngIf="metodoCartao" appearance="fill" style="margin-right: 5%;">
+                <mat-label>Cartão</mat-label>
+                <mat-select formControlName="cartaoid">
+                    <mat-option *ngFor="let cartao of cartoes" [value]="cartao.id">
+                        {{cartao.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="metodoBanco" appearance="fill" style="margin-right: 5%;">
+                <mat-label>Banco</mat-label>
+                <mat-select formControlName="bancoid">
+                    <mat-option *ngFor="let banco of bancos" [value]="banco.id">
+                        {{banco.banco}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <mat-checkbox appearance="fill" style="margin-bottom: 5%;" formControlName="entrada" color='primary'>Ganho</mat-checkbox>
+        
     </form>
 </div>
 <div mat-dialog-actions>

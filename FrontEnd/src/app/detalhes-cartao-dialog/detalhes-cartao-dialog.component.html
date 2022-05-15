@@ -3,18 +3,27 @@
     <form [formGroup]="cadastroCartao">
         
             <mat-form-field appearance="fill" style="margin-right: 5%;">
-                <mat-label>Nome</mat-label>
+                <mat-label>Apelido (ex: Cartão Nubank, Itáu)</mat-label>
                 <input matInput type="text" [(ngModel)]="data.cartao.nome" formControlName="nome">
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Numero</mat-label>
-                <input matInput type="text" [(ngModel)]="data.cartao.numero" formControlName="numero">
+                <mat-label>Titular</mat-label>
+                <input matInput type="text" [(ngModel)]="data.cartao.titular" formControlName="titular">
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Numero</mat-label>
+                <input matInput type="text" [(ngModel)]="data.cartao.numero" formControlName="numero">
+                <mat-error>Campo Obrigatório!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
                 <mat-label>Modalidade</mat-label>
                 <mat-select formControlName="modalidade" [(ngModel)]="data.cartao.modalidade">
+                    <mat-option>Nenhum</mat-option>
                     <mat-option *ngFor="let opcao of modalidadeCartao" [value]="opcao">
                         {{opcao}}
                     </mat-option>
@@ -24,8 +33,9 @@
             <mat-checkbox appearance="fill" style="margin-bottom: 5%;" formControlName="bancoCadastrado" [(ngModel)]="temBanco" color='primary'>Este cartao tem banco cadastrado</mat-checkbox>
 
             <mat-form-field *ngIf="temBanco" appearance="fill" style="margin-right: 5%;">
-                <mat-label>Banco</mat-label>
-                <mat-select formControlName="bancoid" [(ngModel)]="data.cartao.bancoid.id">
+                <mat-label *ngIf="qtdBanco">Banco</mat-label>
+                <mat-label *ngIf="qtdBanco">Sem Bancos Cadastrados</mat-label>
+                <mat-select [disabled]="!qtdBanco" formControlName="bancoid" [(ngModel)]="data.cartao.bancoid.id">
                     <mat-option *ngFor="let banco of data.bancos" [value]="banco.id">
                         {{banco.banco}}
                     </mat-option>
@@ -37,19 +47,22 @@
                 <input autocomplete="off" matInput type="text" formControlName="banco" [(ngModel)]="data.cartao.banco" required />
             </mat-form-field>
 
-            <mat-form-field appearance="fill" style="margin-right: 5%;"> 
+            <mat-form-field appearance="fill"> 
                 <mat-label>Data do vencimento da fatura:</mat-label>
                 <input autocomplete="off" matInput type="date" formControlName="vencimentoFatura" [(ngModel)]="data.cartao.vencimentoFatura" required />
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Validade:</mat-label>
                 <input autocomplete="off" matInput type="month" formControlName="validade" [(ngModel)]="data.cartao.validade" required />
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="fill" style="margin-right: 5%;">
+            <mat-form-field appearance="fill">
                 <mat-label>Código de segurança:</mat-label>
                 <input autocomplete="off" matInput type="number" formControlName="codigo" [(ngModel)]="data.cartao.codigo" required />
+                <mat-error>Campo Obrigatório!</mat-error>
             </mat-form-field>
     </form>
 </div>

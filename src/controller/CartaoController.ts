@@ -13,6 +13,7 @@ export class CartaoController {
                 .into(Cartao)
                 .values([{
                     nome: cartao.nome,
+                    titular: cartao.titular,
                     numero: cartao.numero,
                     modalidade: cartao.modalidade,
                     bancoCadastrado: cartao.bancoCadastrado,
@@ -30,6 +31,7 @@ export class CartaoController {
                 .into(Cartao)
                 .values([{
                     nome: cartao.nome,
+                    titular: cartao.titular,
                     numero: cartao.numero,
                     modalidade: cartao.modalidade,
                     bancoCadastrado: cartao.bancoCadastrado,
@@ -80,6 +82,7 @@ export class CartaoController {
                 .update(Cartao)
                 .set({
                     nome: cartao.nome,
+                    titular: cartao.titular,
                     numero: cartao.numero,
                     modalidade: cartao.modalidade,
                     bancoCadastrado: cartao.bancoCadastrado,
@@ -97,6 +100,7 @@ export class CartaoController {
                 .update(Cartao)
                 .set({
                     nome: cartao.nome,
+                    titular: cartao.titular,
                     numero: cartao.numero,
                     modalidade: cartao.modalidade,
                     bancoCadastrado: cartao.bancoCadastrado,

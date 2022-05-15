@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MensagemComponent } from '../mensagem/mensagem.component';
 import { Banco } from '../model/banco.model';
 
 @Component({
@@ -12,6 +13,7 @@ export class AdicionaBancoComponent implements OnInit {
   bancoForm: FormGroup;
 
   constructor(public dialogRef: MatDialogRef<AdicionaBancoComponent>,
+    private mensagem:MensagemComponent,
     @Inject(MAT_DIALOG_DATA) public data: Banco,
     private formBuilder: FormBuilder) { }
 
@@ -24,7 +26,11 @@ export class AdicionaBancoComponent implements OnInit {
   }
 
   salvar(){
-    this.dialogRef.close(this.bancoForm.value);
+    if(this.bancoForm.valid){
+      this.dialogRef.close(this.bancoForm.value);
+    }else{
+      this.mensagem.mostraAviso('Erro: Preencha os campos corretamente!');
+    }
   }
 
   criaForm(){

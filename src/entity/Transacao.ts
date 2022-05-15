@@ -8,8 +8,9 @@ import { Usuario } from "./Usuario";
 @Entity()
 export class Transacao{
 
-    constructor(descricao:string, valor:number, metodo:string, parcelado:boolean, quantidadeParcelas:number, data:Date, usuario:Usuario){
+    constructor(descricao:string, entrada:boolean, valor:number, metodo:string, parcelado:boolean, quantidadeParcelas:number, data:Date, usuario:Usuario){
         this.descricao = descricao;
+        this.entrada = entrada;
         this.valor = valor;
         this.metodo = metodo;
         this.parcelado = parcelado;
@@ -23,6 +24,9 @@ export class Transacao{
 
     @Column()
     descricao:string;
+
+    @Column()
+    entrada:boolean;
 
     @Column({type: 'float'})
     valor: number;
