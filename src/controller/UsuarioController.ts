@@ -54,4 +54,13 @@ export class UsuarioController{
         })
         return transacoes;
     }
+
+    async checkEmail(email: string){
+        const temEmail = await database.manager.count(Usuario, {
+            where: {
+                email: email
+            }
+        })
+        return temEmail;
+    }
 }

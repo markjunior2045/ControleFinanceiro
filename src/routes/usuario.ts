@@ -48,3 +48,15 @@ routerUsuario.put('/', async (req, res) => {
     const result = await usuarioController.update(usuario);
     res.json(result);
 })
+
+routerUsuario.get('/email/:email', async (req, res) => {
+    const {email} = req.params;
+    const temEmail = await usuarioController.checkEmail(email);
+    if(temEmail != null){
+        if(temEmail > 0){
+            res.json(true);
+        }else{
+            res.json(false);
+        }
+    }
+})

@@ -21,6 +21,8 @@ routerCartao.post('/:idUsuario', async (req, res) => {
         if (dados.bancoCadastrado) {
             const banco = await bancoController.getById(dados.bancoid);
             cartao.bancoCartao = banco;
+        }else{
+            cartao.banco = dados.banco;
         }
         cartaoSalvo = await cartaoController.salvar(cartao);
         res.json(cartaoSalvo);

@@ -345,6 +345,8 @@ export class GerenciamentoContaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
+        console.log(result);
+        
         this.adicionaCartao(this._accountId, result);
       }
     })
