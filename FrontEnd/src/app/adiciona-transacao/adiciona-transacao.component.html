@@ -49,6 +49,15 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
+
+            <mat-form-field appearance="fill" style="margin-right: 5%;">
+                <mat-label>Tag</mat-label>
+                <mat-select formControlName="tags" multiple>
+                    <mat-option *ngFor="let tag of tags" [value]="tag.id">
+                        {{tag.nome}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
             
             <mat-checkbox appearance="fill" style="margin-bottom: 5%;" formControlName="entrada" color='primary'>Ganho</mat-checkbox>
         

@@ -64,7 +64,7 @@ export class BancoController {
             qtdCartao = await database.manager.createQueryBuilder().select("cartao").from(Cartao,"cartao").where("cartao.bancoCartaoId = :id",{id: idBanco}).getCount();
             qtdTransacao = await database.manager.createQueryBuilder().select("transacao").from(Transacao,"transacao").where("transacao.bancoId = :id",{id: idBanco}).getCount();
             if(qtdCartao != null && qtdTransacao != null){
-                if(qtdCartao > 0 && qtdTransacao > 0)
+                if(qtdCartao > 0 || qtdTransacao > 0)
                     return true
             }else{
                 return null

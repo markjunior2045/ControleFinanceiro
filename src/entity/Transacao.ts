@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Banco } from "./Banco";
 import { Cartao } from "./Cartao";
 import { Parcela } from "./Parcela";
@@ -56,5 +56,6 @@ export class Transacao{
     cartao: Cartao;
 
     @ManyToMany(() => Tag, tag => tag.transacao)
+    @JoinTable()
     tag: Tag[];
 }

@@ -5,3 +5,7 @@ export interface Tag{
     nome: string;
     tipo: string;
 }
+
+export class Tipo {
+    tipos:string[] = ['Casa','Educação','Eletrônico', 'Lazer', 'Transporte', 'Saúde', 'Serviços', 'Outros']
+}

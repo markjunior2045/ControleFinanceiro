@@ -10,8 +10,11 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Tipo</mat-label>
-                <input matInput type="text" [(ngModel)]="data.tipo" formControlName="tipo">
-                <mat-error>Campo Obrigatório!</mat-error>
+                <mat-select formControlName="tipo" [(ngModel)]="data.tipo">
+                    <mat-option *ngFor="let tipo of tipos" [value]="tipo">
+                        {{tipo}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
     </form>
 </div>

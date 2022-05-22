@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Tag } from '../model/tag.model';
+import { Tag, Tipo } from '../model/tag.model';
 
 @Component({
   selector: 'app-adiciona-tag',
@@ -10,10 +10,14 @@ import { Tag } from '../model/tag.model';
 })
 export class AdicionaTagComponent implements OnInit {
   tagForm: FormGroup;
+  tipos: string[];
 
   constructor(public dialogRef: MatDialogRef<AdicionaTagComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Tag,
-    private formBuilder: FormBuilder) { }
+    tipo:Tipo,
+    private formBuilder: FormBuilder) {
+      this.tipos = tipo.tipos;
+     }
 
   ngOnInit(): void {
     this.criaForm();

@@ -48,7 +48,8 @@ export class UsuarioController{
             relations: {
                 transacoes: {
                     banco: true,
-                    cartao: true
+                    cartao: true,
+                    tag: true
                 }
             },
             where: {

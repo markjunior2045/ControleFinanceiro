@@ -28,4 +28,12 @@ export class TagService{
     atualizaTag(idUsuario:Guid, tag:Tag):Promise<void>{
         return this._dataservice.doPut('tag/' + idUsuario, tag) as Promise<void>;
     }
+
+    checkTag(idTag:Guid):Promise<boolean>{
+        return this._dataservice.get('tag/checktag/' + idTag) as Promise<boolean>;
+    }
+
+    limpaTag(idTag:Guid):Promise<boolean>{
+        return this._dataservice.get('tag/limpaTag/' + idTag) as Promise<boolean>;
+    }
 }
