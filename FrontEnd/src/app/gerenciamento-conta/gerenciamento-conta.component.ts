@@ -234,7 +234,8 @@ export class GerenciamentoContaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result != undefined && result) {
         const temCartao = await this._bancoService.checkCartao(idBanco);
-        if (temCartao) {
+        console.log(temCartao);
+        if (temCartao || temCartao == null) {
           this.mensagem.mostraAviso('Erro: Existe um cartão com esse banco!');
         } else {
           this.deletaBanco(idBanco);
@@ -427,12 +428,45 @@ export class GerenciamentoContaComponent implements OnInit {
     })
   }
 
+  deletarTagTransacaoDialog(idTag:Guid,nomeTag:string):void{
+    const dialogRef = this.dialog.open(ConfirmacaoDialogComponent, {
+      width: '480px',
+      data: 'Existem Transações com essa tag! Tem certeza que deseja remover a tag ' + nomeTag + '?'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != undefined && result) {
+        this.limpaTag(idTag);
+      }
+    })
+  }
+
+  async checkTag(idTag:Guid,nomeTag:string){
+    await this._tagService.checkTag(idTag).then(result => {
+      console.log(result);
+      
+      if(result){
+        this.deletarTagTransacaoDialog(idTag,nomeTag);
+      }else{
+        this.deletarTagDialog(idTag,nomeTag);
+      }
+    })
+  }
+
   async deletaTag(idTag: Guid) {
     await this._tagService.deleteTag(idTag).then(result => {
       this.mensagem.mostraAviso('Removido com Sucesso!');
       this.getTags(this._accountId);
     }).catch(error => {
       this.mensagem.mostraAviso('Erro ao deletar Tag');
+    })
+  }
+
+  async limpaTag(idTag:Guid){
+    await this._tagService.limpaTag(idTag).then(result => {
+      if (result) {
+        this.deletaTag(idTag);
+      }
     })
   }
 

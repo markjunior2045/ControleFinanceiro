@@ -21,6 +21,7 @@ export class DetalhesCartaoDialogComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.checkBanco()
     this.criarFormulario();
     this.temBanco = this.data.cartao.bancoCadastrado;
   }

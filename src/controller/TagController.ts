@@ -1,51 +1,97 @@
 import { AppDataSource } from "../data-source";
 import { Tag } from "../entity/Tag";
+import { Transacao } from "../entity/Transacao";
 import { Usuario } from "../entity/Usuario";
 
 const database = AppDataSource;
 
 export class TagController {
-    async salvar(tag: Tag){
+    async salvar(tag: Tag) {
         const tagSalva = await database.manager.save(tag);
         return tagSalva;
     }
 
-    async getTagsDoUsuario(idUsuario: string){
-        const tags = await database.manager.find(Usuario,{
+    async getTagsDoUsuario(idUsuario: string) {
+        const tags = await database.manager.find(Usuario, {
             relations: {
                 tag: true
             },
             where: {
-               id: idUsuario 
+                id: idUsuario
             },
         })
         return tags;
     }
 
-    async getById(id: string){
+    async getTransacaoComTags(idtag: string) {
+        if (idtag != null || idtag != "") {
+            return await database.manager.find(Transacao, {
+                relations: {
+                    tag: true
+                },
+                where: {
+                    tag: {
+                        id: idtag
+                    }
+                }
+            })
+        } else {
+            return null;
+        }
+    }
+
+    async getTransacaoTags(idtag: string) {
+        if (idtag != null || idtag != "") {
+            return await database.manager.find(Transacao, {
+                relations: {
+                    tag: true
+                }
+            })
+        } else {
+            return null;
+        }
+    }
+
+    async getById(id: string) {
         let tag: Tag;
         if (id != null || id != "") {
-            tag = await database.manager.findOneBy(Tag,{id: id});
-        }else{
+            tag = await database.manager.findOneBy(Tag, { id: id });
+        } else {
             tag = null;
         }
         return tag;
     }
 
-    async update(tag: Tag){
+    async novaTagTransacao(idTag: string, idTransacao: string) {
+        if (idTag != null || idTag != '' || idTransacao != null || idTransacao != '') {
+            return await database.manager.query('INSERT INTO `controlefinanceiro`.`transacao_tag_tag` (`transacaoId`,`tagId`) VALUES("' + idTransacao + '","' + idTag + '");');
+        } else {
+            return null;
+        }
+    }
+
+    async update(tag: Tag) {
         let tagSalva: Tag;
-        if(tag != null){
+        if (tag != null) {
             tagSalva = await database.manager.save(tag);
-        }else{
+        } else {
             tagSalva = null;
         }
         return tagSalva;
     }
 
-    async delete(id: string){
-        if (id != null || id != ''){
+    async deleteTagRelation(id: string) {
+        if (id != null || id != '') {
+            return await database.manager.query('DELETE FROM `controlefinanceiro`.`transacao_tag_tag` WHERE tagId = "' + id + '";');
+        } else {
+            return null;
+        }
+    }
+
+    async delete(id: string) {
+        if (id != null || id != '') {
             return await database.manager.delete(Tag, id);
-        }else{
+        } else {
             return null;
         }
     }

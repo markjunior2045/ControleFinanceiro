@@ -17,7 +17,7 @@
         <div style="display: flex; flex-direction: row;">
             <mat-form-field appearance="fill" style="margin-right: 5%;">
                 <mat-label>Método</mat-label>
-                <mat-select (selectionChange)="metodo()" formControlName="metodo" [(ngModel)]="data.metodo">
+                <mat-select (selectionChange)="metodo()" formControlName="metodo" [(ngModel)]="data.metodo" [disabled]="true">
                     <mat-option *ngFor="let opcao of metodoPagamento" [value]="opcao">
                         {{opcao}}
                     </mat-option>
@@ -49,7 +49,14 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-checkbox appearance="fill" style="margin-bottom: 5%;" formControlName="entrada" [(ngModel)]="data.entrada" color='primary'>Ganho</mat-checkbox>
+        <mat-chip-list>
+            <mat-chip *ngFor="let tag of data.tag">
+                {{tag.nome}}
+            </mat-chip>
+        </mat-chip-list>
+
+        <mat-checkbox appearance="fill" style="margin-bottom: 5%;margin-top: 5%;" formControlName="entrada" [(ngModel)]="data.entrada"
+            color='primary'>Ganho</mat-checkbox>
     </form>
 </div>
 <div mat-dialog-actions>

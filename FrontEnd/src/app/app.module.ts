@@ -41,6 +41,8 @@ import { AdicionaBancoComponent } from './adiciona-banco/adiciona-banco.componen
 import { AdicionaCartaoComponent } from './adiciona-cartao/adiciona-cartao.component';
 import { AdicionaTagComponent } from './adiciona-tag/adiciona-tag.component';
 import { DetalhesTagDialogComponent } from './detalhes-tag-dialog/detalhes-tag-dialog.component';
+import { Tipo } from './model/tag.model';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -85,9 +87,10 @@ import { DetalhesTagDialogComponent } from './detalhes-tag-dialog/detalhes-tag-d
     MatSelectModule,
     MatGridListModule,
     MatDividerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatChipsModule
   ],
-  providers: [DataService,MensagemComponent,SharedService,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
+  providers: [DataService,MensagemComponent,SharedService,Tipo,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

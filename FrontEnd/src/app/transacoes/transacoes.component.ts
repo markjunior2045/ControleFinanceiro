@@ -43,7 +43,8 @@ export class TransacoesComponent implements OnInit {
         metodo: transacao.metodo,
         data: new Date(transacao.data).toISOString().slice(0, 10).replace('T', ' '),
         cartao: transacao.cartao,
-        banco: transacao.banco
+        banco: transacao.banco,
+        tag: transacao.tag
       }
     });
 
