@@ -24,6 +24,20 @@ export class TransacaoController {
         return transacao;
     }
 
+    async getByMonth(idUsuario:string, mes:number){
+        if (idUsuario != null || mes != null){
+            const transacoes = await database.getRepository(Transacao)
+            .createQueryBuilder("transacao")
+            .leftJoinAndSelect("transacao.banco", "banco")
+            .leftJoinAndSelect("transacao.cartao", "cartao")
+            .leftJoinAndSelect("transacao.tag", "tag")
+            .where("MONTH(transacao.data) = :mes", {mes: mes})
+            .andWhere("transacao.usuarioId = :id", {id:idUsuario})
+            .getMany();
+            return transacoes;
+        }
+    }
+
     async update(transacao: Transacao){
         let transacaoSalva: Transacao;
         if(transacao != null){

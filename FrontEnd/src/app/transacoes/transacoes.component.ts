@@ -6,6 +6,7 @@ import { ConfirmacaoDialogComponent } from '../confirmacao-dialog/confirmacao-di
 import { DetalhesTransacaoComponent } from '../detalhes-transacao/detalhes-transacao.component';
 import { MensagemComponent } from '../mensagem/mensagem.component';
 import { Guid } from '../model/guid.model';
+import { Mes, Meses } from '../model/meses.model';
 import { Transacao } from '../model/transacao.model';
 import { Usuario } from '../model/usuario.model';
 import { SharedService } from '../services/shared.service';
@@ -18,7 +19,22 @@ import { TransacaoService } from '../services/transacao.service';
 
 export class TransacoesComponent implements OnInit {
 
-  displayedColumns: string[] = ['descricao', 'valor', 'metodo','tags', 'detalhes', 'deletar'];
+  mes: number = new Date().getMonth();
+  meses: Mes[] = [
+    { id: 1, nome: 'Janeiro' },
+    { id: 2, nome: 'Fevereiro' },
+    { id: 3, nome: 'Março' },
+    { id: 4, nome: 'Abril' },
+    { id: 5, nome: 'Maio' },
+    { id: 6, nome: 'Junho' },
+    { id: 7, nome: 'Julho' },
+    { id: 8, nome: 'Agosto' },
+    { id: 9, nome: 'Setembro' },
+    { id: 10, nome: 'Outubro' },
+    { id: 11, nome: 'Novembro' },
+    { id: 12, nome: 'Dezembro' }
+  ]
+  displayedColumns: string[] = ['descricao', 'valor', 'metodo', 'tags', 'detalhes', 'deletar'];
   dataSource: Transacao[];
   totalGasto: number = 0;
   totalGanho: number = 0;
@@ -29,7 +45,9 @@ export class TransacoesComponent implements OnInit {
   ngOnInit(): void {
     this._accountId = this.route.snapshot.paramMap.get('id') ?? '';
     this.shared.send(this._accountId);
-    this.getTransacoes(this._accountId);
+    console.log(this.meses[this.mes]);
+    this.getTransacoesPorMes(this._accountId, this.mes + 1)
+    //this.getTransacoes(this._accountId);
   }
 
   openEditarDialog(transacao: Transacao): void {
@@ -95,7 +113,13 @@ export class TransacoesComponent implements OnInit {
   async getTransacoes(idUsuario: Guid) {
     await this._transacaoservice.getTransacoesUsuario(idUsuario).then(result => {
       this.dataSource = result[0].transacoes;
-      console.log(result[0].transacoes);
+    })
+    this.calculaTotalGastoGanho();
+  }
+
+  async getTransacoesPorMes(idUsuario: Guid, mes: number) {
+    await this._transacaoservice.getTransacoesPorMes(idUsuario, mes).then(result => {
+      this.dataSource = result;
     })
     this.calculaTotalGastoGanho();
   }
