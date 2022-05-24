@@ -23,6 +23,10 @@ export class TransacaoService {
         return this._dataservice.get('usuario/transacoes/' + idUsuario) as Promise<Usuario[]>
     }
 
+    getTransacoesPorMes(idUsuario:Guid,mes:number):Promise<Transacao[]>{
+        return this._dataservice.get('transacao/' + idUsuario + '/' + mes) as Promise<Transacao[]>
+    }
+
     adicionaTransacao(idUsuario: Guid, transacao: Transacao):Promise<void>{
         return this._dataservice.doPost('transacao/' + idUsuario,transacao) as Promise<void>;
     }

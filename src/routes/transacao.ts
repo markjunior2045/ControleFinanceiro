@@ -71,6 +71,14 @@ routerTransacao.get('/:idTransacao', async (req, res) => {
     res.json(transacao);
 })
 
+//Get por mes
+routerTransacao.get('/:idUsuario/:mes',async (req, res) => {
+    const {idUsuario} = req.params;
+    const {mes} = req.params;
+    const transacoes = await transacaoController.getByMonth(idUsuario,parseInt(mes));
+    res.json(transacoes);
+})
+
 //Atualiza Transação
 routerTransacao.put('/:idUsuario', async (req, res) => {
     const {idUsuario} = req.params;
