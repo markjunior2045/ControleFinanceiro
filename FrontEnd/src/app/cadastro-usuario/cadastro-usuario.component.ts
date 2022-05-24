@@ -27,7 +27,7 @@ export class CadastroUsuarioComponent implements OnInit {
     this.cadastroUsuario = this.formBuilder.group({
       nome: ['', Validators.required],
       sobrenome: ['', Validators.required],
-      email: ['', Validators.required,Validators.email],
+      email: ['', Validators.required],
       salario: ['', Validators.required],
       porcentagem: ['', Validators.required],
       valorReservado: [{ value: '', disabled: true }, Validators.required],
