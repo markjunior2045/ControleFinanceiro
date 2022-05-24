@@ -1,2 +1,34 @@
 <app-toolbar></app-toolbar>
-<p>dashboard works!</p>
+<div class="grid-container">
+    <h1 class="mat-h1">Olá, {{usuario.nome}} !</h1>
+    <mat-grid-list cols="3" rowHeight="200px">
+        <mat-grid-tile *ngFor="let card of cards1 | async" [colspan]="card.cols" [rowspan]="card.rows">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        {{card.title}}
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card1-content">
+                    <mat-card-title class="saldo-total">{{card.content}}</mat-card-title>
+                </mat-card-content>
+                <mat-card-actions>{{card.msg}}</mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile *ngFor="let card of cards2 | async" [colspan]="card.cols" [rowspan]="card.rows">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        {{card.title}}
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <div>Card Content Here</div>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
