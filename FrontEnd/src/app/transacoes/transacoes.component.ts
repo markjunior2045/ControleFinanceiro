@@ -18,7 +18,7 @@ import { TransacaoService } from '../services/transacao.service';
 
 export class TransacoesComponent implements OnInit {
 
-  displayedColumns: string[] = ['descricao', 'valor', 'metodo', 'detalhes', 'deletar'];
+  displayedColumns: string[] = ['descricao', 'valor', 'metodo','tags', 'detalhes', 'deletar'];
   dataSource: Transacao[];
   totalGasto: number = 0;
   totalGanho: number = 0;
