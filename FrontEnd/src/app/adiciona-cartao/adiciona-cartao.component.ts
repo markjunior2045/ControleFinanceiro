@@ -36,7 +36,7 @@ export class AdicionaCartaoComponent implements OnInit {
       bancoCadastrado: false,
       banco:['', Validators.required],
       bancoid:[''],
-      vencimentoFatura:['', Validators.required,Validators.min(1),Validators.max(31)],
+      vencimentoFatura:['', Validators.required],
       validade:['', Validators.required],
       codigo:['', Validators.required],
     })
