@@ -1,25 +1,41 @@
 table {
-    width: 100%;
-  }
+  width: 100%;
+}
 
-  td{
-    color: black;
-    font-size: large;
-  }
-  
-  th{
-    color: black;
-    font-size: large;
-  }
+td {
+  color: black;
+  font-size: large;
+}
 
-  .mat-icon{
-    color: #fca311;
-    cursor: pointer;
-  }
+th {
+  color: black;
+  font-size: large;
+}
 
-  .btnSalvar {
-    width: 8%;
-    background: #fca311;
+.mat-icon {
+  color: #fca311;
+  cursor: pointer;
+}
+
+.iconPesquisar {
+  color: black;
+}
+
+.btnSalvar {
+  width: 8%;
+  background: #fca311;
+}
+
+.btnFiltrar {
+  background: #fca311;
+  align-self: baseline;
+  margin-bottom: 1%;
+}
+
+.btnRemoveFiltro {
+  background: #fca311;
+  align-self: baseline;
+  margin-bottom: 1%;
 }
 
 h2 {
@@ -27,6 +43,18 @@ h2 {
   margin-right: 1%;
 }
 
-.mat-card{
+mat-card-title {
+  font-size: 30px !important;
+  margin-bottom: 20% !important;
+  margin-left: -5%;
+}
+
+.filtro {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mat-card {
   min-height: 100vh;
-  }
+}

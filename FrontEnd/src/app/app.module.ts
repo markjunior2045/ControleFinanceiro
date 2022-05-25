@@ -41,6 +41,7 @@ import { AdicionaBancoComponent } from './adiciona-banco/adiciona-banco.componen
 import { AdicionaCartaoComponent } from './adiciona-cartao/adiciona-cartao.component';
 import { AdicionaTagComponent } from './adiciona-tag/adiciona-tag.component';
 import { DetalhesTagDialogComponent } from './detalhes-tag-dialog/detalhes-tag-dialog.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { Tipo } from './model/tag.model';
 import {MatChipsModule} from '@angular/material/chips';
 import { FooterComponent } from './footer/footer.component';
@@ -90,7 +91,8 @@ import { FooterComponent } from './footer/footer.component';
     MatGridListModule,
     MatDividerModule,
     MatTabsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTooltipModule
   ],
   providers: [DataService,MensagemComponent,SharedService,Tipo,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]

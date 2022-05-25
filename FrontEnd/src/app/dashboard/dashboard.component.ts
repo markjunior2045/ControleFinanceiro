@@ -7,6 +7,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Banco } from '../model/banco.model';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../model/usuario.model';
+import { BancoService } from '../services/banco.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,25 +16,48 @@ import { Usuario } from '../model/usuario.model';
 })
 export class DashboardComponent implements OnInit {
 
+  exemploUsuario: Usuario =
+    {
+      id: '1',
+      nome: '-',
+      sobrenome: '-',
+      email: '-',
+      porcentagem: 0,
+      senha: '-',
+      salario: 10,
+      valorReservado: 10,
+      banco: [],
+      cartao: [],
+      tag: [],
+      transacoes: [],
+    }
+
   private _accountid: Guid;
   usuario: Usuario;
   saldoTotal: number = 0;
+  dadosBancoCarregados:boolean = false;
+  dadosUsuarioCarregados:boolean = false;
 
-  bancos: Banco[] = [{
-    id: 1,
-    agencia: 190,
-    banco: "Santander",
-    conta: 111122,
-    saldo: 900.50,
-    titular: "Lucas"
-  }, {
-    id: 2,
-    agencia: 120,
-    banco: "Caixa",
-    conta: 3903,
-    saldo: 8000.38,
-    titular: "Marcos"
-    }]
+  bancos: Banco[]
+  // [{
+  //   id: 1,
+  //   agencia: 190,
+  //   banco: "Santander",
+  //   conta: 111122,
+  //   saldo: 900.50,
+  //   titular: "Lucas"
+  // }, {
+  //   id: 2,
+  //   agencia: 120,
+  //   banco: "Caixa",
+  //   conta: 3903,
+  //   saldo: 8000.38,
+  //   titular: "Marcos"
+  // }]
+
+  getCards(){
+    
+  }
 
   cards1 = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -70,22 +94,32 @@ export class DashboardComponent implements OnInit {
   );
 
   constructor(private route: ActivatedRoute,
-              private shared: SharedService,
-              private breakpointObserver: BreakpointObserver,
-              private _usuarioService: UsuarioService) { }
+    private shared: SharedService,
+    private breakpointObserver: BreakpointObserver,
+    private _usuarioService: UsuarioService,
+    private _bancoService: BancoService) { }
 
   ngOnInit(): void {
     this._accountid = this.route.snapshot.paramMap.get('id') ?? '';
     this.shared.send(this._accountid);
     this.getUsuario(this._accountid);
-    this.bancos.forEach(banco => {
-      this.saldoTotal += banco.saldo;
+    this.getBancos(this._accountid);
+  }
+
+  async getUsuario(idUsuario: Guid) {
+    await this._usuarioService.getUsuario(idUsuario).then(result => {
+      this.usuario = result;
+      this.dadosUsuarioCarregados = true;
     })
   }
 
-  async getUsuario(idUsuario : Guid){
-    await this._usuarioService.getUsuario(idUsuario).then(result => {
-      this.usuario = result;
+  async getBancos(idUsuario: Guid) {
+    await this._bancoService.getBancos(idUsuario).then(result => {
+      this.bancos = result[0].banco;
+      this.bancos.forEach(banco => {
+        this.saldoTotal += banco.saldo;
+      })
+      this.dadosBancoCarregados = true
     })
   }
 }

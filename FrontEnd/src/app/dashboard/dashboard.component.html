@@ -1,7 +1,7 @@
 <app-toolbar></app-toolbar>
 <div class="grid-container">
-    <h1 class="mat-h1">Olá, {{usuario.nome}} !</h1>
-    <mat-grid-list cols="3" rowHeight="200px">
+    <h1 *ngIf="dadosUsuarioCarregados" class="mat-h1">Olá, {{usuario.nome}} !</h1>
+    <mat-grid-list *ngIf="dadosUsuarioCarregados && dadosBancoCarregados" cols="3" rowHeight="200px">
         <mat-grid-tile *ngFor="let card of cards1 | async" [colspan]="card.cols" [rowspan]="card.rows">
             <mat-card class="dashboard-card">
                 <mat-card-header>
@@ -17,7 +17,7 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-list *ngIf="dadosUsuarioCarregados && dadosBancoCarregados" cols="2" rowHeight="350px">
         <mat-grid-tile *ngFor="let card of cards2 | async" [colspan]="card.cols" [rowspan]="card.rows">
             <mat-card class="dashboard-card">
                 <mat-card-header>
