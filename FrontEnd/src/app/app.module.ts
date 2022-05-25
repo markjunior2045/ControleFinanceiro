@@ -41,10 +41,12 @@ import { AdicionaBancoComponent } from './adiciona-banco/adiciona-banco.componen
 import { AdicionaCartaoComponent } from './adiciona-cartao/adiciona-cartao.component';
 import { AdicionaTagComponent } from './adiciona-tag/adiciona-tag.component';
 import { DetalhesTagDialogComponent } from './detalhes-tag-dialog/detalhes-tag-dialog.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { Tipo } from './model/tag.model';
 import {MatChipsModule} from '@angular/material/chips';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     AdicionaCartaoComponent,
     AdicionaTagComponent,
     DetalhesTagDialogComponent,
-    PieChartComponent
+    PieChartComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatDividerModule,
     MatTabsModule,
     MatChipsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatTooltipModule
   ],
   providers: [DataService,MensagemComponent,SharedService,Tipo,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
   bootstrap: [AppComponent]

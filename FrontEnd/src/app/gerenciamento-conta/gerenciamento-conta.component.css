@@ -8,7 +8,7 @@
 }
 
 mat-form-field{
-    width: 90%;
+    width: 95%;
     margin-bottom: 1em;
 }
 
@@ -72,6 +72,7 @@ mat-card-actions{
     align-items: center;
     justify-content: space-around;
     border-bottom: 5%;
+    width: 100%;
 }
 
 .btnCard {
@@ -87,4 +88,8 @@ mat-card-actions{
 
 .btnAdicionar {
     background: var(--amarelo);
+}
+
+.mat-card{
+    min-height: 100vh;
 }
