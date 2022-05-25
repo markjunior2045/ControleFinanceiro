@@ -57,14 +57,14 @@ export class DashboardComponent implements OnInit {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Gráfico de despezas por categoria', cols: 1, rows: 1 },
-          { title: 'Gráfico Receitas x Despezas', cols: 1, rows: 1 }
+          { id: 1, title: 'Gráfico de despezas por categoria', cols: 1, rows: 1},
+          { id: 2, title: 'Gráfico Receitas x Despezas', cols: 1, rows: 1 }
         ];
       }
 
       return [
-        { title: 'Gráfico de despezas por categoria', cols: 1, rows: 1 },
-        { title: 'Gráfico Receitas x Despezas', cols: 1, rows: 1 }
+        { id: 1, title: 'Gráfico de despezas por categoria', cols: 1, rows: 1},
+        { id: 2, title: 'Gráfico Receitas x Despezas', cols: 1, rows: 1 }
       ];
     })
   );
