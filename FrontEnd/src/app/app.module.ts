@@ -43,6 +43,7 @@ import { AdicionaTagComponent } from './adiciona-tag/adiciona-tag.component';
 import { DetalhesTagDialogComponent } from './detalhes-tag-dialog/detalhes-tag-dialog.component';
 import { Tipo } from './model/tag.model';
 import {MatChipsModule} from '@angular/material/chips';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import {MatChipsModule} from '@angular/material/chips';
     AdicionaBancoComponent,
     AdicionaCartaoComponent,
     AdicionaTagComponent,
-    DetalhesTagDialogComponent
+    DetalhesTagDialogComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
