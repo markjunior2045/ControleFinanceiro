@@ -44,6 +44,8 @@ import { DetalhesTagDialogComponent } from './detalhes-tag-dialog/detalhes-tag-d
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { Tipo } from './model/tag.model';
 import {MatChipsModule} from '@angular/material/chips';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
@@ -67,6 +69,7 @@ import { FooterComponent } from './footer/footer.component';
     AdicionaCartaoComponent,
     AdicionaTagComponent,
     DetalhesTagDialogComponent,
+    PieChartComponent,
     FooterComponent
   ],
   imports: [
@@ -92,6 +95,7 @@ import { FooterComponent } from './footer/footer.component';
     MatDividerModule,
     MatTabsModule,
     MatChipsModule,
+    NgxChartsModule,
     MatTooltipModule
   ],
   providers: [DataService,MensagemComponent,SharedService,Tipo,{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}],
