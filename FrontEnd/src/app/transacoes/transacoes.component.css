@@ -54,3 +54,7 @@ mat-card-title {
   flex-direction: row;
   align-items: center;
 }
+
+.mat-card {
+  min-height: 100vh;
+}
