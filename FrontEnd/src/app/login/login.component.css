@@ -61,3 +61,7 @@ button{
   width: 95%;
   margin: auto;
 }
+
+body{
+    min-height: 71vh;
+}
