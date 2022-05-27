@@ -70,9 +70,9 @@ mat-card-actions{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    border-bottom: 5%;
+    justify-content:first baseline;
     width: 100%;
+    min-height:17vh;
 }
 
 .btnCard {
@@ -90,6 +90,7 @@ mat-card-actions{
     background: var(--amarelo);
 }
 
-.mat-card, .formulario{
-    min-height: 100vh;
+.mat-card{
+    min-height: 71vh;
 }
+

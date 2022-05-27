@@ -33,6 +33,39 @@
   }
 
  .mat-card-actions{
-   margin-left: 5%;
+   padding: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding-bottom: 1%;
+   font-size:small;
  }
-  
+
+ .mat-card-content{
+   display: flex;
+   justify-content: center;
+   margin: 0;
+   padding: 0;
+   margin-right: 8%;
+   margin-bottom: 7%;
+ }
+
+ .mat-card-header{
+   margin-left: 2%;
+ } 
+
+ .grid-container{
+  min-height: 76vh;
+}
+
+.saldo-total{
+  font-size: xx-large !important;
+}
+
+.mat-card-title{
+  font-size:  larger;
+}
+
+app-footer{
+  position:fixed bottom;
+}

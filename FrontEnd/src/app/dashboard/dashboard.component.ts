@@ -67,14 +67,14 @@ export class DashboardComponent implements OnInit {
         return [
           { title: 'Saldo atual total', cols: 1, rows: 1, content: "R$ " + this.saldoTotal.toFixed(2), msg: "Soma dos saldos de todos os bancos" },
           { title: 'Salário mensal', cols: 1, rows: 1, content: "R$ " + this.usuario.valorReservado.toFixed(2), msg: "Valor entrada mensal com base no salário" },
-          { title: 'Valor reservado por mês', cols: 1, rows: 1, content: "R$ " + this.usuario.valorReservado.toFixed(2), msg: "Valor a ser reservado do salário" }
+          { title: 'Reserva por mês', cols: 1, rows: 1, content: "R$ " + this.usuario.valorReservado.toFixed(2), msg: "Valor a ser reservado do salário" }
         ];
       }
 
       return [
         { title: 'Saldo atual total', cols: 1, rows: 1, content: "R$ " + this.saldoTotal.toFixed(2), msg: "Soma dos saldos de todos os bancos" },
         { title: 'Salário mensal', cols: 1, rows: 1, content: "R$ " + this.usuario.salario.toFixed(2), msg: "Valor entrada mensal com base no salário" },
-        { title: 'Valor reservado por mês', cols: 1, rows: 1, content: "R$ " + this.usuario.valorReservado.toFixed(2), msg: "Valor a ser reservado do salário" }
+        { title: 'Reserva por mês', cols: 1, rows: 1, content: "R$ " + this.usuario.valorReservado.toFixed(2), msg: "Valor a ser reservado do salário" }
       ];
     })
   );
@@ -84,13 +84,13 @@ export class DashboardComponent implements OnInit {
       if (matches) {
         return [
           { id: 1, title: 'Gráfico de despezas por categoria', cols: 1, rows: 1},
-          { id: 2, title: 'Gráfico Receitas x Despezas', cols: 1, rows: 1 }
+          { id: 2, title: 'Gráfico de despezas totais por mês', cols: 1, rows: 1 }
         ];
       }
 
       return [
         { id: 1, title: 'Gráfico de despezas por categoria', cols: 1, rows: 1},
-        { id: 2, title: 'Gráfico Receitas x Despezas', cols: 1, rows: 1 }
+        { id: 2, title: 'Gráfico de despezas totais por mês', cols: 1, rows: 1 }
       ];
     })
   );
