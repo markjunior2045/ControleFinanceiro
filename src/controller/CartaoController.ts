@@ -55,7 +55,19 @@ export class CartaoController {
     async getById(id: string) {
         let cartao: Cartao;
         if (id != null || id != "") {
-            cartao = await database.manager.findOneBy(Cartao, { id: id });
+            console.log('Chegou aqui');
+            
+            cartao = await database.manager.findOne(Cartao, {
+                where: {
+                    id: id
+                },
+                relations:{
+                    bancoCartao:true,
+                    usuario:true
+                }
+            });
+            console.log(cartao);
+            
         } else {
             cartao = null;
         }
@@ -78,41 +90,41 @@ export class CartaoController {
 
     async update(cartao: Cartao) {
         if (cartao != null) {
-            if(cartao.bancoCadastrado){
+            if (cartao.bancoCadastrado) {
                 await database.createQueryBuilder()
-                .update(Cartao)
-                .set({
-                    nome: cartao.nome,
-                    titular: cartao.titular,
-                    numero: cartao.numero,
-                    modalidade: cartao.modalidade,
-                    bancoCadastrado: cartao.bancoCadastrado,
-                    bancoCartao: cartao.bancoCartao,
-                    banco: '',
-                    vencimentoFatura: cartao.vencimentoFatura,
-                    validade: new Date(cartao.validade).toISOString().slice(0, 10).replace('T', ' '),
-                    codigo: cartao.codigo,
-                    usuario: cartao.usuario,
-                })
-                .where("id = :id", { id: cartao.id })
-                .execute()
-            }else{
+                    .update(Cartao)
+                    .set({
+                        nome: cartao.nome,
+                        titular: cartao.titular,
+                        numero: cartao.numero,
+                        modalidade: cartao.modalidade,
+                        bancoCadastrado: cartao.bancoCadastrado,
+                        bancoCartao: cartao.bancoCartao,
+                        banco: '',
+                        vencimentoFatura: cartao.vencimentoFatura,
+                        validade: new Date(cartao.validade).toISOString().slice(0, 10).replace('T', ' '),
+                        codigo: cartao.codigo,
+                        usuario: cartao.usuario,
+                    })
+                    .where("id = :id", { id: cartao.id })
+                    .execute()
+            } else {
                 await database.createQueryBuilder()
-                .update(Cartao)
-                .set({
-                    nome: cartao.nome,
-                    titular: cartao.titular,
-                    numero: cartao.numero,
-                    modalidade: cartao.modalidade,
-                    bancoCadastrado: cartao.bancoCadastrado,
-                    banco: cartao.banco,
-                    vencimentoFatura: cartao.vencimentoFatura,
-                    validade: new Date(cartao.validade).toISOString().slice(0, 10).replace('T', ' '),
-                    codigo: cartao.codigo,
-                    usuario: cartao.usuario,
-                })
-                .where("id = :id", { id: cartao.id })
-                .execute()
+                    .update(Cartao)
+                    .set({
+                        nome: cartao.nome,
+                        titular: cartao.titular,
+                        numero: cartao.numero,
+                        modalidade: cartao.modalidade,
+                        bancoCadastrado: cartao.bancoCadastrado,
+                        banco: cartao.banco,
+                        vencimentoFatura: cartao.vencimentoFatura,
+                        validade: new Date(cartao.validade).toISOString().slice(0, 10).replace('T', ' '),
+                        codigo: cartao.codigo,
+                        usuario: cartao.usuario,
+                    })
+                    .where("id = :id", { id: cartao.id })
+                    .execute()
             }
             return true;
         } else {
@@ -129,17 +141,17 @@ export class CartaoController {
         }
     }
 
-    async checkCartao(idCartao: string){
-        let qtdTransacao:number;
+    async checkCartao(idCartao: string) {
+        let qtdTransacao: number;
         if (idCartao != null) {
-            qtdTransacao = await database.manager.createQueryBuilder().select("transacao").from(Transacao,"transacao").where("transacao.cartaoId = :id",{id: idCartao}).getCount();
-            if(qtdTransacao != null){
-                if(qtdTransacao > 0)
+            qtdTransacao = await database.manager.createQueryBuilder().select("transacao").from(Transacao, "transacao").where("transacao.cartaoId = :id", { id: idCartao }).getCount();
+            if (qtdTransacao != null) {
+                if (qtdTransacao > 0)
                     return true
-            }else{
+            } else {
                 return null
             }
-        }else{
+        } else {
             return null
         }
     }
