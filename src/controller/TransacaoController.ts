@@ -34,7 +34,7 @@ export class TransacaoController {
     }
 
     async getSumByMonth(idUsuario: string) {
-        return await database.manager.query('SELECT MONTH(ts.data) AS Mes, SUM(ts.valor) AS qtd FROM  transacao ts WHERE ts.usuarioId = "' + idUsuario + '" GROUP BY MONTH(ts.data);')
+        return await database.manager.query('SELECT MONTH(ts.data) AS Mes, SUM(ts.valor) AS qtd FROM  transacao ts WHERE ts.usuarioId = "' + idUsuario + '" GROUP BY MONTH(ts.data) ORDER BY month(ts.data);')
     }
 
     async getByMonth(idUsuario: string, mes: number) {

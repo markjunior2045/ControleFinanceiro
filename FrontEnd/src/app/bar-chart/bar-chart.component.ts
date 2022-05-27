@@ -40,7 +40,7 @@ export class BarChartComponent implements OnInit {
     await this._transacaoService.getSomaMesTransacao(idUsuario).then(result => {
       this.totalMeses = result;
       this.totalMeses.forEach(mes => {
-        this.meses.push({name:this.nomeMes[mes.Mes],value:mes.qtd});
+        this.meses.push({name:this.nomeMes[mes.Mes - 1],value:mes.qtd});
       })
       this.loaded = true;
     })
