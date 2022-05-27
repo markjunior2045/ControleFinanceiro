@@ -24,8 +24,7 @@ routerTransacao.post('/:idUsuario', async(req, res) => {
     let tags:string[];
     let tagTransacao:Tag;
     let tagsTransacao:Tag[] = [];
-    console.log("New ID: " + newId);
-    
+
     const usuario = await usuarioController.getById(idUsuario);
     if (usuario) {
         const transacao = new Transacao(dados.descricao,dados.entrada, dados.valor, dados.metodo, false, 1, dados.data, usuario);
@@ -42,6 +41,15 @@ routerTransacao.post('/:idUsuario', async(req, res) => {
         }
         if(dados.cartaoid != '' && dados.cartaoid != null && dados.cartaoid != undefined){
             const cartao = await cartaoController.getById(dados.cartaoid);
+            if(cartao.bancoCadastrado != null && cartao.bancoCadastrado){
+                const banco = await bancoController.getById(cartao.bancoCartao.id);
+                if(transacao.entrada){
+                    banco.saldo += transacao.valor
+                }else{
+                    banco.saldo -= transacao.valor
+                }
+                await bancoController.update(banco);
+            }
             transacao.cartao = cartao;
         }
         const transacaoSalva = await transacaoController.salvar(transacao);
@@ -112,10 +120,13 @@ routerTransacao.delete('/:idTransacao', async (req, res) => {
     const {idTransacao} = req.params;
     if (idTransacao != null || idTransacao != ''){
         let transacao = await transacaoController.getById(idTransacao);
-        console.log(transacao);
         if(transacao.metodo == 'Pix'){
-            console.log(true);
             await bancoController.atualizaSaldo(transacao.banco.id,transacao.valor,!transacao.entrada);
+        }else if(transacao.metodo == 'Cartão'){
+            const cartao = await cartaoController.getById(transacao.cartao.id);
+            if(cartao.bancoCadastrado != null && cartao.bancoCadastrado){
+                await bancoController.atualizaSaldo(cartao.bancoCartao.id,transacao.valor,!transacao.entrada);
+            }
         }
         const result = await transacaoController.delete(idTransacao);
         res.json(result);
