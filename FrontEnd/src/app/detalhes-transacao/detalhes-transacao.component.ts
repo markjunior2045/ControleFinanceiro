@@ -19,6 +19,7 @@ export class DetalhesTransacaoComponent implements OnInit {
   metodoPagamento: string[] = ['Dinheiro', 'Cartão', 'Boleto', 'Pix'];
   metodoCartao: boolean;
   metodoBanco: boolean;
+  showMetodo: boolean;
   cartoes: Cartao[];
   bancos: Banco[];
 
@@ -34,8 +35,7 @@ export class DetalhesTransacaoComponent implements OnInit {
     this.getCartoes(this.data.idUsuario);    
     this.criaForm();
     this.metodoInicial();
-    console.log(this.data);
-    
+    this.entrada();
   }
 
   fechar() {
@@ -121,6 +121,16 @@ export class DetalhesTransacaoComponent implements OnInit {
         this.metodoCartao = false;
         this.metodoBanco = false;
         break;
+    }
+  }
+
+  entrada(){
+    if(!this.detalhesForm.controls['entrada'].value == true){
+      this.showMetodo = false;
+      this.metodo();
+    }else{
+      this.showMetodo = true;
+      this.metodo();
     }
   }
 

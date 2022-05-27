@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Guid } from "../model/guid.model";
-import { Tag } from "../model/tag.model";
+import { qtdTipos, Tag } from "../model/tag.model";
 import { Usuario } from "../model/usuario.model";
 import { DataService } from "./dataService";
 
@@ -19,6 +19,10 @@ export class TagService{
 
     getTags(idUsuario: Guid):Promise<Usuario[]>{
         return this._dataservice.get('tag/usuario/' + idUsuario) as Promise<Usuario[]>;
+    }
+
+    countTipos(idUsuario: Guid):Promise<qtdTipos[]>{
+        return this._dataservice.get('tag/count/tipo/' + idUsuario) as Promise<qtdTipos[]>;
     }
 
     deleteTag(idTag: Guid):Promise<void>{

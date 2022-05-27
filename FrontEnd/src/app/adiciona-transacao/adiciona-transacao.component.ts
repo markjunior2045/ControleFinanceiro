@@ -21,6 +21,7 @@ export class AdicionaTransacaoComponent implements OnInit {
   metodoPagamento: string[] = ['Dinheiro', 'Cartão', 'Boleto', 'Pix'];
   metodoCartao: boolean;
   metodoBanco: boolean;
+  showMetodo:boolean = true;
   cartoes: Cartao[];
   bancos: Banco[];
   tags: Tag[];
@@ -103,16 +104,20 @@ export class AdicionaTransacaoComponent implements OnInit {
         this.metodoBanco = false;
         this.adicionaForm.controls['cartaoid'].setValidators(Validators.required);
         this.adicionaForm.controls['bancoid'].setValidators(null);
+        this.adicionaForm.controls['bancoid'].setValue(null);
         break;
       case "Pix":
         this.metodoCartao = false;
         this.metodoBanco = true;
         this.adicionaForm.controls['cartaoid'].setValidators(null);
+        this.adicionaForm.controls['cartaoid'].setValue(null);
         this.adicionaForm.controls['bancoid'].setValidators(Validators.required);
         break;
       default:
         this.adicionaForm.controls['cartaoid'].clearValidators();
         this.adicionaForm.controls['bancoid'].clearValidators();
+        this.adicionaForm.controls['bancoid'].setValue(null);
+        this.adicionaForm.controls['cartaoid'].setValue(null);
         this.metodoCartao = false;
         this.metodoBanco = false;
         break;
@@ -121,5 +126,15 @@ export class AdicionaTransacaoComponent implements OnInit {
     this.adicionaForm.controls['bancoid'].updateValueAndValidity();
   }
 
-
+  entrada(){
+    if(!this.adicionaForm.controls['entrada'].value == true){
+      this.adicionaForm.controls['metodo'].setValue('Pix');
+      this.showMetodo = false;
+      this.metodo();
+    }else{
+      this.adicionaForm.controls['metodo'].setValue(null);
+      this.showMetodo = true;
+      this.metodo();
+    }
+  }
 }

@@ -161,7 +161,6 @@ export class GerenciamentoContaComponent implements OnInit {
   async getCartoes(idUsuario: Guid) {
     await this._cartaoService.getCartao(idUsuario).then(result => {
       this.dadosCartao = result[0].cartao;
-      console.log(result[0].cartao);
       
       if (this.dadosCartao.length > 0) {
         this.temCartao = true;
@@ -234,7 +233,6 @@ export class GerenciamentoContaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async result => {
       if (result != undefined && result) {
         const temCartao = await this._bancoService.checkCartao(idBanco);
-        console.log(temCartao);
         if (temCartao || temCartao == null) {
           this.mensagem.mostraAviso('Erro: Existe um cartão com esse banco!');
         } else {
@@ -303,8 +301,6 @@ export class GerenciamentoContaComponent implements OnInit {
   }
 
   async adicionaCartao(idUsuario: Guid, cartao: Cartao) {
-    console.log(cartao);
-
     await this._cartaoService.cadastraCartao(idUsuario, cartao).then(result => {
       this.mensagem.mostraAviso('Cartão adicionado com sucesso!');
     }).catch(error => {
@@ -442,9 +438,7 @@ export class GerenciamentoContaComponent implements OnInit {
   }
 
   async checkTag(idTag:Guid,nomeTag:string){
-    await this._tagService.checkTag(idTag).then(result => {
-      console.log(result);
-      
+    await this._tagService.checkTag(idTag).then(result => {      
       if(result){
         this.deletarTagTransacaoDialog(idTag,nomeTag);
       }else{

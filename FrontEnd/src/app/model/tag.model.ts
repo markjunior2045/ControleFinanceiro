@@ -6,6 +6,11 @@ export interface Tag{
     tipo: string;
 }
 
-export class Tipo {
-    tipos:string[] = ['Casa','Educação','Eletrônico', 'Lazer', 'Transporte', 'Saúde', 'Serviços', 'Outros']
+export interface qtdTipos{
+    tipo:string;
+    qtd:number;
 }
+export class Tipo {
+    tipos:string[] = ['Casa','Educação','Eletrônico', 'Lazer', 'Transporte', 'Saúde', 'Serviços','Ganho', 'Outros']
+}
+

@@ -62,6 +62,10 @@ export class TagController {
         return tag;
     }
 
+    async getCountTipoTag(idUsuario: string){
+        return await database.manager.query('SELECT tg.tipo, count(tg.tipo) AS qtd FROM  transacao_tag_tag ttt JOIN  tag tg ON ttt.tagId = tg.id JOIN  transacao ts ON ttt.transacaoId = ts.id WHERE tg.usuarioId = "' + idUsuario + '" GROUP BY tg.tipo');
+    }
+
     async novaTagTransacao(idTag: string, idTransacao: string) {
         if (idTag != null || idTag != '' || idTransacao != null || idTransacao != '') {
             return await database.manager.query('INSERT INTO `controlefinanceiro`.`transacao_tag_tag` (`transacaoId`,`tagId`) VALUES("' + idTransacao + '","' + idTag + '");');

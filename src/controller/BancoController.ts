@@ -49,6 +49,19 @@ export class BancoController {
         return bancoSalvo;
     }
 
+    async atualizaSaldo(idBanco:string, valor:number, entrada:boolean){
+        console.log(idBanco);
+        
+        let banco: Banco;
+        banco = await database.manager.findOne(Banco,{where:{id:idBanco}});
+        if(entrada){
+            banco.saldo += valor;
+        }else{
+            banco.saldo -= valor;
+        }
+        await this.update(banco);
+    }
+
     async delete(id: string){
         if (id != null || id != ''){
             return await database.manager.delete(Banco, id);

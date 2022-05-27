@@ -90,6 +90,6 @@ mat-card-actions{
     background: var(--amarelo);
 }
 
-.mat-card{
+.mat-card, .formulario{
     min-height: 100vh;
 }
