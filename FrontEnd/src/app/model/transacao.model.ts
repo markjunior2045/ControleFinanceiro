@@ -18,3 +18,8 @@ export interface Transacao{
     cartaoid?: Guid;
     tag:Tag[];
 }
+
+export interface TotalMes{
+    Mes:number;
+    qtd:number;
+}

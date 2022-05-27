@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Guid } from "../model/guid.model";
-import { Transacao } from "../model/transacao.model";
+import { TotalMes, Transacao } from "../model/transacao.model";
 import { Usuario } from "../model/usuario.model";
 import { DataService } from "./dataService";
 
@@ -21,6 +21,10 @@ export class TransacaoService {
 
     getTransacoesUsuario(idUsuario: Guid):Promise<Usuario[]> {
         return this._dataservice.get('usuario/transacoes/' + idUsuario) as Promise<Usuario[]>
+    }
+
+    getSomaMesTransacao(idUsuario:Guid):Promise<TotalMes[]>{
+        return this._dataservice.get('transacao/total/mes/' + idUsuario) as Promise<TotalMes[]>;
     }
 
     getTransacoesPorMes(idUsuario:Guid,mes:number):Promise<Transacao[]>{
