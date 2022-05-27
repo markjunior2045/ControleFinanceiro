@@ -1,5 +1,5 @@
-<ngx-charts-bar-vertical
-    [results]="saleData" 
+<ngx-charts-bar-vertical *ngIf="loaded"
+    [results]="meses" 
     [view]="[400, 250]" 
     [yAxis]="true"    
     [showXAxisLabel]="true"
