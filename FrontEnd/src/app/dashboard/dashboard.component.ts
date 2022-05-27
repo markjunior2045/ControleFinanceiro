@@ -8,6 +8,8 @@ import { Banco } from '../model/banco.model';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../model/usuario.model';
 import { BancoService } from '../services/banco.service';
+import { TagService } from '../services/tag.service';
+import { qtdTipos } from '../model/tag.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,7 +39,7 @@ export class DashboardComponent implements OnInit {
   saldoTotal: number = 0;
   dadosBancoCarregados:boolean = false;
   dadosUsuarioCarregados:boolean = false;
-
+  tiposTag:qtdTipos[];
   bancos: Banco[]
   // [{
   //   id: 1,

@@ -1,5 +1,5 @@
-<ngx-charts-pie-chart 
-    [results]="saleData" 
+<ngx-charts-pie-chart *ngIf="loaded"
+    [results]="tipos" 
     [view]="[400,250]"
     [labels]="true">
 </ngx-charts-pie-chart>

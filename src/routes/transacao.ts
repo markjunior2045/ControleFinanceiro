@@ -32,6 +32,12 @@ routerTransacao.post('/:idUsuario', async(req, res) => {
         transacao.id = newId;
         if(dados.bancoid != '' && dados.bancoid != null && dados.bancoid != undefined){
             const banco = await bancoController.getById(dados.bancoid);
+            if(transacao.entrada){
+                banco.saldo += transacao.valor
+            }else{
+                banco.saldo -= transacao.valor
+            }
+            await bancoController.update(banco);
             transacao.banco = banco;
         }
         if(dados.cartaoid != '' && dados.cartaoid != null && dados.cartaoid != undefined){
@@ -42,15 +48,11 @@ routerTransacao.post('/:idUsuario', async(req, res) => {
         tags = dados.tags;
         console.log("Salvo: " + transacaoSalva.id);
         
-        if(tags.length > 0){
+        if(tags != null && tags.length > 0){
             tags.forEach(async tag => {
                 await tagController.novaTagTransacao(tag,newId);
             })
         }
-        
-        // const tag1 = await tagController.getById("4f2eedec-0a1a-43ee-8f8e-e63bcbe5a23c");
-        // const tag2 = await tagController.getById("a5a7d7da-e6cc-44c5-b8a7-40fb84ad0f65");
-        // transacao.tag = [tag1,tag2];
         
         res.status(200).json({message: 'Sucesso'});
     } else {
@@ -79,6 +81,13 @@ routerTransacao.get('/:idUsuario/:mes',async (req, res) => {
     res.json(transacoes);
 })
 
+//Get Soma por mes
+routerTransacao.get('/total/mes/:idUsuario',async (req, res) => {
+    const {idUsuario} = req.params;
+    const total = await transacaoController.getSumByMonth(idUsuario);
+    res.json(total);
+})
+
 //Atualiza Transação
 routerTransacao.put('/:idUsuario', async (req, res) => {
     const {idUsuario} = req.params;
@@ -102,6 +111,12 @@ routerTransacao.put('/:idUsuario', async (req, res) => {
 routerTransacao.delete('/:idTransacao', async (req, res) => {
     const {idTransacao} = req.params;
     if (idTransacao != null || idTransacao != ''){
+        let transacao = await transacaoController.getById(idTransacao);
+        console.log(transacao);
+        if(transacao.metodo == 'Pix'){
+            console.log(true);
+            await bancoController.atualizaSaldo(transacao.banco.id,transacao.valor,!transacao.entrada);
+        }
         const result = await transacaoController.delete(idTransacao);
         res.json(result);
     }else{

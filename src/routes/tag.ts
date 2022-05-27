@@ -30,10 +30,18 @@ routerTag.get('/usuario/:idUsuario', async (req, res) => {
     res.json(tag);
 })
 
+//Get Transacao com Tag
 routerTag.get('/transacoes/:idtag', async (req, res) => {
     const { idtag } = req.params;
     const transacoes = await tagController.getTransacaoTags(idtag);
     res.json(transacoes);
+})
+
+//Count tag tipo
+routerTag.get('/count/tipo/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    const tipos = await tagController.getCountTipoTag(idUsuario);
+    res.json(tipos)
 })
 
 //GetById
