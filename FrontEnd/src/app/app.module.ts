@@ -47,6 +47,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FooterComponent } from './footer/footer.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { FooterComponent } from './footer/footer.component';
     AdicionaTagComponent,
     DetalhesTagDialogComponent,
     PieChartComponent,
-    FooterComponent
+    FooterComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
