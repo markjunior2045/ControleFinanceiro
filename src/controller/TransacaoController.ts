@@ -1,71 +1,81 @@
-import { AppDataSource } from "../data-source";
-import { Transacao } from "../entity/Transacao";
+import { Router } from 'express';
+import { _TransacaoService } from '../services/_transacaoService';
 
-const database = AppDataSource;
+export const routerTransacao = Router();
+const _transacaoService = new _TransacaoService();
 
-export class TransacaoController {
-    async salvar(transacao: Transacao) {
-        const transacaoSalva = await database.manager.save(transacao);
-        return transacaoSalva;
-    }
+//Salvar Transação
+routerTransacao.post('/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    const body = req.body;
 
-    async getAll() {
-        const transacoes = await database.manager.find(Transacao);
-        return transacoes;
-    }
-
-    async getById(id: string) {
-        let transacao: Transacao;
-        if (id != null || id != "") {
-            transacao = await database.manager.findOne(Transacao,{
-                where:{
-                    id:id
-                },
-                relations: {
-                    banco: true,
-                    cartao: true,
-                    usuario: true
-                }
-            });
-        } else {
-            transacao = null;
+    await _transacaoService.adicionaTransacao(idUsuario,body).then(result => {
+        if(result){
+            res.status(200).json({ message: 'Sucesso' });
+        }else{
+            res.status(404).json({ message: 'Usuário não encontrado' });
         }
-        return transacao;
-    }
+    }).catch(error => res.status(100).json({message: 'Erro ao adicionar transacao'}));
+})
 
-    async getSumByMonth(idUsuario: string) {
-        return await database.manager.query('SELECT MONTH(ts.data) AS Mes, SUM(ts.valor) AS qtd FROM  transacao ts WHERE ts.usuarioId = "' + idUsuario + '" GROUP BY MONTH(ts.data) ORDER BY month(ts.data);')
-    }
-
-    async getByMonth(idUsuario: string, mes: number) {
-        if (idUsuario != null || mes != null) {
-            const transacoes = await database.getRepository(Transacao)
-                .createQueryBuilder("transacao")
-                .leftJoinAndSelect("transacao.banco", "banco")
-                .leftJoinAndSelect("transacao.cartao", "cartao")
-                .leftJoinAndSelect("transacao.tag", "tag")
-                .where("MONTH(transacao.data) = :mes", { mes: mes })
-                .andWhere("transacao.usuarioId = :id", { id: idUsuario })
-                .getMany();
-            return transacoes;
+//GetById Transacao
+routerTransacao.get('/:idTransacao', async (req, res) => {
+    const { idTransacao } = req.params;
+    await _transacaoService.retornaTransacaoPorId(idTransacao).then(result => {
+        if (result != null){
+            res.json(result);
+        }else{
+            res.json(null);
         }
-    }
+    }).catch(error => res.json(error));
+})
 
-    async update(transacao: Transacao) {
-        let transacaoSalva: Transacao;
-        if (transacao != null) {
-            transacaoSalva = await database.manager.save(transacao);
-        } else {
-            transacaoSalva = null;
+//Get por mes
+routerTransacao.get('/:idUsuario/:mes', async (req, res) => {
+    const { idUsuario } = req.params;
+    const { mes } = req.params;
+    await _transacaoService.retornaTransacaoFiltroPorMes(idUsuario,parseInt(mes)).then(result => {
+        if(result != null){
+            res.json(result);
+        }else{
+            res.json(null);
         }
-        return transacaoSalva;
-    }
+    }).catch(error => res.json(error));
+})
 
-    async delete(id: string) {
-        if (id != null || id != '') {
-            return await database.manager.delete(Transacao, id);
-        } else {
-            return null;
+//Get Soma por mes
+routerTransacao.get('/total/mes/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    await _transacaoService.retornaTotalPorMes(idUsuario).then(result => {
+        if(result != null){
+            res.json(result);
+        }else{
+            res.json(null);
         }
-    }
-}
+    }).catch(error => res.json(error));
+})
+
+//Atualiza Transação
+routerTransacao.put('/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    const body = req.body;
+    await _transacaoService.atualizaTransacao(idUsuario,body).then(result =>{
+        if(result){
+            res.json(result);
+        }else{
+            res.json(null);
+        }
+    }).catch(error => res.json(error));
+})
+
+//DeletaTransação
+routerTransacao.delete('/:idTransacao', async (req, res) => {
+    const { idTransacao } = req.params;
+    await _transacaoService.deletaTransacao(idTransacao).then(result => {
+        if(result){
+            res.json(result);
+        }else{
+            res.json(false);
+        }
+    }).catch(error => res.json(error));
+})

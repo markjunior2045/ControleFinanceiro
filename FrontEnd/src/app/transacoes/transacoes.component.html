@@ -14,10 +14,12 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button *ngIf="btnFiltrar" mat-fab class="btnFiltrar" #tooltip="matTooltip" matTooltip="Filtrar" matTooltipPosition="right" (click)="filtrar()">
+      <button *ngIf="btnFiltrar" mat-fab class="btnFiltrar" #tooltip="matTooltip" matTooltip="Filtrar"
+        matTooltipPosition="right" (click)="filtrar()">
         <mat-icon class="iconPesquisar">search</mat-icon>
       </button>
-      <button *ngIf="!btnFiltrar" mat-fab class="btnRemoveFiltro" #tooltip="matTooltip" matTooltip="Remover Filtro" matTooltipPosition="right" (click)="filtrar()">
+      <button *ngIf="!btnFiltrar" mat-fab class="btnRemoveFiltro" #tooltip="matTooltip" matTooltip="Remover Filtro"
+        matTooltipPosition="right" (click)="filtrar()">
         <mat-icon class="iconPesquisar">close</mat-icon>
       </button>
     </div>
@@ -26,6 +28,13 @@
       <ng-container matColumnDef="descricao">
         <th mat-header-cell *matHeaderCellDef> Descrição </th>
         <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="parcelado">
+        <th mat-header-cell *matHeaderCellDef>Parcela</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon *ngIf="element.parcelado" class="parcelado">check</mat-icon>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="valor">
@@ -51,6 +60,14 @@
               {{tag.nome}}
             </mat-chip>
           </mat-chip-list>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pago">
+        <th mat-header-cell *matHeaderCellDef> Pago </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon *ngIf="element.pago" class="pagotrue">check</mat-icon>
+          <mat-icon *ngIf="!element.pago" class="pagofalse">close</mat-icon>
         </td>
       </ng-container>
 

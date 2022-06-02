@@ -17,7 +17,8 @@
         <div style="display: flex; flex-direction: row;">
             <mat-form-field *ngIf="showMetodo" appearance="fill" style="margin-right: 5%;">
                 <mat-label>Método</mat-label>
-                <mat-select (selectionChange)="metodo()" formControlName="metodo" [(ngModel)]="data.metodo" [disabled]="true">
+                <mat-select (selectionChange)="metodo()" formControlName="metodo" [(ngModel)]="data.metodo"
+                    [disabled]="true">
                     <mat-option *ngFor="let opcao of metodoPagamento" [value]="opcao">
                         {{opcao}}
                     </mat-option>
@@ -54,9 +55,26 @@
                 {{tag.nome}}
             </mat-chip>
         </mat-chip-list>
+        <div style="display: flex; flex-direction: row;margin-top: 5%;">
+            <mat-checkbox appearance="fill" [disabled]="true" [(ngModel)]="data.parcelado" formControlName="parcelado"
+                color='primary'>Parcelado
+            </mat-checkbox>
 
-        <mat-checkbox [disabled]="true" appearance="fill" style="margin-bottom: 5%;margin-top: 5%;" formControlName="entrada" [(ngModel)]="data.entrada"
-            color='primary'>Ganho</mat-checkbox>
+            <mat-form-field *ngIf="data.parcelado" appearance="fill" style="margin-left: 5%;">
+                <mat-label>Quantidade Parcelas</mat-label>
+                <input matInput type="number" formControlName="quantidadeParcelas"
+                    [(ngModel)]="data.quantidadeParcelas">
+                <mat-error>Campo Obrigatório!</mat-error>
+            </mat-form-field>
+        </div>
+        <div style="display: flex; flex-direction: row;margin-top: 5%;">
+            <mat-checkbox [disabled]="true" appearance="fill" style="margin-right: 5%;"
+                formControlName="entrada" [(ngModel)]="data.entrada" color='primary'>Ganho</mat-checkbox>
+
+            <mat-checkbox appearance="fill" [(ngModel)]="data.pago" formControlName="pago"
+                color='primary'>Pago
+            </mat-checkbox>
+        </div>
     </form>
 </div>
 <div mat-dialog-actions>

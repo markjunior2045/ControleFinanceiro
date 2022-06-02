@@ -1,89 +1,55 @@
-import { AppDataSource } from "../data-source";
-import { Banco } from "../entity/Banco";
-import { Cartao } from "../entity/Cartao";
-import { Transacao } from "../entity/Transacao";
-import { Usuario } from "../entity/Usuario";
+import { Router } from 'express';
+import { _BancoService } from '../services/_bancoService';
 
-const database = AppDataSource;
+export const routerBanco = Router();
+const _bancoService = new _BancoService()
 
-export class BancoController {
-    async salvar (banco: Banco){
-        const bancoSalvo = await database.manager.save(banco);
-        return bancoSalvo;
-    }
+//Salvar Banco
+routerBanco.post('/:idUsuario', async (req, res) => {
+    const body = req.body;
+    const { idUsuario } = req.params;
+    await _bancoService.adicionaBanco(idUsuario,body).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getAll(){
-        const bancos = await database.manager.find(Banco);
-        return bancos;
-    }
+//GetById Banco
+routerBanco.get('/:idBanco', async (req, res) => {
+    const {idBanco} = req.params;
+    await _bancoService.retornaBancoPorId(idBanco).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getById(id: string){
-        let banco: Banco;
-        if (id != null || id != "") {
-            banco = await database.manager.findOneBy(Banco,{id: id});
-        }else{
-            banco = null;
-        }
-        return banco;
-    }
+//Get Bancos do Usuário
+routerBanco.get('/usuario/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    await _bancoService.retornaBancosDoUsuario(idUsuario).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getBancosDoUsuario(idUsuario: string){
-        const bancos = await database.manager.find(Usuario,{
-            relations: {
-                banco: true
-            },
-            where: {
-               id: idUsuario 
-            },
-        })
-        return bancos;
-    }
+//Atualiza Banco
+routerBanco.put('/:idUsuario',async (req, res) => {
+    const {idUsuario} = req.params;
+    const body = req.body;
+    await _bancoService.atualizaBanco(idUsuario,body).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async update(banco:Banco){
-        let bancoSalvo: Banco;
-        if(banco != null){
-            bancoSalvo = await database.manager.save(banco);
-        }else{
-            bancoSalvo = null;
-        }
-        return bancoSalvo;
-    }
+//Deleta Banco
+routerBanco.delete('/:idBanco', async (req, res) => {
+    const {idBanco} = req.params;
+    await _bancoService.deletaBanco(idBanco).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async atualizaSaldo(idBanco:string, valor:number, entrada:boolean){
-        console.log(idBanco);
-        
-        let banco: Banco;
-        banco = await database.manager.findOne(Banco,{where:{id:idBanco}});
-        if(entrada){
-            banco.saldo += valor;
-        }else{
-            banco.saldo -= valor;
-        }
-        await this.update(banco);
-    }
-
-    async delete(id: string){
-        if (id != null || id != ''){
-            return await database.manager.delete(Banco, id);
-        }else{
-            return null;
-        }
-    }
-
-    async checkCartao(idBanco: string){
-        let qtdCartao:number;
-        let qtdTransacao:number;
-        if (idBanco != null) {
-            qtdCartao = await database.manager.createQueryBuilder().select("cartao").from(Cartao,"cartao").where("cartao.bancoCartaoId = :id",{id: idBanco}).getCount();
-            qtdTransacao = await database.manager.createQueryBuilder().select("transacao").from(Transacao,"transacao").where("transacao.bancoId = :id",{id: idBanco}).getCount();
-            if(qtdCartao != null && qtdTransacao != null){
-                if(qtdCartao > 0 || qtdTransacao > 0)
-                    return true
-            }else{
-                return null
-            }
-        }else{
-            return null
-        }
-    }
-}
+//Check cartao
+routerBanco.get('/checkcartao/:idBanco', async (req, res) => {
+    const {idBanco} = req.params;
+    await _bancoService.verificaBancoTemCartao(idBanco).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})

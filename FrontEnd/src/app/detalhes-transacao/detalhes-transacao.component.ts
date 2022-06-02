@@ -32,7 +32,7 @@ export class DetalhesTransacaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBancos(this.data.idUsuario);
-    this.getCartoes(this.data.idUsuario);    
+    this.getCartoes(this.data.idUsuario);
     this.criaForm();
     this.metodoInicial();
     this.entrada();
@@ -43,23 +43,23 @@ export class DetalhesTransacaoComponent implements OnInit {
   }
 
   salvar() {
-    if (this.detalhesForm.valid) {
-      this.dialogRef.close(this.detalhesForm.value);
-    } else {
-      this.mensagem.mostraAviso('Erro: Preencha os campos corretamente!');
-    }
+    this.dialogRef.close(this.detalhesForm.value);
   }
 
   criaForm() {
     this.detalhesForm = this.formBuilder.group({
       descricao: ['', Validators.required],
       entrada: false,
+      pago: false,
+      parcelado: false,
+      quantidadeParcelas: ['',Validators.required],
       valor: ['', Validators.required],
       metodo: ['', Validators.required],
       cartaoid: [''],
       bancoid: [''],
       data: ['', Validators.required]
     })
+    this.detalhesForm.controls['quantidadeParcelas'].disable();
   }
 
   async getCartoes(idUsuario: Guid) {
@@ -107,7 +107,7 @@ export class DetalhesTransacaoComponent implements OnInit {
     this.detalhesForm.controls['bancoid'].updateValueAndValidity();
   }
 
-  metodoInicial(){
+  metodoInicial() {
     switch (this.data.metodo) {
       case "Cartão":
         this.metodoCartao = true;
@@ -124,11 +124,11 @@ export class DetalhesTransacaoComponent implements OnInit {
     }
   }
 
-  entrada(){
-    if(!this.detalhesForm.controls['entrada'].value == true){
+  entrada() {
+    if (!this.detalhesForm.controls['entrada'].value == true) {
       this.showMetodo = false;
       this.metodo();
-    }else{
+    } else {
       this.showMetodo = true;
       this.metodo();
     }

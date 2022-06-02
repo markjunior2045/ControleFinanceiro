@@ -11,6 +11,7 @@ export interface Transacao{
     metodo: string;
     parcelado: boolean;
     quantidadeParcelas: number;
+    pago:boolean;
     data: Date;
     banco:Banco;
     cartao:Cartao;

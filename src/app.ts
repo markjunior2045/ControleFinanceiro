@@ -3,11 +3,11 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as logger from 'morgan';
 import {conectarNoBd} from './config/db';
-import { routerUsuario } from './routes/usuario';
-import { routerTransacao } from './routes/transacao';
-import { routerCartao } from './routes/cartao';
-import { routerBanco } from './routes/banco';
-import { routerTag } from './routes/tag';
+import { routerUsuario } from './controller/usuarioController';
+import { routerTransacao } from './controller/transacaoController';
+import { routerCartao } from './controller/cartaoController';
+import { routerBanco } from './controller/bancoController';
+import { routerTag } from './controller/tagController';
 
 //cria a aplicação
 export const app = express();

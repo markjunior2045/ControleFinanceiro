@@ -21,6 +21,7 @@ export class AdicionaTransacaoComponent implements OnInit {
   metodoPagamento: string[] = ['Dinheiro', 'Cartão', 'Boleto', 'Pix'];
   metodoCartao: boolean;
   metodoBanco: boolean;
+  parcela:boolean = false;
   showMetodo:boolean = true;
   cartoes: Cartao[];
   bancos: Banco[];
@@ -58,12 +59,15 @@ export class AdicionaTransacaoComponent implements OnInit {
     this.adicionaForm = this.formBuilder.group({
       descricao: ['', Validators.required],
       entrada: false,
+      pago: false,
+      parcelado: false,
+      quantidadeParcelas: [1, Validators.required],
       valor: ['', Validators.required],
       metodo: ['', Validators.required],
       cartaoid: [''],
       bancoid: [''],
       tags: [],
-      data: [new Date().toISOString().slice(0, 10).replace('T', ' '), Validators.required]
+      data: ['', Validators.required]
     })
   }
 
@@ -135,6 +139,14 @@ export class AdicionaTransacaoComponent implements OnInit {
       this.adicionaForm.controls['metodo'].setValue(null);
       this.showMetodo = true;
       this.metodo();
+    }
+  }
+
+  mostraParcela(){
+    if(!this.adicionaForm.controls['parcelado'].value == true){
+      this.parcela = true;
+    }else{
+      this.parcela = false;
     }
   }
 }
