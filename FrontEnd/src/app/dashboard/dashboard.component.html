@@ -1,6 +1,6 @@
 <app-toolbar></app-toolbar>
 <div class="grid-container">
-    <h1 *ngIf="dadosUsuarioCarregados" class="mat-h1">Olá, {{usuario.nome}} !</h1>
+    <h1 *ngIf="dadosUsuarioCarregados" class="mat-h1">Olá, {{usuario.nome}}!</h1>
     <mat-grid-list *ngIf="dadosUsuarioCarregados && dadosBancoCarregados" cols="3" rowHeight="200px">
         <mat-grid-tile *ngFor="let card of cards1 | async" [colspan]="card.cols" [rowspan]="card.rows">
             <mat-card class="dashboard-card">

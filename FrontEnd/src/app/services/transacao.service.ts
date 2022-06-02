@@ -19,10 +19,6 @@ export class TransacaoService {
         return this._dataservice.doPut('transacao/' + idUsuario, transacao) as Promise<void>;
     }
 
-    getTransacoesUsuario(idUsuario: Guid):Promise<Usuario[]> {
-        return this._dataservice.get('usuario/transacoes/' + idUsuario) as Promise<Usuario[]>
-    }
-
     getSomaMesTransacao(idUsuario:Guid):Promise<TotalMes[]>{
         return this._dataservice.get('transacao/total/mes/' + idUsuario) as Promise<TotalMes[]>;
     }

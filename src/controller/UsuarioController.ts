@@ -1,70 +1,53 @@
-import { AppDataSource } from "../data-source";
-import { Usuario } from "../entity/Usuario";
+import {Router} from 'express';
+import { UsuarioRepository } from '../repository/UsuarioRepository';
+import { Usuario } from '../models/Usuario';
+import { _UsuarioService } from '../services/_usuarioService';
 
-const database = AppDataSource;
+export const routerUsuario = Router();
+const _usuarioService = new _UsuarioService();
 
-export class UsuarioController{
-    async salvar(usuario: Usuario){
-        const usuariosalvo = await database.manager.save(usuario);
-        return usuariosalvo;
-    }
+//Salvar Usuario
+routerUsuario.post('/', async (req, res) => {
+    const body = req.body;
+    await _usuarioService.adicionaUsuario(body).then(result =>{
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async login(email: string, senha:string){
-        console.log("EMAIL: " + email + " SENHA: " + senha);
-        const usuario = await database.manager.findOneBy(Usuario,{email:email,senha:senha});
-        if (usuario != null)
-            return usuario.id;
-        else
-            return null
-    }
+//login
+routerUsuario.post('/login', async (req, res) => {
+    const body = req.body;
+    await _usuarioService.login(body).then(result =>{
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getAll(){
-        const usuarios = await database.manager.find(Usuario);
-        return usuarios;
-    }
+//GetById Usuário
+routerUsuario.get('/:idUsuario', async (req, res) => {
+    const {idUsuario} = req.params;
+    await _usuarioService.retornaUsuarioPorId(idUsuario).then(result =>{
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getById(id: string){
-        let usuario: Usuario;
-        if (id != null || id != "") {
-            usuario = await database.manager.findOneBy(Usuario,{id: id});
-        }else{
-            usuario = null;
-        }
-        return usuario;
-    }
+//Get transacoes do Usuario
+// routerUsuario.get('/transacoes/:idUsuario', async (req, res) => {
+//     const { idUsuario } = req.params;
+//     const transacoes = await usuarioRepository.getTransacoesDoUsuario(idUsuario);
+//     res.json(transacoes);
+// })
 
-    async update(usuario: Usuario){
-        let usuarioSalvo:Usuario;
-        if(usuario != null){
-            usuarioSalvo = await database.manager.save(usuario);
-        }else{
-            usuarioSalvo = null
-        }
-        return usuarioSalvo;
-    }
+//Update Usuário
+routerUsuario.put('/', async (req, res) => {
+    const body = req.body;
+    await _usuarioService.atualizaUsuario(body).then(result =>{
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getTransacoesDoUsuario(idUsuario: string){
-        const transacoes = await database.manager.find(Usuario,{
-            relations: {
-                transacoes: {
-                    banco: true,
-                    cartao: true,
-                    tag: true
-                }
-            },
-            where: {
-               id: idUsuario 
-            }
-        })
-        return transacoes;
-    }
-
-    async checkEmail(email: string){
-        const temEmail = await database.manager.count(Usuario, {
-            where: {
-                email: email
-            }
-        })
-        return temEmail;
-    }
-}
+routerUsuario.get('/email/:email', async (req, res) => {
+    const {email} = req.params;
+    await _usuarioService.verificaEmailJaCadastrado(email).then(result =>{
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})

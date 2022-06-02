@@ -1,26 +1,34 @@
-import { AppDataSource } from "../data-source";
-import { Parcela } from "../entity/Parcela";
+import { Router } from "express";
+import { ParcelaRepository } from "../repository/ParcelaRepository";
+import { UsuarioRepository } from "../repository/UsuarioRepository";
+import { Parcela } from "../models/Parcela";
 
-const database = AppDataSource;
+export const routerParcela = Router();
+const usuarioRepository = new UsuarioRepository();
+const parcelaRepository = new ParcelaRepository();
 
-export class ParcelaController{
-    async salvar(parcela: Parcela){
-        const parcelaSalva = await database.manager.save(parcela);
-        return parcelaSalva;
+//Salvar Parcela
+routerParcela.post('/', async (req, res) => {
+    const dados = req.body;
+    const usuario = await usuarioRepository.getById(dados.idUsuario);
+    if (usuario){
+        const parcela = new Parcela(dados.valorParcela, dados.numero, dados.dataParcela, dados.transacao);
+        const parcelaSalva = await parcelaRepository.salvar(parcela);
+        res.json(parcelaSalva);
+    } else {
+        res.status(404).json({message: 'Usuário não encontrado'});
     }
+})
 
-    async getAll(){
-        const parcelas = await database.manager.find(Parcela);
-        return parcelas;
-    }
+//GetAll Parcela
+routerParcela.get('/', async (req, res) => {
+    const parcelas = await parcelaRepository.getAll();
+    res.json(parcelas)
+})
 
-    async getById(id: string){
-        let parcela: Parcela;
-        if (id != null || id != "") {
-            parcela = await database.manager.findOneBy(Parcela,{id: id});
-        }else{
-            parcela = null;
-        }
-        return parcela;
-    }
-}
+//GetById Parcela
+routerParcela.get('/:idParcela', async (req, res) => {
+    const {idParcela} = req.params;
+    const parcela = await parcelaRepository.getById(idParcela);
+    res.json(parcela)
+})

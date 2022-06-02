@@ -1,102 +1,72 @@
-import { AppDataSource } from "../data-source";
-import { Tag } from "../entity/Tag";
-import { Transacao } from "../entity/Transacao";
-import { Usuario } from "../entity/Usuario";
+import { Router } from "express";
+import { TagRepository } from "../repository/TagRepository";
+import { TransacaoRepository } from "../repository/TransacaoRepository";
+import { UsuarioRepository } from "../repository/UsuarioRepository";
+import { Tag } from "../models/Tag";
+import { _TagService } from "../services/_tagService";
 
-const database = AppDataSource;
+export const routerTag = Router();
+const _tagService = new _TagService();
 
-export class TagController {
-    async salvar(tag: Tag) {
-        const tagSalva = await database.manager.save(tag);
-        return tagSalva;
-    }
+//Salvar
+routerTag.post('/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    const body = req.body;
+    await _tagService.adicionaTag(idUsuario,body).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getTagsDoUsuario(idUsuario: string) {
-        const tags = await database.manager.find(Usuario, {
-            relations: {
-                tag: true
-            },
-            where: {
-                id: idUsuario
-            },
-        })
-        return tags;
-    }
+routerTag.get('/usuario/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    await _tagService.retornaTagsDoUsuario(idUsuario).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getTransacaoComTags(idtag: string) {
-        if (idtag != null || idtag != "") {
-            return await database.manager.find(Transacao, {
-                relations: {
-                    tag: true
-                },
-                where: {
-                    tag: {
-                        id: idtag
-                    }
-                }
-            })
-        } else {
-            return null;
-        }
-    }
+//Count tag tipo
+routerTag.get('/count/tipo/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    await _tagService.retornaTotalPorTipo(idUsuario).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getTransacaoTags(idtag: string) {
-        if (idtag != null || idtag != "") {
-            return await database.manager.find(Transacao, {
-                relations: {
-                    tag: true
-                }
-            })
-        } else {
-            return null;
-        }
-    }
+//GetById
+routerTag.get('/:idTag', async (req, res) => {
+    const { idTag } = req.params;
+    await _tagService.retornaTagPorId(idTag).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getById(id: string) {
-        let tag: Tag;
-        if (id != null || id != "") {
-            tag = await database.manager.findOneBy(Tag, { id: id });
-        } else {
-            tag = null;
-        }
-        return tag;
-    }
+//Atualiza Tag
+routerTag.put('/:idUsuario', async (req, res) => {
+    const { idUsuario } = req.params;
+    const body = req.body;
+    await _tagService.atualizaTag(idUsuario,body).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async getCountTipoTag(idUsuario: string){
-        return await database.manager.query('SELECT tg.tipo, count(tg.tipo) AS qtd FROM  transacao_tag_tag ttt JOIN  tag tg ON ttt.tagId = tg.id JOIN  transacao ts ON ttt.transacaoId = ts.id WHERE tg.usuarioId = "' + idUsuario + '" GROUP BY tg.tipo');
-    }
+//Deleta Tag
+routerTag.delete('/:idTag', async (req, res) => {
+    const { idTag } = req.params;
+    await _tagService.deletaTag(idTag).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async novaTagTransacao(idTag: string, idTransacao: string) {
-        if (idTag != null || idTag != '' || idTransacao != null || idTransacao != '') {
-            return await database.manager.query('INSERT INTO `controlefinanceiro`.`transacao_tag_tag` (`transacaoId`,`tagId`) VALUES("' + idTransacao + '","' + idTag + '");');
-        } else {
-            return null;
-        }
-    }
+routerTag.get('/checktag/:idTag', async (req, res) => {
+    const { idTag } = req.params;
+    await _tagService.verificaTagTemTransacao(idTag).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})
 
-    async update(tag: Tag) {
-        let tagSalva: Tag;
-        if (tag != null) {
-            tagSalva = await database.manager.save(tag);
-        } else {
-            tagSalva = null;
-        }
-        return tagSalva;
-    }
-
-    async deleteTagRelation(id: string) {
-        if (id != null || id != '') {
-            return await database.manager.query('DELETE FROM `controlefinanceiro`.`transacao_tag_tag` WHERE tagId = "' + id + '";');
-        } else {
-            return null;
-        }
-    }
-
-    async delete(id: string) {
-        if (id != null || id != '') {
-            return await database.manager.delete(Tag, id);
-        } else {
-            return null;
-        }
-    }
-}
+routerTag.get('/limpatag/:idTag', async (req, res) => {
+    const { idTag } = req.params;
+    await _tagService.removeTagDaTransacao(idTag).then(result => {
+        res.json(result);
+    }).catch(error => {res.json(error)});
+})

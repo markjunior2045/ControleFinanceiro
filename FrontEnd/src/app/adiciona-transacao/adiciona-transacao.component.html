@@ -59,9 +59,26 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-checkbox (click)="entrada()" appearance="fill" style="margin-bottom: 5%;" formControlName="entrada"
-            color='primary'>Ganho</mat-checkbox>
+        <div style="display: flex; flex-direction: row;">
 
+            <mat-checkbox appearance="fill" (click)="mostraParcela()" formControlName="parcelado" color='primary'>
+                Parcelado
+            </mat-checkbox>
+
+            <mat-form-field *ngIf="parcela" appearance="fill" style="margin-left: 5%;">
+                <mat-label>Quantidade Parcelas</mat-label>
+                <input matInput type="number" formControlName="quantidadeParcelas">
+                <mat-error>Campo Obrigatório!</mat-error>
+            </mat-form-field>
+
+        </div>
+        <div style="display: flex; flex-direction: row;margin-top: 5%;">
+            <mat-checkbox (click)="entrada()" style="margin-right: 5%;" appearance="fill" formControlName="entrada" color='primary'>Ganho
+            </mat-checkbox>
+
+            <mat-checkbox appearance="fill" formControlName="pago" color='primary'>Pago
+            </mat-checkbox>
+        </div>
     </form>
 </div>
 <div mat-dialog-actions>

@@ -40,6 +40,9 @@ export class Transacao{
     @Column()
     quantidadeParcelas: number;
 
+    @Column()
+    pago: boolean;
+
     @Column({type: 'datetime'})
     data: Date;
 

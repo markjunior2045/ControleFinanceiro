@@ -17,6 +17,21 @@ th {
   cursor: pointer;
 }
 
+.pagotrue{
+  color: green;
+  cursor: default;
+}
+
+.pagofalse{
+  color: red;
+  cursor: default;
+}
+
+.parcelado{
+  color: black;
+  cursor: default;
+}
+
 .iconPesquisar {
   color: black;
 }
